@@ -1,0 +1,28 @@
+<div class="main-container">
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Login</h1>
+        </div>
+        <br>
+
+        <form [formGroup]="loginform" (ngSubmit)="loginn()">
+            <div class="form-group">
+                <label for="email">Enter User Name <span *ngIf="loginform.get('email')?.invalid" class="error-message">
+                        {{ getErrorEmailValidation('email') }}
+                    </span></label>
+                <input type="text" formControlName="email" id="username" name="email" required>
+
+            </div>
+            <div class="form-group">
+                <label for="password">Enter password <span *ngIf="loginform.get('password')?.invalid"
+                        class="error-message">
+                        {{ getErrorPasswordValidation('password') }}
+                    </span></label>
+                <input type="password" formControlName="password" id="password" name="password" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
