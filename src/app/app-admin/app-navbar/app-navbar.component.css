@@ -1,0 +1,186 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+.container {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  /* border: solid red 0.5px; */
+  width: 100vw;
+  height: 100vh;
+}
+nav {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  /* border: solid blue 0.5px; */
+  background-color: rgb(0, 38, 255);
+  gap: 20px;
+  width: 100%;
+  /* height: 15%; */
+}
+.flex-box-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 5px;
+  padding: 5px;
+  /* border: solid red 0.5px; */
+  flex: 5% 1 1;
+  height: 65px;
+  gap: 50px;
+}
+.flex-box-middle {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  margin: 5px;
+  padding: 5px;
+  /* border: solid red 0.5px; */
+  flex: 40% 1 1;
+  height: 65px;
+  gap: 50px;
+}
+.flex-box-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 5px;
+  padding: 5px;
+  /* border: solid red 0.5px; */
+  flex: 20% 1 1;
+  height: 65px;
+  gap: 50px;
+}
+.flex-box-items {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* border: solid blue 0.5px; */
+  min-height: 40px;
+}
+span {
+  font-size: 1.5rem;
+  display: flex;
+  flex-direction: row;
+  color: white;
+}
+aside {
+  position: absolute;
+  top: 75px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding: 15px;
+  margin: 0;
+  width: 50%;
+  height: 87%;
+  z-index: 100;
+  overflow-x: hidden;
+  background-color: rgba(152, 175, 199, 0.637);
+}
+
+main {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 0;
+  /* border: solid rgb(255, 0, 212) 0.5px; */
+  width: 100%;
+  height: 87.5%;
+  /* overflow: scroll; */
+}
+
+/* HOVER STYLES */
+/* menue hover */
+.flex-box-left :nth-child(1) span:hover {
+  cursor: pointer;
+  transform: scale(1.3);
+  transition: transform 0s ease;
+  background-color: rgb(9, 24, 243);
+  border-radius: 100%;
+  padding: 3px 5px 3px 5px;
+}
+/* home url hover */
+.flex-box-middle :nth-child(1) span:hover {
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 0s ease;
+  background-color: rgb(9, 24, 243);
+  border-radius: 20px;
+  padding: 10px;
+}
+/* notification hover */
+.flex-box-right :nth-child(1) span:hover {
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 0s ease;
+  background-color: rgb(9, 24, 243);
+  border-radius: 100%;
+  padding: 10px 5px 10px 5px;
+}
+/* sign in button hover */
+.flex-box-right :nth-child(2) span:hover {
+  cursor: pointer;
+  transform: scale(1);
+  transition: transform 0s ease;
+  background-color: rgb(9, 24, 243);
+  border-radius: 20px;
+  padding: 5px;
+}
+/* For Mobile Devices */
+@media only screen and (max-width: 767px) {
+  .container {
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: 100%;
+  }
+  nav {
+    flex-direction: row;
+    height: auto;
+    /* background-color: aquamarine; */
+    gap: 0;
+  }
+
+  .flex-box-middle {
+    display: none;
+  }
+  /* main {
+    height: auto;
+  } */
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    flex-direction: column;
+    height: 100%;
+  }
+  nav {
+    flex-direction: row;
+    height: auto;
+    /* background-color: rgb(11, 51, 38); */
+    gap: 0;
+  }
+
+  .flex-box-middle {
+    display: none;
+  }
+  main {
+    height: auto;
+  }
+}

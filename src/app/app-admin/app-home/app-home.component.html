@@ -22,23 +22,23 @@
                                   </div>
                             </div>
                       </header>
-
+<!-- 
                       <div>
                             <hr>
-                      </div>
+                      </div> -->
                       <!-- full screen -->
                       <div class="aside-menue-contailne bg">
                         <!-- desktop screen -->
                             <div class="aside-menue-full ">
                               <div class="menue-stock" [routerLinkActive]="'active'">
-                                    <a routerLink="itinerary-view"><button><i class="fa fa-home" aria-hidden="true"></i>
-                                                Itinerary-Config</button> </a>
+                                    <a routerLink="client-signup"><button><i class="fa fa-home" aria-hidden="true"></i>
+                                          client-signup</button> </a>
                               </div>
                               <div class="menue-stock" [routerLinkActive]="'active'">
-                                    <a routerLink="app-setting"><button><i class="fa fa-home"
-                                                      aria-hidden="true"></i>
-                                                Setting</button> </a>
+                                    <a routerLink="patner-signup"><button><i class="fa fa-home" aria-hidden="true"></i>
+                                          patner-signup</button> </a>
                               </div>
+
 
                             </div>
                             <!-- small screen -->
@@ -60,7 +60,6 @@
           </aside>
 
           <main ngClass="">
-          <app-login></app-login>
                 <router-outlet></router-outlet>
           </main>
     </div>

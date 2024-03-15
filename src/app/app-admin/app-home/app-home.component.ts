@@ -4,13 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../../user-service/user.service';
 import { ApiService } from '../../api-service/api-service.service';
-import { LoginComponent } from "../login/login.component";
 @Component({
     selector: 'app-app-home',
     standalone: true,
     templateUrl: './app-home.component.html',
     styleUrl: './app-home.component.css',
-    imports: [CommonModule, ReactiveFormsModule, RouterOutlet, RouterLink, RouterLinkActive, LoginComponent]
+    imports: [CommonModule, ReactiveFormsModule, RouterOutlet, RouterLink, RouterLinkActive]
 })
 export class AppHomeComponent implements OnInit {
   sidebar: boolean = false;

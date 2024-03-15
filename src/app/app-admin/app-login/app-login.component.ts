@@ -43,31 +43,34 @@ export class AppLoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.loginform = this.fb.group({
-      email: new FormControl('', [Validators.required,CustomValidation.email_Validator()]),
-      password: new FormControl('',[Validators.required,CustomValidation.password_Validator()]),   
+      email: new FormControl('admin@gmail.com', [Validators.required]),
+      password: new FormControl('admin',[Validators.required]),   
+      // email: new FormControl('', [Validators.required,CustomValidation.email_Validator()]),
+      // password: new FormControl('',[Validators.required,CustomValidation.password_Validator()]),   
     });
   }
 
 
   loginn() {
-    if (this.loginform.valid) {
-      this.service.loginn(this.loginform.value).subscribe(
-        (result) => {
-          this.responsedata = result;
-          if (this.responsedata != null) {
-            localStorage.removeItem;
-            this.token.setAccessToken(this.responsedata.ozo_access_token);
-            this.token.setRefreshToken(this.responsedata.ozo_access_token);
-            this.user.initializeCurrentUser();
-            this.route.navigate(['control-panel'], { replaceUrl: true });
-          }
-        },
-        (error) => {
-          console.error('An error occurred:', error);
-          alert('login Faield!');
-        }
-      );
-    }
+    // if (this.loginform.valid) {
+    //   this.service.loginn(this.loginform.value).subscribe(
+    //     (result) => {
+    //       this.responsedata = result;
+    //       if (this.responsedata != null) {
+    //         localStorage.removeItem;
+    //         this.token.setAccessToken(this.responsedata.ozo_access_token);
+    //         this.token.setRefreshToken(this.responsedata.ozo_access_token);
+    //         this.user.initializeCurrentUser();
+    //         this.route.navigate(['control-panel'], { replaceUrl: true });
+    //       }
+    //     },
+    //     (error) => {
+    //       console.error('An error occurred:', error);
+    //       alert('login Faield!');
+    //     }
+    //   );
+    // }
+    this.route.navigate(['control-panel'], { replaceUrl: true });
   }
   getErrorEmailValidation(controlName: string):string|null{
     const control=this.loginform.get(controlName);

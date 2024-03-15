@@ -10,9 +10,9 @@ h1{
     padding: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
     height: 100vh;
-    
+
 }
 
 .login-container {
@@ -24,18 +24,26 @@ h1{
     padding: 20px;
     max-width: 400px;
     width: 100%;
+    height: 50%;
+    justify-content: center;
+    /* border: solid red; */
+
 }
+
 .login-header{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    /* padding-bottom: 30px; */
 }
 
 .form-group {
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
+    margin-top: 10px;
+    
     /* border: solid rgb(8, 6, 6); */
 }
 
