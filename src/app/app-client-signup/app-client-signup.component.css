@@ -78,6 +78,15 @@ main {
   font-weight: 600;
 }
 
+.flex-colxxx {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  margin: 0;
+  width: 100%;
+  padding: 0;
+  border: solid rgb(255, 0, 0) 0.5px;
+}
 .flex-col {
   /* border: solid rgb(255, 0, 0) 0.5px; */
   display: flex;
@@ -86,7 +95,11 @@ main {
   margin: 10px;
   width: 100%;
 }
-input,textarea,select,button,label{
+input,
+textarea,
+select,
+button,
+label {
   font-size: 1.2rem;
 }
 .flex-col label {
@@ -96,7 +109,10 @@ input,textarea,select,button,label{
   color: #595959;
 }
 
-.flex-col input,textarea,select,button {
+.flex-col input,
+textarea,
+select,
+button {
   border: solid 1px #cccccc;
   margin: 0;
   width: 100%;
@@ -109,10 +125,10 @@ input,textarea,select,button,label{
   border-radius: 5px;
   /* box-shadow: 0 5px 10px rgb(49, 50, 54); */
 }
-.btn-sign-up{
-color: #ffffff;
+.btn-sign-up {
+  color: #ffffff;
 }
-.btn-sign-up:hover{
-cursor: pointer;
-background-color: #0000b3;
+.btn-sign-up:hover {
+  cursor: pointer;
+  background-color: #0000b3;
 }

@@ -24,9 +24,16 @@ import { MatInputModule } from '@angular/material/input';
 @Component({
   selector: 'app-app-login',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule,MatIconModule,CommonModule],
+  imports: [
+    FormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    CommonModule,
+  ],
   templateUrl: './app-login.component.html',
-  styleUrl: './app-login.component.css'
+  styleUrl: './app-login.component.css',
 })
 export class AppLoginComponent implements OnInit {
   responsedata: any;
@@ -37,52 +44,59 @@ export class AppLoginComponent implements OnInit {
     private user: UserService,
     private token: TokenService,
     private validationService: CustomValidationService,
-    private fb: FormBuilder,
-  ) {
-  }
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.loginform = this.fb.group({
       email: new FormControl('admin@gmail.com', [Validators.required]),
-      password: new FormControl('admin',[Validators.required]),   
+      password: new FormControl('admin', [Validators.required]),
       // email: new FormControl('', [Validators.required,CustomValidation.email_Validator()]),
-      // password: new FormControl('',[Validators.required,CustomValidation.password_Validator()]),   
+      // password: new FormControl('',[Validators.required,CustomValidation.password_Validator()]),
     });
   }
 
-
   loginn() {
-    // if (this.loginform.valid) {
-    //   this.service.loginn(this.loginform.value).subscribe(
-    //     (result) => {
-    //       this.responsedata = result;
-    //       if (this.responsedata != null) {
-    //         localStorage.removeItem;
-    //         this.token.setAccessToken(this.responsedata.ozo_access_token);
-    //         this.token.setRefreshToken(this.responsedata.ozo_access_token);
-    //         this.user.initializeCurrentUser();
-    //         this.route.navigate(['control-panel'], { replaceUrl: true });
-    //       }
-    //     },
-    //     (error) => {
-    //       console.error('An error occurred:', error);
-    //       alert('login Faield!');
-    //     }
-    //   );
-    // }
-    this.route.navigate(['control-panel'], { replaceUrl: true });
+    if (this.loginform.valid) {
+      this.service.loginn(this.loginform.value).subscribe(
+        (value) => {
+          this.responsedata = value;
+          if (this.responsedata != null) {
+            localStorage.removeItem;
+            this.token.setAccessToken(this.responsedata.ozo_access_token);
+            this.token.setRefreshToken(this.responsedata.ozo_access_token);
+            this.user.initializeCurrentUser();
+            this.route.navigate(['admin-nav'], { replaceUrl: true });
+          }
+        },
+        (error) => {
+          console.error('An error occurred:', error);
+          alert('login Faield!');
+        }
+      );
+    }
+    // this.route.navigate(['control-panel'], { replaceUrl: true });
   }
-  getErrorEmailValidation(controlName: string):string|null{
-    const control=this.loginform.get(controlName);
-    return control?this.validationService.getErrorMessage_Email_Validator(control,'*','*'):null;
-
+  getErrorEmailValidation(controlName: string): string | null {
+    const control = this.loginform.get(controlName);
+    return control
+      ? this.validationService.getPasswordValidatorError(
+          control,
+          '*',
+          '*'
+        )
+      : null;
   }
-  getErrorPasswordValidation(controlName: string):string|null{
-    const control=this.loginform.get(controlName);
-    return control?this.validationService.getErrorMessage_Password_Validator(control,'*',':Password must contain at least 8 characters'+
-     ' including uppercase, lowercase,'+'number, and special character.'):null;
-
+  getErrorPasswordValidation(controlName: string): string | null {
+    const control = this.loginform.get(controlName);
+    return control
+      ? this.validationService.getPasswordValidatorError(
+          control,
+          '*',
+          ':Password must contain at least 8 characters' +
+            ' including uppercase, lowercase,' +
+            'number, and special character.'
+        )
+      : null;
   }
-  
- 
 }

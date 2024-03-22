@@ -7,25 +7,29 @@
         </div>
         <div class="flex-box-middle">
             <div class="flex-box-items ">
-                <span><a routerLink="#"><i class="fa-solid fa-house"></i>&nbsp;ozobooking.com</a>
+                <span (click)="home()"><i class="fa-solid fa-house"></i>&nbsp;ozobooking.com
                 </span>
             </div>
         </div>
         <div class="flex-box-right">
             <div class="flex-box-items" style="align-items: flex-end; ">
-                <span><a routerLink="#"><i class="fa-solid fa-bell"></i>0</a>
-                </span>
+                <span><i class="fa-solid fa-bell"></i>0</span>
             </div>
             <div class="flex-box-items">
-                <span><a routerLink="#"><i class="fa-solid fa-user-tie"></i>&nbsp;ajay933jpg&#64;gmail.com</a></span>
+                <span (click)="toggleLogin()"><i class="fa-solid fa-user-tie"></i>&nbsp;
+                    {{isLoggedIn?'Sign-out':'Sign-in'}}</span>
             </div>
         </div>
     </nav>
-    <aside>
-
-    </aside>
-    <main>
-         <router-outlet></router-outlet>
-    </main>
+    <div class="body-container">
+        <aside [style]="{'display': isMenuOpen ? 'flex' : 'none'}">
+            <a routerLink="signup" [routerLinkActive]="'active-link'"><span (click)="addPartner()">Add
+                    Partner</span></a>
+            <a routerLink="menu" [routerLinkActive]="'active-link'"><span>Menu Bar</span></a>
+        </aside>
+        <main>
+            <router-outlet></router-outlet>
+        </main>
+    </div>
 
 </div>

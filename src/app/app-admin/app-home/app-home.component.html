@@ -1,70 +1,72 @@
-
 <body ngClass="">
-    <div class="aside-container">
-          <aside>
-                <nav>
-                      <header>
+      <div class="aside-container">
+            <aside>
+                  <nav>
+                        <header>
 
-                            <div class="nav-hambergar" id="hambergar">
-                                  <div class="hambergar">
-                                        <button class="hamberbutton" (click)="sidebar_Open_Closer()"><i
-                                                    class="fa-solid fa-bars"></i></button>
-                                  </div>
-                            </div>
-                            <div class="nav-logo">
-                                  <div class="logo">
-                                        <p>Welcome!</p>                                       
-                                  </div>
-                            </div>
-                            <div class="nav-profile">
-                                  <div class="profile">
-                                        <p (click)="logout()">Logout</p>
-                                  </div>
-                            </div>
-                      </header>
-<!-- 
+                              <div class="nav-hambergar" id="hambergar">
+                                    <div class="hambergar">
+                                          <button class="hamberbutton" (click)="sidebar_Open_Closer()"><i
+                                                      class="fa-solid fa-bars"></i></button>
+                                    </div>
+                              </div>
+                              <div class="nav-logo">
+                                    <div class="logo">
+                                          <p>Welcome!</p>
+                                    </div>
+                              </div>
+                              <div class="nav-profile">
+                                    <div class="profile">
+                                          <p (click)="logout()">Logout</p>
+                                    </div>
+                              </div>
+                        </header>
+                        <!-- 
                       <div>
                             <hr>
                       </div> -->
-                      <!-- full screen -->
-                      <div class="aside-menue-contailne bg">
-                        <!-- desktop screen -->
-                            <div class="aside-menue-full ">
-                              <div class="menue-stock" [routerLinkActive]="'active'">
-                                    <a routerLink="client-signup"><button><i class="fa fa-home" aria-hidden="true"></i>
-                                          client-signup</button> </a>
+                        <!-- full screen -->
+                        <div class="aside-menue-contailne bg">
+                              <!-- desktop screen -->
+                              <div class="aside-menue-full ">
+                                    <div class="menue-stock" [routerLinkActive]="'active'">
+                                          <a routerLink="client-signup"><button><i class="fa fa-home"
+                                                            aria-hidden="true"></i>
+                                                      client-signup</button> </a>
+                                    </div>
+                                    <div class="menue-stock" [routerLinkActive]="'active'">
+                                          <a routerLink="patner-signup"><button><i class="fa fa-home"
+                                                            aria-hidden="true"></i>
+                                                      patner-signup</button> </a>
+                                    </div>
+
+
                               </div>
-                              <div class="menue-stock" [routerLinkActive]="'active'">
-                                    <a routerLink="patner-signup"><button><i class="fa fa-home" aria-hidden="true"></i>
-                                          patner-signup</button> </a>
+                              <!-- small screen -->
+                              <div class="aside-menue-small" *ngIf="sidebar">
+                                    <!-- <button (click)="sidebar_open_close()">Test</button> -->
+                                    <div class="menue-stock" [routerLinkActive]="'active'">
+                                          <a routerLink="itinerary-view"><button><i class="fa fa-home"
+                                                            aria-hidden="true"></i>
+                                                      Itinerary-Config</button> </a>
+                                    </div>
+                                    <div class="menue-stock" [routerLinkActive]="'active'">
+                                          <a routerLink="app-setting"><button><i class="fa fa-home"
+                                                            aria-hidden="true"></i>
+                                                      Setting</button> </a>
+                                    </div>
+
                               </div>
+                        </div>
+                  </nav>
+            </aside>
 
+            <main ngClass="">
+                  <router-outlet></router-outlet>
+            </main>
+      </div>
 
-                            </div>
-                            <!-- small screen -->
-                            <div class="aside-menue-small" *ngIf="sidebar">
-                                  <!-- <button (click)="sidebar_open_close()">Test</button> -->
-                                  <div class="menue-stock" [routerLinkActive]="'active'">
-                                    <a routerLink="itinerary-view"><button><i class="fa fa-home" aria-hidden="true"></i>
-                                                Itinerary-Config</button> </a>
-                              </div>
-                              <div class="menue-stock" [routerLinkActive]="'active'">
-                                    <a routerLink="app-setting"><button><i class="fa fa-home"
-                                                      aria-hidden="true"></i>
-                                                Setting</button> </a>
-                              </div>
-
-                            </div>
-                      </div>
-                </nav>
-          </aside>
-
-          <main ngClass="">
-                <router-outlet></router-outlet>
-          </main>
-    </div>
-
-    <footer>
-          <h3><a href="https://www.linkedin.com/in/ajimul-haque-1b850324b">spotsolutionforit&#64;gmail.com</a></h3>
-    </footer>
+      <footer>
+            <h3><a href="https://www.linkedin.com/in/ajimul-haque-1b850324b">spotsolutionforit&#64;gmail.com</a></h3>
+      </footer>
 </body>

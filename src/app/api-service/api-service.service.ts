@@ -1,19 +1,16 @@
-import {  HttpClient,  HttpHeaders,} from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { TokenService } from '../token-service/token.service';
 import { environment } from '../../environments/environment';
+import { User } from '../common-interfaces';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ApiService {
   private apiServerUrl = environment.apiBaseUrl;
-  h: HttpHeaders = new HttpHeaders();
-  constructor(
-    private http: HttpClient,
-    private token:TokenService) {}
-    // const options = { headers: this.token.getContentHeadersWithAuthorization() };
+  constructor(private http: HttpClient, private token: TokenService) {}
 
   //----------------------------------------------LOGIN SERVICE------------------------------------------------------>
   loginn(loginForm: any) {
@@ -23,7 +20,18 @@ export class ApiService {
     );
   }
   logout(): Observable<string> {
+    const options = {
+      headers: this.token.getContentHeadersWithAuthorization(),
+    };
+
     const logoutUrl = `${this.apiServerUrl}v1/auth/logout`;
-    return this.http.post<string>(logoutUrl, null);
+    return this.http.post<string>(logoutUrl, null, options);
+  }
+  //----------------------------------------------ADD PARTNER(User)------------------------------------------------------>
+  addPartner(user: User): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.post<any>(`${this.apiServerUrl}v1/admin/register`, user,options);
   }
 }

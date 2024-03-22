@@ -3,15 +3,22 @@
   margin: 0;
   padding: 0;
 }
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
 .container {
-  position: relative;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  flex-direction: column;
   margin: 0;
   padding: 0;
   /* border: solid red 0.5px; */
   width: 100vw;
-  height: 100vh;
+  height: 100%;
 }
 nav {
   display: flex;
@@ -77,33 +84,74 @@ span {
   flex-direction: row;
   color: white;
 }
-aside {
-  position: absolute;
-  top: 75px;
+.body-container {
   display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
   justify-content: flex-start;
   align-items: flex-start;
-  padding: 15px;
-  margin: 0;
-  width: 50%;
+  width: fit-content;
+  width: 100%;
   height: 87%;
+}
+aside {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin: 0;
+  height: 100%;
+  flex-grow: 1;
+  flex-shrink: 0;
+  min-width: 18%;
   z-index: 100;
-  overflow-x: hidden;
-  background-color: rgba(152, 175, 199, 0.637);
+  background-color: #9eb8df;
+  /* border: solid red 0.5px; */
+}
+
+aside span {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  cursor: pointer;
+  justify-content: center;
+  align-items: center;
+  padding: 5px;
+  margin: 5px;
+  width: 220px;
+  height: 30px;
+  border-radius: 15px;
+  background-color: #216869;
+  font-size: 1.1rem;
+  /* border: solid red 0.5px; */
 }
 
 main {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  margin-left: 0px;
   margin: 0;
   padding: 0;
   /* border: solid rgb(255, 0, 212) 0.5px; */
+  flex-shrink: 1;
+  flex-grow: 1;
   width: 100%;
-  height: 87.5%;
-  /* overflow: scroll; */
+  height: 100%;
+}
+
+aside span:hover {
+  background-color: #189799;
+  cursor: pointer;
+}
+a {
+  color: white;
+  text-decoration: none;
+}
+
+.active-link span {
+  background-color: #0414f7;
 }
 
 /* HOVER STYLES */
@@ -160,9 +208,16 @@ main {
   .flex-box-middle {
     display: none;
   }
-  /* main {
-    height: auto;
-  } */
+  main {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+  }
+  aside {
+    display: flex;
+    flex-direction: column;
+    overflow: scroll;
+  }
 }
 
 @media only screen and (min-width: 768px) and (max-width: 1023px) {

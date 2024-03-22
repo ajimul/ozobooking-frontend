@@ -5,7 +5,7 @@ import { AbstractControl } from '@angular/forms';
   providedIn: 'root',
 })
 export class CustomValidationService {
-  getErrorMessage_Name_Validation_With_Min_Lenght(
+  getNameValidationError(
     control: AbstractControl,
     sms1: string,
     sms2: string,
@@ -36,11 +36,14 @@ export class CustomValidationService {
     return null;
   }
 
-  getErrorMessage_Text_Validation_With_Min_Lenght(
+  getTextValidationError(
     control: AbstractControl,
     sms1: string,
     sms2: string,
-    sms3: string
+    sms3: string,
+    sms4: string,
+    sms5: string,
+    sms6: string
   ): string | null {
     if (control.hasError('required')) {
       //Name is required
@@ -50,24 +53,26 @@ export class CustomValidationService {
       // Leading or trailing spaces are not allowed
       return sms2;
     }
+    if (control.hasError('maxLengthExceeded')) {
+      // Maximum length exceeded. Maximum length allowed is ${maxTextLength} characters
+      return sms3;
+    }
     if (control.hasError('minlength')) {
       // Name must be at least ${minTextLength} characters long
-      return sms3;
+      return sms4;
+    }
+    if (control.hasError('invalidLength')) {
+      // Characters Length  invalidLength${minTextLength} characters long
+      return sms5;
+    }
+    if (control.hasError('invalidRange')) {
+      // Name must be in Range ${invalidRange}
+      return sms6;
     }
     return null;
   }
 
-  getErrorMessage_Text_Validation_With_Max_Lenght(
-    control: AbstractControl,
-    maxWordsMessage: string
-  ): string | null {
-    if (control.hasError('maxLengthExceeded')) {
-      // Maximum length exceeded. Maximum length allowed is ${maxTextLength} characters
-      return maxWordsMessage;
-    }
-    return null;
-  }
-  getErrorMessage_Email_Validator(
+  getEmailValidatorError(
     control: AbstractControl,
     sms1: string,
     sms2: string
@@ -82,7 +87,7 @@ export class CustomValidationService {
     }
     return null;
   }
-  getErrorMessage_Password_Validator(
+  getPasswordValidatorError(
     control: AbstractControl,
     sms1: string,
     sms2: string
@@ -97,24 +102,17 @@ export class CustomValidationService {
     }
     return null;
   }
-
-  getErrorMessage_Nnumber_Validation(
+  getConfirmPasswordValidatorError(
     control: AbstractControl,
-    sms1: string,
-    sms2: string
+    sms1: string
   ): string | null {
-    if (control.hasError('required')) {
-      // Number is required
+    if (control.hasError('passwordMismatch')) {
       return sms1;
-    }
-    if (control.hasError('requiredNumber')) {
-      // Only numeric values are allowed
-      return sms2;
     }
     return null;
   }
 
-  getErrorMessage_Number_Validation_MinLenght(
+  getNumberValidationError(
     control: AbstractControl,
     sms1: string,
     sms2: string,
@@ -134,7 +132,7 @@ export class CustomValidationService {
     return null;
   }
 
-  getErrorMessage_Decimal_Number_Validation(
+  getDecimalValidationError(
     control: AbstractControl,
     sms1: string,
     sms2: string,
@@ -151,7 +149,7 @@ export class CustomValidationService {
     return null;
   }
 
-  getErrorMessage_Mobile_Number_Validation(
+  getMobileValidationError(
     control: AbstractControl,
     sms1: string,
     sms2: string,
@@ -172,7 +170,7 @@ export class CustomValidationService {
     return null;
   }
 
-  getErrorMessage_Date_Validation(
+  getDateValidationError(
     control: AbstractControl,
     sms1: string,
     sms2: string
@@ -188,7 +186,7 @@ export class CustomValidationService {
     return null;
   }
 
-  getErrorMessage_Zero_Validation(
+  getZeroValidationError(
     control: AbstractControl,
     sms1: string,
     sms2: string
@@ -204,7 +202,7 @@ export class CustomValidationService {
     return null;
   }
 
-  getErrorMessage_Check_Box_Validation(
+  getCheckBoxValidationError(
     control: AbstractControl,
     sms1: string
   ): string | null {
@@ -215,7 +213,7 @@ export class CustomValidationService {
     return null;
   }
 
-  getErrorMessage_Select_Validation(
+  getSelectionValidationError(
     control: AbstractControl,
     sms1: string
   ): string | null {
@@ -225,7 +223,7 @@ export class CustomValidationService {
     }
     return null;
   }
-  getErrorMessage_Radio_Button_Validation(
+  getRadioValidationError(
     control: AbstractControl,
     sms1: string
   ): string | null {
