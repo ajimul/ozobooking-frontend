@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ApiService } from '../api-service/api-service.service';
 import { CustomValidationService } from '../app-validator/custom-validation-service';
-import { Residence, User } from '../common-interfaces';
+import { Residence, User } from '../app-interface/PartnerRegisterDTO';
 import { CustomValidation } from '../app-validator/custom-validation';
 interface PasswordError {
   passwordMismatch?: boolean;
@@ -201,7 +201,6 @@ export class AppClientSignupComponent {
   formSubmit() {
     this.markFormGroupTouched(this.userForm);
     if (this.userForm?.valid) {
-      alert('valid User');
       let user: User = {
         userName: this.userForm.get('userName')?.value,
         email: this.userForm.get('email')?.value,

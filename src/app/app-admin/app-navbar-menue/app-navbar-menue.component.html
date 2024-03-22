@@ -1,3 +1,48 @@
-<div class="container">
-    <h1>Hiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii</h1>
-</div>
+<main>
+    <div>
+
+        <div>
+            <input matInput (keyup)="applyFilter($event)" placeholder="Search Columns" #input />
+        </div>
+        <table mat-table matSort [dataSource]="dataSource" class="tbl-itinerary bg">
+            <ng-container matColumnDef="residenceId">
+                <th mat-header-cell *matHeaderCellDef><strong>Residence-Id</strong></th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <strong>{{element.residenceId}}</strong>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="residenceName">
+                <th mat-header-cell *matHeaderCellDef><strong>Residence Name</strong></th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <strong>{{element.residenceName}}</strong>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="residenceType">
+                <th mat-header-cell *matHeaderCellDef><strong>ResidenceType-Id</strong></th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <strong>{{element.residenceType}}</strong>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="residenceLocation">
+                <th mat-header-cell *matHeaderCellDef><strong>Location</strong></th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <strong>{{element.residenceLocation}}</strong>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="isActive">
+                <th mat-header-cell *matHeaderCellDef><strong>Status</strong></th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <select [(ngModel)]="element.isActive" (change)="onStatusChange(element)">
+                        <option [ngValue]="true">Enable</option>
+                        <option [ngValue]="false">Disable</option>
+                    </select>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+            <tr mat-row (click)="tableRow.add(row)" [class.demo-row-is-clicked]="tableRow.has(row)"
+                *matRowDef="let row; columns: tableColumns;">
+            </tr>
+        </table>
+    </div>
+</main>

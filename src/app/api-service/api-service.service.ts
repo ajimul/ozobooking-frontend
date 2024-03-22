@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { TokenService } from '../token-service/token.service';
 import { environment } from '../../environments/environment';
-import { User } from '../common-interfaces';
+import { User } from '../app-interface/PartnerRegisterDTO';
+import { Residence } from '../app-interface/Residence';
 
 @Injectable({
   providedIn: 'root',
@@ -27,11 +28,26 @@ export class ApiService {
     const logoutUrl = `${this.apiServerUrl}v1/auth/logout`;
     return this.http.post<string>(logoutUrl, null, options);
   }
-  //----------------------------------------------ADD PARTNER(User)------------------------------------------------------>
+  //----------------------------------------------ADD PARTNER(Admin)------------------------------------------------------>
   addPartner(user: User): Observable<any> {
     const options = {
       headers: this.token.getContentLessHeadersWithAuthorization(),
     };
-    return this.http.post<any>(`${this.apiServerUrl}v1/admin/register`, user,options);
+    return this.http.post<any>(
+      `${this.apiServerUrl}v1/admin/register`,
+      user,
+      options
+    );
+  }
+  //----------------------------------------------Residence Service API (Admin)------------------------------------------------------>
+
+  getResidences(): Observable<Residence[]> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.get<Residence[]>(
+      `${this.apiServerUrl}v1/admin/residences`,
+      options
+    );
   }
 }
