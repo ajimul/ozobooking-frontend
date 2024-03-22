@@ -86,7 +86,13 @@ export class AppClientSignupComponent {
           CustomValidation.textValidation(3, 10),
         ]),
       },
-      { validators: CustomValidation.confirmPasswordValidator('password', 'confirmPassword') });
+      {
+        validators: CustomValidation.confirmPasswordValidator(
+          'password',
+          'confirmPassword'
+        ),
+      }
+    );
   }
 
   getNameError(controlName: string): string | null {
@@ -123,7 +129,10 @@ export class AppClientSignupComponent {
   getConfirmPasswordError(): string | null {
     return this.userForm.errors?.['passwordMismatch']
       ? this.validationService.getConfirmPasswordValidatorError(
-          this.userForm,'Password Mismatch'): null;
+          this.userForm,
+          'Password Mismatch'
+        )
+      : null;
   }
 
   getResidenceNameError(controlName: string): string | null {
@@ -190,6 +199,7 @@ export class AppClientSignupComponent {
   }
 
   formSubmit() {
+    this.markFormGroupTouched(this.userForm);
     if (this.userForm?.valid) {
       alert('valid User');
       let user: User = {
@@ -228,5 +238,15 @@ export class AppClientSignupComponent {
     } else {
       alert('Invalid Partner Credintial!');
     }
+  }
+  // Function to mark all form controls as touched recursively
+  markFormGroupTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach((control) => {
+      if (control instanceof FormControl) {
+        control.markAsTouched();
+      } else if (control instanceof FormGroup) {
+        this.markFormGroupTouched(control);
+      }
+    });
   }
 }

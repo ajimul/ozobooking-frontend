@@ -4,7 +4,7 @@
 
         <div class="flex-col">
             <label for="userName">User Name:
-                <span *ngIf="userForm.get('userName')?.invalid" class="error-message">
+                <span *ngIf="userForm.get('userName')?.invalid && userForm.get('userName')?.touched" class="error-message">
                     {{ getNameError('userName') }}
                 </span>
                 <input type="text" formControlName="userName" name="userName" id="userName" placeholder="e.g. jhon">
@@ -12,7 +12,7 @@
         </div>
         <div class="flex-col">
             <label for="email">Email:
-                <span *ngIf="userForm.get('email')?.invalid" class="error-message">
+                <span *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="error-message">
                     {{ getEmailError('email') }}
                 </span>
                 <input type="email" formControlName="email" name="email" id="email"
@@ -21,7 +21,7 @@
         </div>
         <div class="flex-col">
             <label for="phone">Phone No.:
-                <span *ngIf="userForm.get('phone')?.invalid" class="error-message">
+                <span *ngIf="userForm.get('phone')?.invalid &&userForm.get('phone')?.touched" class="error-message">
                     {{ getMobileError('phone') }}
                 </span>
                 <input type="text" formControlName="phone" name="" id="phone" placeholder="e.g. 8670731872">
@@ -29,14 +29,14 @@
         </div>
         <div class="flex-col">
             <label for="password">Password:
-                <span *ngIf="userForm.get('password')?.invalid" class="error-message">
+                <span *ngIf="userForm.get('password')?.invalid&&userForm.get('password')?.touched" class="error-message">
                     {{ getPasswordError('password') }}
                 </span>
                 <input type="password" formControlName="password" name="password" id="password" required>
             </label>
         </div>
         <div class="flex-col">
-            <label for="">Confirm Password: <span *ngIf="userForm.get('password')?.invalid" class="error-message">
+            <label for="">Confirm Password: <span *ngIf="userForm.get('password')?.invalid&&userForm.get('password')?.touched" class="error-message">
                     {{ getPasswordError('password') }}
                 </span>
 
@@ -50,7 +50,7 @@
 
         <div class="flex-col">
             <label for="residenceName">Residence Name:
-                <span *ngIf="userForm.get('residenceName')?.invalid" class="error-message">
+                <span *ngIf="userForm.get('residenceName')?.invalid&&userForm.get('residenceName')?.touched" class="error-message">
                     {{ getResidenceNameError('residenceName') }}
                 </span>
                 <input type="text" formControlName="residenceName" name="residenceName" id="residenceName"
@@ -59,7 +59,7 @@
         </div>
         <div class="flex-col">
             <label for="">Residence Type:
-                <span *ngIf="userForm.get('residenceType')?.invalid" class="error-message">
+                <span *ngIf="userForm.get('residenceType')?.invalid&&userForm.get('residenceType')?.touched" class="error-message">
                     {{ getResidenceTypeError('residenceType') }}
                 </span>
                 <select name="" formControlName="residenceType" id="">
@@ -71,7 +71,7 @@
             </label>
         </div>
         <div class="flex-col">
-            <span *ngIf="userForm.get('residenceLocation')?.invalid" class="error-message">
+            <span *ngIf="userForm.get('residenceLocation')?.invalid&&userForm.get('residenceLocation')?.touched" class="error-message">
                 {{ getResidenceLocationError('residenceLocation') }}
             </span>
             <label for="residenceLocation">Location:
@@ -84,7 +84,7 @@
 
         <div class="flex-col">
             <label for="residenceAddress">Address:
-                <span *ngIf="userForm.get('residenceAddress')?.invalid" class="error-message">
+                <span *ngIf="userForm.get('residenceAddress')?.invalid&&userForm.get('residenceAddress')?.touched" class="error-message">
                     {{ getAddressError('residenceAddress') }}
                 </span>
                 <textarea id="residenceAddress" formControlName="residenceAddress" name="residenceAddress" rows="4"
@@ -93,7 +93,7 @@
         </div>
 
         <div class="flex-col">
-            <span *ngIf="userForm.get('distanceValue')?.invalid" class="error-message">
+            <span *ngIf="userForm.get('distanceValue')?.invalid&&userForm.get('distanceValue')?.touched" class="error-message">
                 {{ getDistanceValueError('distanceValue') }}
             </span>
             <label for="distanceValue">Distance From Location:
