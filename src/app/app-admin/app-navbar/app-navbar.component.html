@@ -22,7 +22,7 @@
         </div>
     </nav>
     <div class="body-container">
-        <aside [style]="{'display': isMenuOpen ? 'flex' : 'none'}">
+        <aside [class.aside-open]="isMenuOpen" [class.aside-close]="!isMenuOpen">
             <a routerLink="signup" [routerLinkActive]="'active-link'"><span (click)="addPartner()">
                     Partners-view</span></a>
             <a routerLink="menu" [routerLinkActive]="'active-link'"><span>Menu Bar</span></a>

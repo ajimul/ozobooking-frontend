@@ -1,0 +1,136 @@
+
+   
+
+
+        <div class="custom-dialog-content" md-dialog-content>
+            <div class="close-btn" mat-button mat-dialog-close>
+                <span>x</span></div>
+            <main class="bg-primary">
+                <form class="container bg-secondary" [formGroup]="userForm" (ngSubmit)="formSubmit()">
+                    <h1 class="accent">Sign Up</h1>
+
+                    <div class="flex-col">
+                        <label for="userName">User Name:
+                            <span *ngIf="userForm.get('userName')?.invalid && userForm.get('userName')?.touched"
+                                class="error-message">
+                                {{ getNameError('userName') }}
+                            </span>
+                            <input type="text" formControlName="userName" name="userName" id="userName"
+                                placeholder="e.g. jhon">
+                        </label>
+                    </div>
+                    <div class="flex-col">
+                        <label for="email">Email:
+                            <span *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched"
+                                class="error-message">
+                                {{ getEmailError('email') }}
+                            </span>
+                            <input type="email" formControlName="email" name="email" id="email"
+                                placeholder="e.g. example@gmail.com">
+                        </label>
+                    </div>
+                    <div class="flex-col">
+                        <label for="phone">Phone No.:
+                            <span *ngIf="userForm.get('phone')?.invalid &&userForm.get('phone')?.touched"
+                                class="error-message">
+                                {{ getMobileError('phone') }}
+                            </span>
+                            <input type="text" formControlName="phone" name="" id="phone" placeholder="e.g. 8670731872">
+                        </label>
+                    </div>
+                    <div class="flex-col">
+                        <label for="password">Password:
+                            <span *ngIf="userForm.get('password')?.invalid&&userForm.get('password')?.touched"
+                                class="error-message">
+                                {{ getPasswordError('password') }}
+                            </span>
+                            <input type="password" formControlName="password" name="password" id="password" required>
+                        </label>
+                    </div>
+                    <div class="flex-col">
+                        <label for="">Confirm Password: <span
+                                *ngIf="userForm.get('password')?.invalid&&userForm.get('password')?.touched"
+                                class="error-message">
+                                {{ getPasswordError('password') }}
+                            </span>
+
+                            <span *ngIf="userForm.errors?.['passwordMismatch'] && userForm.touched"
+                                class="error-message">{{getConfirmPasswordError()}}</span>
+
+                            <input type="password" formControlName="confirmPassword" name="" id="" required>
+                        </label>
+                    </div>
+
+
+                    <div class="flex-col">
+                        <label for="residenceName">Residence Name:
+                            <span *ngIf="userForm.get('residenceName')?.invalid&&userForm.get('residenceName')?.touched"
+                                class="error-message">
+                                {{ getResidenceNameError('residenceName') }}
+                            </span>
+                            <input type="text" formControlName="residenceName" name="residenceName" id="residenceName"
+                                placeholder="e.g. Mountain View Lodge">
+                        </label>
+                    </div>
+                    <div class="flex-col">
+                        <label for="">Residence Type:
+                            <span *ngIf="userForm.get('residenceType')?.invalid&&userForm.get('residenceType')?.touched"
+                                class="error-message">
+                                {{ getResidenceTypeError('residenceType') }}
+                            </span>
+                            <select name="" formControlName="residenceType" id="">
+                                <option value="default">--</option>
+                                <option value="Hotel">Hotel</option>
+                                <option value="Stay">Home Stay</option>
+                                <option value="Cottage">Cottage</option>
+                            </select>
+                        </label>
+                    </div>
+                    <div class="flex-col">
+                        <span
+                            *ngIf="userForm.get('residenceLocation')?.invalid&&userForm.get('residenceLocation')?.touched"
+                            class="error-message">
+                            {{ getResidenceLocationError('residenceLocation') }}
+                        </span>
+                        <label for="residenceLocation">Location:
+                            <input type="text" formControlName="residenceLocation" name="residenceLocation"
+                                id="residenceLocation" placeholder="e.g. City Center">
+                        </label>
+                    </div>
+
+
+
+                    <div class="flex-col">
+                        <label for="residenceAddress">Address:
+                            <span
+                                *ngIf="userForm.get('residenceAddress')?.invalid&&userForm.get('residenceAddress')?.touched"
+                                class="error-message">
+                                {{ getAddressError('residenceAddress') }}
+                            </span>
+                            <textarea id="residenceAddress" formControlName="residenceAddress" name="residenceAddress"
+                                rows="4" placeholder="e.g. 123 Main Street, City"></textarea>
+                        </label>
+                    </div>
+
+                    <div class="flex-col">
+                        <span *ngIf="userForm.get('distanceValue')?.invalid&&userForm.get('distanceValue')?.touched"
+                            class="error-message">
+                            {{ getDistanceValueError('distanceValue') }}
+                        </span>
+                        <label for="distanceValue">Distance From Location:
+                            <input type="text" formControlName="distanceValue" name="" id="distanceValue"
+                                placeholder="e.g. 5km">
+                        </label>
+                    </div>
+
+
+
+                    <div class="flex-col">
+                        <button class="bg-accent btn-sign-up">Sign Up</button>
+                    </div>
+
+                </form>
+
+            </main>
+       </div>
+

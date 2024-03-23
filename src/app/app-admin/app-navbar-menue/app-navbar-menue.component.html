@@ -1,32 +1,32 @@
 <main>
-    <div>
-
+    <div><br>
         <div>
             <input matInput (keyup)="applyFilter($event)" placeholder="Search Columns" #input />
+            <button (click)="addPartner()">Add Partner</button>
         </div>
-        <table mat-table matSort [dataSource]="dataSource" class="tbl-itinerary bg">
+        <table mat-table matSort [dataSource]="dataSource" class="residence-table">
             <ng-container matColumnDef="residenceId">
                 <th mat-header-cell *matHeaderCellDef><strong>Residence-Id</strong></th>
                 <td mat-cell *matCellDef="let element; let i = index">
-                    <strong>{{element.residenceId}}</strong>
+                    {{element.residenceId}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="residenceName">
                 <th mat-header-cell *matHeaderCellDef><strong>Residence Name</strong></th>
                 <td mat-cell *matCellDef="let element; let i = index">
-                    <strong>{{element.residenceName}}</strong>
+                    {{element.residenceName}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="residenceType">
-                <th mat-header-cell *matHeaderCellDef><strong>ResidenceType-Id</strong></th>
+                <th mat-header-cell *matHeaderCellDef><strong>ResidenceType</strong></th>
                 <td mat-cell *matCellDef="let element; let i = index">
-                    <strong>{{element.residenceType}}</strong>
+                    {{element.residenceType}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="residenceLocation">
                 <th mat-header-cell *matHeaderCellDef><strong>Location</strong></th>
                 <td mat-cell *matCellDef="let element; let i = index">
-                    <strong>{{element.residenceLocation}}</strong>
+                    {{element.residenceLocation}}
                 </td>
             </ng-container>
             <ng-container matColumnDef="isActive">
@@ -38,10 +38,24 @@
                     </select>
                 </td>
             </ng-container>
+            <ng-container matColumnDef="property">
+                <th mat-header-cell *matHeaderCellDef><strong>Property Service</strong></th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <select style="display: block; margin: 0 auto;">
+                        <option value="0" selected>--</option>
+                        <option value="1">Residence Agreement Service</option>
+                        <option value="2">Residence Image Service</option>
+                        <option value="3">Residence Amenity Service</option>
+                        <option value="4">Residence Distance Service</option>
+                        <option value="5">Residence Rooms Service</option>
+                    </select>                                           
+                      
+                </td>
+            </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
             <tr mat-row (click)="tableRow.add(row)" [class.demo-row-is-clicked]="tableRow.has(row)"
-                *matRowDef="let row; columns: tableColumns;">
+                *matRowDef="let row; columns: tableColumns;" (click)="getRow()">
             </tr>
         </table>
     </div>
