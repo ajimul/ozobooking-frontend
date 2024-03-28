@@ -19,11 +19,11 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MatInputModule } from '@angular/material/input';
-import { ApiService } from '../../api-service/api-service.service';
-import { CustomValidation } from '../../app-validator/custom-validation';
-import { AppClientSignupComponent } from '../../app-client-signup/app-client-signup.component';
-import { User } from '../../app-interface/PartnerRegisterDTO';
-import { CustomValidationService } from '../../app-validator/custom-validation-service';
+import { ApiService } from '../../../../api-service/api-service.service';
+import { CustomValidation } from '../../../../app-validator/custom-validation';
+import { AppClientSignupComponent } from '../../../../app-client-signup/app-client-signup.component';
+import { User } from '../../../../app-interface/PartnerRegisterDTO';
+import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 
 @Component({
@@ -31,29 +31,20 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   standalone: true,
   imports: [
     FormsModule,
-    MatFormFieldModule,
-    MatInputModule,
     ReactiveFormsModule,
-    MatIconModule,
-    CommonModule,
-    MatDialogContent,
-    MatDialogContainer,
-    MatDialogModule 
-    
-    
-  ],
+    CommonModule
+    ],
   templateUrl: './app-partner-signup.component.html',
   styleUrl: './app-partner-signup.component.css',
 })
 export class AppPartnerSignupComponent {
-
   constructor(
     private apiService: ApiService,
     private validationService: CustomValidationService,
-    private fb: FormBuilder,  
+    private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) private data: any,
-    private dialogRef: MatDialogRef<AppPartnerSignupComponent>  ) {
-  }
+    private dialogRef: MatDialogRef<AppPartnerSignupComponent>
+  ) {}
   userForm!: FormGroup;
   ngOnInit(): void {
     // Initialize the form with FormBuilder
@@ -216,7 +207,7 @@ export class AppPartnerSignupComponent {
   formSubmit() {
     this.markFormGroupTouched(this.userForm);
     if (this.userForm?.valid) {
-      let user: User = {
+      let user: any = {
         userName: this.userForm.get('userName')?.value,
         email: this.userForm.get('email')?.value,
         phone: this.userForm.get('phone')?.value,
@@ -247,11 +238,13 @@ export class AppPartnerSignupComponent {
           console.log(user);
           alert('Add partner is abrogated!');
         },
-        complete: () => {},
+        complete: () => {
+          this.dialogRef.close();
+        },
       });
     } else {
       alert('Invalid Partner Credintial!');
-      this.dialogRef.close();
+    
     }
   }
   // Function to mark all form controls as touched recursively

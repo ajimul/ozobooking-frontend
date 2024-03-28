@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, catchError, of, throwError } from 'rxjs';
 import { TokenService } from '../token-service/token.service';
 import { environment } from '../../environments/environment';
 import { User } from '../app-interface/PartnerRegisterDTO';
@@ -11,7 +11,7 @@ import { Residence } from '../app-interface/Residence';
 })
 export class ApiService {
   private apiServerUrl = environment.apiBaseUrl;
-  constructor(private http: HttpClient, private token: TokenService) {}
+  constructor(private http: HttpClient, private token: TokenService) { }
 
   //----------------------------------------------LOGIN SERVICE------------------------------------------------------>
   loginn(loginForm: any) {
@@ -41,6 +41,13 @@ export class ApiService {
   }
   //----------------------------------------------Residence Service API (Admin)------------------------------------------------------>
 
+  updateResidences(residence: any): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.put<any>(
+      `${this.apiServerUrl}v1/admin/residences/update`, residence, options);
+  }
   getResidences(): Observable<Residence[]> {
     const options = {
       headers: this.token.getContentLessHeadersWithAuthorization(),
@@ -49,5 +56,23 @@ export class ApiService {
       `${this.apiServerUrl}v1/admin/residences`,
       options
     );
+  }
+  deleteResidence(rid: number): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.delete<any>(`${this.apiServerUrl}v1/admin/residences/${rid}`, options);
+  }
+
+  uploadResidenceImages(residenceImagesRefId: number, files: File[]): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    const formData: FormData = new FormData();
+    formData.append('residenceImagesRefId', residenceImagesRefId.toString());
+    for (let i = 0; i < files.length; i++) {
+      formData.append('files', files[i]);
+    }
+    return this.http.post<any>(`${this.apiServerUrl}v1/manager/residences/image/upload`, formData, options)
   }
 }

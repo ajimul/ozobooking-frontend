@@ -1,0 +1,108 @@
+main {
+  display: block;
+  flex-wrap: nowrap;
+  overflow: auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  /* border: red solid 1px; */
+}
+
+.residence-table {
+  width: 100%;
+}
+
+.add-partner-btn {
+  width: 25%;
+  border: none;
+  outline: none;
+  margin: 5px;
+  padding: 10px;
+  background-color: blue;
+  color: white;
+  font-size: 0.8rem;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.flex-box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 5px 5px 5px;
+  padding: 10px;
+  background-color: #d3e3fd;
+}
+.flex-box-group {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  flex: 50% 1 0;
+  /* border: red solid 0.5px; */
+}
+
+.search {
+  justify-content: center;
+  align-items: center;
+}
+.add-partner {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.search input {
+  width: 50%;
+  margin: 5px;
+  padding: 10px;
+  border-radius: 10px;
+  outline: aliceblue;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  color: blue;
+}
+.add-partner button {
+  width: 25%;
+  border: none;
+  outline: none;
+  margin: 5px;
+  padding: 10px;
+  background-color: blue;
+  color: white;
+  font-size: 0.9rem;
+  border-radius: 15px;
+  cursor: pointer;
+}
+.add-partner button:hover {
+  background-color: rgb(15, 15, 192);
+}
+
+.delete-btn {
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #ff0000;
+  margin: 2px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+.delete-btn:hover {
+  color: #ffffff;
+  background-color: #e40909;
+  font-size: 1rem;
+}
+.edit-btn {
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  background-color: #04AA6D;
+  margin: 2px;
+  padding: 5px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+.edit-btn:hover {
+  background-color: #018353;
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+}

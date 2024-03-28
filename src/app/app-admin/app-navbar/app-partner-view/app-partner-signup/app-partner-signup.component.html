@@ -1,12 +1,8 @@
-
-   
-
-
-        <div class="custom-dialog-content" md-dialog-content>
+ <div class="custom-dialog-content" md-dialog-content>
             <div class="close-btn" mat-button mat-dialog-close>
                 <span>x</span></div>
             <main class="bg-primary">
-                <form class="container bg-secondary" [formGroup]="userForm" (ngSubmit)="formSubmit()">
+                <form class="container bg-secondary" [formGroup]="userForm" (ngSubmit)="formSubmit()" autocomplete="off">
                     <h1 class="accent">Sign Up</h1>
 
                     <div class="flex-col">
@@ -79,9 +75,8 @@
                                 {{ getResidenceTypeError('residenceType') }}
                             </span>
                             <select name="" formControlName="residenceType" id="">
-                                <option value="default">--</option>
                                 <option value="Hotel">Hotel</option>
-                                <option value="Stay">Home Stay</option>
+                                <option value="Home Stay">Home Stay</option>
                                 <option value="Cottage">Cottage</option>
                             </select>
                         </label>
@@ -122,9 +117,6 @@
                                 placeholder="e.g. 5km">
                         </label>
                     </div>
-
-
-
                     <div class="flex-col">
                         <button class="bg-accent btn-sign-up">Sign Up</button>
                     </div>

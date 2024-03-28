@@ -1,8 +1,12 @@
 <main>
-    <div><br>
-        <div>
-            <input matInput (keyup)="applyFilter($event)" placeholder="Search Columns" #input />
-            <button (click)="addPartner()">Add Partner</button>
+    <div>
+        <div class="flex-box">
+            <div class="flex-box-group search"><input matInput (keyup)="applyFilter($event)" placeholder="Search Here!"
+                    #input /></div>
+            <div class="flex-box-group add-partner"><button (click)="addPartner()"><strong>Add Partner</strong></button>
+            </div>
+
+
         </div>
         <table mat-table matSort [dataSource]="dataSource" class="residence-table">
             <ng-container matColumnDef="residenceId">
@@ -32,30 +36,44 @@
             <ng-container matColumnDef="isActive">
                 <th mat-header-cell *matHeaderCellDef><strong>Status</strong></th>
                 <td mat-cell *matCellDef="let element; let i = index">
-                    <select [(ngModel)]="element.isActive" (change)="onStatusChange(element)">
-                        <option [ngValue]="true">Enable</option>
-                        <option [ngValue]="false">Disable</option>
+                    <select [(ngModel)]="element.isActive" [style.color]="element.isActive ? 'blue' : 'red'"
+                        (change)="onStatusChange(element)" style="cursor: pointer; outline: none; border: none; background-color: #d3e3fd;
+                    border-radius: 3px; padding: 5px;">
+                        <option [ngValue]="true" style="color: rgb(0, 16, 245);">Enable</option>
+                        <option [ngValue]="false" style="color: red;">Disable</option>
                     </select>
                 </td>
             </ng-container>
             <ng-container matColumnDef="property">
                 <th mat-header-cell *matHeaderCellDef><strong>Property Service</strong></th>
                 <td mat-cell *matCellDef="let element; let i = index">
-                    <select style="display: block; margin: 0 auto;">
-                        <option value="0" selected>--</option>
+                    <select #mySelect (change)="onSelectionChange(mySelect)" style="cursor: pointer; outline: none; border: none; background-color: #d3e3fd;
+                    border-radius: 3px; padding: 5px;">
+                        <option value="0" selected style="color: red;">Selection-None</option>
                         <option value="1">Residence Agreement Service</option>
                         <option value="2">Residence Image Service</option>
                         <option value="3">Residence Amenity Service</option>
-                        <option value="4">Residence Distance Service</option>
+                        <option value="4">Residence Location Service</option>
                         <option value="5">Residence Rooms Service</option>
-                    </select>                                           
-                      
+                    </select>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef><strong>Actions</strong></th>
+                <td mat-cell *matCellDef="let element; let i=index">
+                    <span class="delete-btn" (click)="deletePartner(element.residenceId)">Delete</span>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="view">
+                <th mat-header-cell *matHeaderCellDef><strong>View/Edit</strong></th>
+                <td mat-cell *matCellDef="let element; let i=index">
+                    <span class="edit-btn" (click)="partnerUpdate(element)">View/Edit</span>
                 </td>
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
             <tr mat-row (click)="tableRow.add(row)" [class.demo-row-is-clicked]="tableRow.has(row)"
-                *matRowDef="let row; columns: tableColumns;" (click)="getRow()">
+                *matRowDef="let row; columns: tableColumns;">
             </tr>
         </table>
     </div>

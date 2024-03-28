@@ -1,0 +1,21 @@
+<h1 style="margin: 0;padding: 0;">Residence Image Service Works!</h1 >
+
+<div>
+    <form [formGroup]="residanceForm" (ngSubmit)="addResidenceImage()">
+        <label for="">Enter ID:
+            <span *ngIf="residanceForm.get('residenceImagesRefId')?.invalid" class="error-message">
+                {{ getIdError('residenceImagesRefId') }}
+            </span>
+            <input type="text" placeholder="refID:" formControlName="residenceImagesRefId"
+                (change)="onFileSelected($event)">
+        </label>
+        <br><br>
+        <label for="imgSrc">Select Image(s):
+            <span *ngIf="residanceForm.get('imgSrc')?.invalid" class="error-message">
+                {{ getFileError('imgSrc') }}
+            </span>
+            <input type="file" id="imgSrc" formControlName="imgSrc" (change)="onFileSelected($event)" multiple></label>
+        <br><br>
+        <button type="submit">Upload</button>
+    </form>
+</div>

@@ -112,25 +112,59 @@ export class CustomValidationService {
     return null;
   }
 
-  getNumberValidationError(
-    control: AbstractControl,
-    sms1: string,
-    sms2: string,
-    sms3: string
-  ): string | null {
-    if (control.hasError('required')) {
-      // Number is required
-      return sms1;
+  getNumberValidationError(control: AbstractControl): string | null {
+    if (control.errors) {
+      // Access error properties using bracket notation
+      if (control.errors['required']) { // Access with ['required']
+        const minLength = control.errors['minLength'];
+        return `${minLength}`;
+      }
+      if (control.errors['notANumber']) {
+        const notANumber = control.errors['notANumber'];
+        return `${notANumber}`;
+      }
+      if (control.errors['minLength']) {
+        const minLength = control.errors['minLength']; // Access the error object
+        return `${minLength.errorMessage}`;
+      }
+      if (control.errors['notPositive']) {
+        const notPositive = control.errors['notPositive'];
+        return `${notPositive}`;
+      }
+      if (control.errors['notInteger']) {
+        const notInteger = control.errors['notInteger'];
+        return `${notInteger}`;
+      }
     }
-    if (control.hasError('requiredNumber')) {
-      return sms2;
-    }
-    if (control.hasError('minlength')) {
-      // Number must be at least ${minNumberLength} digits long
-      return sms3;
-    }
-    return null;
+    return null; // No error
   }
+  getIdValidationError(control: AbstractControl): string | null {
+    if (control.errors) {
+      if (control.errors['required']) {
+        const minLength = control.errors['required'];
+        return `${minLength}`;
+      }
+      if (control.errors['notANumber']) {
+        const notANumber = control.errors['notANumber'];
+        return `${notANumber}`;
+      }
+      if (control.errors['minLength']) {
+        const minLength = control.errors['minLength']; // Access the error object
+        return `${minLength.errorMessage}`;
+      }
+      if (control.errors['notPositive']) {
+        const notPositive = control.errors['notPositive'];
+        return `${notPositive}`;
+      }
+      if (control.errors['notInteger']) {
+        const notInteger = control.errors['notInteger'];
+        return `${notInteger}`;
+      }
+    }
+    return null; // No error
+  }
+
+
 
   getDecimalValidationError(
     control: AbstractControl,

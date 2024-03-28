@@ -4,7 +4,7 @@ import { AppHomeComponent } from './app-admin/app-home/app-home.component';
 import { guardGuard } from './route-guard/guard.guard';
 import { AppClientSignupComponent } from './app-client-signup/app-client-signup.component';
 import { AppNavbarComponent } from './app-admin/app-navbar/app-navbar.component';
-import { AppNavbarMenueComponent } from './app-admin/app-navbar-menue/app-navbar-menue.component';
+import { AppPartnerViewComponent } from './app-admin/app-navbar/app-partner-view/app-partner-view.component';
 
 export const routes: Routes = [
   { path: '', component: AppLoginComponent },
@@ -15,8 +15,7 @@ export const routes: Routes = [
     component: AppNavbarComponent,
     canActivate: [guardGuard], // Set AppNavbarComponent as the component for the root path 'admin-nav'
     children: [
-      { path: 'signup', component: AppClientSignupComponent },
-      { path: 'menu', component: AppNavbarMenueComponent },
+      { path: 'partner-view', component: AppPartnerViewComponent },         
     ],
   },
   { path: '**', redirectTo: 'login' }, // Redirect to 'admin-nav' for any other unmatched routes

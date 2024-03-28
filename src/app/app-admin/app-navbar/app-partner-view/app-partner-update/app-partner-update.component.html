@@ -1,0 +1,66 @@
+<div class="custom-dialog-content" md-dialog-content>
+
+    <main class="bg-primary">
+
+        <form class="container bg-secondary" [formGroup]="userForm" (ngSubmit)="formSubmit()" >
+            <div class="close-btn" mat-button mat-dialog-close>
+                <span class="close-hover">x</span>
+            </div>
+            <h1 class="accent">Sign Up</h1>
+
+            <div class="flex-col">
+                <label for="residenceName">Residence Name:
+                    <span *ngIf="userForm.get('residenceName')?.invalid&&userForm.get('residenceName')?.touched"
+                        class="error-message">
+                        {{ getResidenceNameError('residenceName') }}
+                    </span>
+                    <input type="text" formControlName="residenceName" name="residenceName" id="residenceName"
+                        placeholder="e.g. Mountain View Lodge">
+                </label>
+            </div>
+            <div class="flex-col">
+                <label for="">Residence Type:
+                    <span *ngIf="userForm.get('residenceType')?.invalid&&userForm.get('residenceType')?.touched"
+                        class="error-message">
+                        {{ getResidenceTypeError('residenceType') }}
+                    </span>
+                    <select name="" formControlName="residenceType" id="">
+                        <option value="Hotel">Hotel</option>
+                        <option value="Home Stay">Home Stay</option>
+                        <option value="Cottage">Cottage</option>
+                    </select>
+                </label>
+            </div>
+            <div class="flex-col">
+                <span *ngIf="userForm.get('residenceLocation')?.invalid&&userForm.get('residenceLocation')?.touched"
+                    class="error-message">
+                    {{ getResidenceLocationError('residenceLocation') }}
+                </span>
+                <label for="residenceLocation">Location:
+                    <input type="text" formControlName="residenceLocation" name="residenceLocation"
+                        id="residenceLocation" placeholder="e.g. City Center">
+                </label>
+            </div>
+
+
+
+            <div class="flex-col">
+                <label for="residenceAddress">Address:
+                    <span *ngIf="userForm.get('residenceAddress')?.invalid&&userForm.get('residenceAddress')?.touched"
+                        class="error-message">
+                        {{ getAddressError('residenceAddress') }}
+                    </span>
+                    <textarea id="residenceAddress" formControlName="residenceAddress" name="residenceAddress" rows="4"
+                        placeholder="e.g. 123 Main Street, City"></textarea>
+                </label>
+            </div>
+            <div class="flex-col">
+                <button class="bg-accent btn-sign-up">Sign Up</button>
+            </div>
+
+        </form>
+
+    </main>
+
+
+</div>

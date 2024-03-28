@@ -7,7 +7,7 @@ export class CustomValidation {
   // Leading or trailing spaces are not allowed.
   // Name must be at least 3 characters long.
   static nameValidation(min_text_lenght: number): ValidatorFn {
-   
+
     return (control: AbstractControl): { [key: string]: any } | null => {
       const value = control.value;
       const symbolRegex = /^[^\w\s]/;
@@ -39,45 +39,45 @@ export class CustomValidation {
   // max_length: 10,  text max Length 10
   static textValidation(min_length: number, max_length: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-        const value = control.value;
+      const value = control.value;
 
-        // Check if the value is null, undefined, or not a string
-        if (value === null || value === undefined || typeof value !== 'string') {
-            return null;
-        }
+      // Check if the value is null, undefined, or not a string
+      if (value === null || value === undefined || typeof value !== 'string') {
+        return null;
+      }
 
-        // Trim the value to remove leading and trailing spaces
-        const trimmedValue = value.trim();
-        const length = trimmedValue.length;
+      // Trim the value to remove leading and trailing spaces
+      const trimmedValue = value.trim();
+      const length = trimmedValue.length;
 
-        // Check for leading or trailing spaces
-        if (length !== value.length) {
-            return { requiredBlankSpace: true };
-        }
+      // Check for leading or trailing spaces
+      if (length !== value.length) {
+        return { requiredBlankSpace: true };
+      }
 
-        // Check if min_length and max_length are valid numbers
-        if (isNaN(min_length) || isNaN(max_length) || min_length < 0 || max_length < 0) {
-            return { invalidLength: true };
-        }
+      // Check if min_length and max_length are valid numbers
+      if (isNaN(min_length) || isNaN(max_length) || min_length < 0 || max_length < 0) {
+        return { invalidLength: true };
+      }
 
-        // Check if min_length is greater than max_length
-        if (min_length > max_length) {
-            return { invalidRange: true };
-        }
+      // Check if min_length is greater than max_length
+      if (min_length > max_length) {
+        return { invalidRange: true };
+      }
 
-        // Check if the length exceeds the max_length
-        if (max_length > 0 && length > max_length) {
-            return { maxLengthExceeded: true };
-        }
+      // Check if the length exceeds the max_length
+      if (max_length > 0 && length > max_length) {
+        return { maxLengthExceeded: true };
+      }
 
-        // Check if the length is less than the min_length
-        if (min_length > 0 && length < min_length) {
-            return { minlength: true };
-        }
+      // Check if the length is less than the min_length
+      if (min_length > 0 && length < min_length) {
+        return { minlength: true };
+      }
 
-        return null; // Return null if the value passes validation
+      return null; // Return null if the value passes validation
     };
-}
+  }
 
 
   static emailValidator(): ValidatorFn {
@@ -118,43 +118,56 @@ export class CustomValidation {
     return (control: AbstractControl): { [key: string]: any } | null => {
       const passwordValue = control.get('password')?.value;
       const confirmPasswordValue = control.get('confirmPassword')?.value;
-  
+
       if (passwordValue === confirmPasswordValue) {
-        return null;  
+        return null;
       }
-        return { passwordMismatch: true };  
+      return { passwordMismatch: true };
     };
   }
 
   // Number is required  (0-9)
-  static numberValidation(min_number_lenght: number): ValidatorFn {
+  static idValidation(min_number_length: number): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {
-      const value = control.value;
-
-      if (min_number_lenght === 0) {
-        // If min_number_lenght is 0, allow empty or numeric input
-        if (
-          value === null ||
-          value === undefined ||
-          value === '' ||
-          isNaN(value)
-        ) {
-          return null; // Return null if the input is empty or not a number
-        }
-      } else {
-        // If min_number_lenght is not 0, enforce minimum length and numeric validation
-        if (
-          value === null ||
-          value === undefined ||
-          value === '' ||
-          isNaN(value) ||
-          value < min_number_lenght
-        ) {
-          return { required: true }; // Return error if input is empty, not a number, or less than min_number_lenght
-        }
+      if (control.value === null || control.value === undefined || control.value === '') {
+        return { required: 'ID is required' }; 
       }
+      if (isNaN(control.value)) {
+        return { notANumber: 'ID must be a number' }; 
+      }
+ 
+      if (control.value.toString().length < min_number_length) {
+        const errorMessage = `ID must be at least ${min_number_length} characters long`;
+        return { minLength: { errorMessage } };
 
-      return null; // Return null if the input passes validation
+      }
+      if (control.value <= 0) {
+        return { notPositive: 'ID must be a positive number' };    }
+      if (!/^\d+$/.test(control.value.toString())) {
+        return { notInteger: 'ID must be an integer' }; 
+      }
+      return null; 
+    };
+  }
+  static numberValidation(min_number_length: number): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      if (control.value === null || control.value === undefined || control.value === '') {
+        return { required: 'Value is required' };
+      }
+      if (isNaN(control.value)) {
+        return { notANumber: 'Value must be a number' }; 
+      }
+      if (control.value.toString().length < min_number_length) {
+        const errorMessage = `Value must be at least ${min_number_length} characters long`;
+        return { minLength: { errorMessage } };
+      }
+      if (control.value < 0) {
+        return { notPositive: 'Value must be a positive number' };
+      }
+      if (!/^\d+$/.test(control.value.toString())) {
+        return { notInteger: 'Value must be an integer' };
+      }
+      return null;
     };
   }
 

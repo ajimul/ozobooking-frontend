@@ -4,6 +4,7 @@ export interface ResidenceDistance {
 }
 
 export interface Residence {
+  // residenceId:number;
   residenceName: string;
   residenceType: string;
   residenceLocation: string;

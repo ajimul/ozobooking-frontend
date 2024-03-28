@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AppNavbarMenueComponent } from './app-navbar-menue.component';
+import { AppPartnerViewComponent } from './app-partner-view.component';
 
-describe('AppNavbarMenueComponent', () => {
-  let component: AppNavbarMenueComponent;
-  let fixture: ComponentFixture<AppNavbarMenueComponent>;
+describe('AppPartnerViewComponent', () => {
+  let component: AppPartnerViewComponent;
+  let fixture: ComponentFixture<AppPartnerViewComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppNavbarMenueComponent]
+      imports: [AppPartnerViewComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AppNavbarMenueComponent);
+    fixture = TestBed.createComponent(AppPartnerViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
