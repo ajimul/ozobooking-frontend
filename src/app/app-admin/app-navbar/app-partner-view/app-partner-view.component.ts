@@ -95,15 +95,17 @@ export class AppPartnerViewComponent {
       this.getTableData();
     });
   }
-  onSelectionChange(mySelect: HTMLSelectElement): void {
+  onSelectionChange(mySelect: HTMLSelectElement,residenceId:any): void {
     console.log('Selected value:', mySelect.value);
-    this.residenceImageService();
+    if (mySelect.value === '2') {
+      this.residenceImageService(residenceId);
+    }
   }
-  residenceImageService() {
+  residenceImageService(residenceId:any) {
     const config = new MatDialogConfig<any>();
-    config.width = '30%';
+    config.width = '90%';
     config.height = '90%';
-    config.data = '';
+    config.data = {residenceId};
     const dialogRef = this.dialog.open(AppResidenceImageServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       this.getTableData();

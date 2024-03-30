@@ -1,10 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, of, throwError } from 'rxjs';
 import { TokenService } from '../token-service/token.service';
 import { environment } from '../../environments/environment';
 import { User } from '../app-interface/PartnerRegisterDTO';
-import { Residence } from '../app-interface/Residence';
+import { Residence, ResidenceImage } from '../app-interface/Residence';
 
 @Injectable({
   providedIn: 'root',
@@ -64,6 +64,10 @@ export class ApiService {
     return this.http.delete<any>(`${this.apiServerUrl}v1/admin/residences/${rid}`, options);
   }
 
+  
+
+  //----------------------------------------------Residence Service API (Admin)------------------------------------------------------>
+
   uploadResidenceImages(residenceImagesRefId: number, files: File[]): Observable<any> {
     const options = {
       headers: this.token.getContentLessHeadersWithAuthorization(),
@@ -75,4 +79,19 @@ export class ApiService {
     }
     return this.http.post<any>(`${this.apiServerUrl}v1/manager/residences/image/upload`, formData, options)
   }
+  //----------------------------------------------Residence Service API (Manager)------------------------------------------------------>
+
+  deleteResidenceImageById(id: number, fileName: string): Observable<any> {
+        const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.delete(`${this.apiServerUrl}v1/manager/residences/image/${id}/${fileName}`, options)
+ 
+}
+  //----------------------------------------------Residence Service API (Punlic)------------------------------------------------------>
+
+  getAllResidenceImages(): Observable<ResidenceImage[]> {
+    return this.http.get<ResidenceImage[]>(`${this.apiServerUrl}v1/public/`);
+  }
+
 }

@@ -7,17 +7,28 @@ import { CustomValidation } from '../../../../app-validator/custom-validation';
 import { ResidenceImage } from '../../../../app-interface/Residence';
 import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { catchError } from 'rxjs';
+
 
 @Component({
   selector: 'app-app-residence-image-service',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule],
+  imports: [FormsModule, ReactiveFormsModule, CommonModule, MatTableModule],
   templateUrl: './app-residence-image-service.component.html',
   styleUrl: './app-residence-image-service.component.css'
 })
 export class AppResidenceImageServiceComponent {
-  residenceImage: ResidenceImage[] = []
+  apiServerUrl = environment.apiBaseUrl;
+  residenceImage: ResidenceImage[] = [];
+  dataSource = new MatTableDataSource<ResidenceImage>(this.residenceImage);
   residanceForm!: FormGroup;
+  clickedRowsResidenceImage = new Set<ResidenceImage>();
+  residenceImageTableColumns = [
+    'imgSrc',
+    'deleteAction',
+  ];
   constructor(
     private apiService: ApiService,
     private validationService: CustomValidationService,
@@ -27,8 +38,9 @@ export class AppResidenceImageServiceComponent {
 
 
   ngOnInit(): void {
+    this.getResidenceImages();
     this.residanceForm = this.fb.group({
-      residenceImagesRefId: new FormControl('14', [Validators.required,
+      residenceImagesRefId: new FormControl(this.data.residenceId, [Validators.required,
       CustomValidation.idValidation(1),]),
       imgSrc: new FormControl("", [
         Validators.required, CustomValidation.textValidation(1, 100)
@@ -81,16 +93,58 @@ export class AppResidenceImageServiceComponent {
         let errorMessage = '';
         if (error.error && error.error.message) {
           errorMessage = error.error.message;
-        } 
+        }
         else if (error.message) {
           errorMessage = error.message;
         }
         console.log('Error Message: ', errorMessage);
         alert(errorMessage);
       },
-      complete: () => { console.log('complete'); }
+      complete: () => { 
+        this.getResidenceImages();
+        console.log('complete'); }
     });
+  }
+  getResidenceImages() {
+    this.apiService.getAllResidenceImages().subscribe({
+      next: (value) => {
+        this.residenceImage = value;
+      },
+      error: (err) => {
+
+      },
+      complete: () => {
+        this.dataSource = new MatTableDataSource<ResidenceImage>(this.residenceImage);
+      },
+    })
   }
 
 
+
+  deleteAction(id: any, fileName: any) {
+    this.apiService.deleteResidenceImageById(id, fileName)
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
+            console.log('Deleted successfully');
+          } else if (error.status === 404) {
+            console.error('Not found');
+          } else {
+            console.error('An error occurred:', error);
+          }
+          throw error;
+        })
+      )
+      .subscribe({
+        next: (response) => {
+          alert('Deleted successfully');
+        },
+        error: (error) => {
+          alert('File Not Found!');
+        },
+        complete: () => {
+          this.getResidenceImages()
+        },
+      })
+  }
 }

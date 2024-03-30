@@ -47,7 +47,7 @@
             <ng-container matColumnDef="property">
                 <th mat-header-cell *matHeaderCellDef><strong>Property Service</strong></th>
                 <td mat-cell *matCellDef="let element; let i = index">
-                    <select #mySelect (change)="onSelectionChange(mySelect)" style="cursor: pointer; outline: none; border: none; background-color: #d3e3fd;
+                    <select #mySelect (change)="onSelectionChange(mySelect,element.residenceId)" style="cursor: pointer; outline: none; border: none; background-color: #d3e3fd;
                     border-radius: 3px; padding: 5px;">
                         <option value="0" selected style="color: red;">Selection-None</option>
                         <option value="1">Residence Agreement Service</option>
