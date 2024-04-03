@@ -45,32 +45,35 @@ export class CustomValidationService {
     sms5: string,
     sms6: string
   ): string | null {
-    if (control.hasError('required')) {
-      //Name is required
-      return sms1;
+    if (control.errors) {
+      if (control.errors['required']) {
+        const minLength = control.errors['required'];
+        return sms1;
+      }
+      if (control.errors['requiredBlankSpace']) {
+        const minLength = control.errors['requiredBlankSpace'];
+        return sms1;
+      }
+      if (control.errors['required']) {
+        const minLength = control.errors['invalidLength'];
+        return sms1;
+      }
+      if (control.errors['required']) {
+        const minLength = control.errors['invalidRange'];
+        return sms1;
+      }
+      if (control.errors['required']) {
+        const minLength = control.errors['maxLengthExceeded'];
+        return sms1;
+      }
+      if (control.errors['required']) {
+        const minLength = control.errors['minlength'];
+        return sms1;
+      }
     }
-    if (control.hasError('requiredBlankSpace')) {
-      // Leading or trailing spaces are not allowed
-      return sms2;
-    }
-    if (control.hasError('maxLengthExceeded')) {
-      // Maximum length exceeded. Maximum length allowed is ${maxTextLength} characters
-      return sms3;
-    }
-    if (control.hasError('minlength')) {
-      // Name must be at least ${minTextLength} characters long
-      return sms4;
-    }
-    if (control.hasError('invalidLength')) {
-      // Characters Length  invalidLength${minTextLength} characters long
-      return sms5;
-    }
-    if (control.hasError('invalidRange')) {
-      // Name must be in Range ${invalidRange}
-      return sms6;
-    }
-    return null;
+    return null
   }
+
 
   getEmailValidatorError(
     control: AbstractControl,

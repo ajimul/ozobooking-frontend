@@ -72,7 +72,7 @@
             </ng-container>
 
             <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-            <tr mat-row (click)="tableRow.add(row)" [class.demo-row-is-clicked]="tableRow.has(row)"
+            <tr mat-row   (click)="getTableRow(row)"[class.demo-row-is-clicked]="tableRow.has(row)"
                 *matRowDef="let row; columns: tableColumns;">
             </tr>
         </table>

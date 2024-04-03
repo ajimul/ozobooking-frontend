@@ -12,6 +12,7 @@ import { ApiService } from '../../../api-service/api-service.service';
 import { AppPartnerSignupComponent } from './app-partner-signup/app-partner-signup.component';
 import { AppPartnerUpdateComponent } from './app-partner-update/app-partner-update.component';
 import { AppResidenceImageServiceComponent } from './app-residence-image-service/app-residence-image-service.component';
+import { AppResidenceAmentitiesServiceComponent } from './app-residence-amentities-service/app-residence-amentities-service.component';
 
 @Component({
   selector: 'app-app-partner-view',
@@ -30,6 +31,7 @@ export class AppPartnerViewComponent {
   residence: Residence[] = [];
   dataSource = new MatTableDataSource<Residence>(this.residence);
   tableRow = new Set<Residence>();
+  newData = new Set<Residence>();
   tableColumns = [
     'residenceId',
     'residenceName',
@@ -55,7 +57,10 @@ export class AppPartnerViewComponent {
       },
     });
   }
-
+  getTableRow(row: any) {
+    this.tableRow.clear();
+    this.tableRow.add(row);
+  }
   ngOnInit(): void {
     this.getTableData();
   }
@@ -77,7 +82,7 @@ export class AppPartnerViewComponent {
     const config = new MatDialogConfig<any>();
     // config.position = { top: '0px', right: '0px' };
     config.width = '40%';
-    config.height = '80%';
+    config.height = '90%';
     config.data = [];
     config.panelClass = ['custom-dialog-bg'];
     const dialogRef = this.dialog.open(AppPartnerSignupComponent, config);
@@ -95,18 +100,42 @@ export class AppPartnerViewComponent {
       this.getTableData();
     });
   }
-  onSelectionChange(mySelect: HTMLSelectElement,residenceId:any): void {
-    console.log('Selected value:', mySelect.value);
-    if (mySelect.value === '2') {
-      this.residenceImageService(residenceId);
+  onSelectionChange(mySelect: HTMLSelectElement, residenceId: any): void {
+    switch (mySelect.value) {
+      case '1':
+       
+        break;
+      case '2':
+        this.residenceImageService(residenceId);
+        break;
+      case '3':
+        this.residenceAmentitiesService(residenceId);
+        break;
+      case '4':
+        
+        break;
+      default:
+        // Handle other cases if needed
+        break;
     }
   }
-  residenceImageService(residenceId:any) {
+  residenceImageService(residenceId: any) {
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
-    config.data = {residenceId};
+    config.data = { residenceId };
     const dialogRef = this.dialog.open(AppResidenceImageServiceComponent, config);
+    dialogRef.afterClosed().subscribe((response: any) => {
+      this.getTableData();
+    });
+  }
+
+  residenceAmentitiesService(residenceId: any) {
+    const config = new MatDialogConfig<any>();
+    config.width = '90%';
+    config.height = '90%';
+    config.data = this.tableRow;
+    const dialogRef = this.dialog.open(AppResidenceAmentitiesServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       this.getTableData();
     });

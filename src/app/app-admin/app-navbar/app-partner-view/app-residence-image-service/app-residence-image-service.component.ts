@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Inject } from '@angular/core';
+import { Component, HostListener, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../../../api-service/api-service.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
@@ -15,7 +15,7 @@ import { catchError } from 'rxjs';
 @Component({
   selector: 'app-app-residence-image-service',
   standalone: true,
-  imports: [FormsModule, ReactiveFormsModule, CommonModule, MatTableModule],
+  imports: [ ReactiveFormsModule, CommonModule, MatTableModule],
   templateUrl: './app-residence-image-service.component.html',
   styleUrl: './app-residence-image-service.component.css'
 })
@@ -100,9 +100,10 @@ export class AppResidenceImageServiceComponent {
         console.log('Error Message: ', errorMessage);
         alert(errorMessage);
       },
-      complete: () => { 
+      complete: () => {
         this.getResidenceImages();
-        console.log('complete'); }
+        console.log('complete');
+      }
     });
   }
   getResidenceImages() {
@@ -147,4 +148,6 @@ export class AppResidenceImageServiceComponent {
         },
       })
   }
+
+
 }

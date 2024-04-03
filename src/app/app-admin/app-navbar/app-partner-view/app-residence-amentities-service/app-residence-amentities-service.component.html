@@ -1,0 +1,82 @@
+<main>
+    <h2>Residence Amentities Group:</h2>
+    <form [formGroup]="amentitiesForm" name="xx">
+        <div style="display: none;">
+            <label for="autoId">Auto Selected Id:
+                <span
+                    *ngIf="amentitiesForm.get('resiAmen_refId')?.invalid && amentitiesForm.get('resiAmen_refId')?.touched"
+                    class="error-message">
+                    {{ getIdError('resiAmen_refId') }}
+                </span>
+                <input type="text" id="autoId" formControlName="resiAmen_refId" readonly >
+            </label>
+
+        </div>
+        <div id="child-AmentitiesGroup">
+            <label for="amentitiesGroupInput">Enter or Select Amentities Group:
+                <span
+                    *ngIf="amentitiesForm.get('resiAmenGroupName')?.invalid && amentitiesForm.get('resiAmenGroupName')?.touched"
+                    class="error-message">
+                    {{ getTextError('resiAmenGroupName') }}
+                </span>
+                <input type="text" id="amentitiesGroupInput" formControlName="resiAmenGroupName" 
+                 [(ngModel)]="resiAmenGroupName"
+                    (focus)="toggleAmentitiesGroup(true)" (keyup)="toggleAmentitiesGroup(false)"
+                    (click)="toggleAmentitiesGroupOnClick()">
+
+                <select id="amentitiesGroupSelect" #GroupSelect (change)="selectionAmentitiesGroup(GroupSelect)"
+                    [style.display]="isAmentitiesGroup ? 'block' : 'none'">
+                    <option value="">Select Detail</option>
+                    <option *ngFor="let amentity of amentitiesGroupList" [value]="amentity.group">{{ amentity.group }}</option>
+
+                </select>
+            </label>
+        </div>
+        <div id="child-AmentitiesDetails">
+            <label for="amentitiesDetailsInput">Description:
+                <span
+                    *ngIf="amentitiesForm.get('resiAmenDetails')?.invalid && amentitiesForm.get('resiAmenDetails')?.touched"
+                    class="error-message">
+                    {{ getTextError('resiAmenDetails') }}
+                </span>
+                <input type="text" id="amentitiesDetailsInput" formControlName="resiAmenDetails">
+            </label>
+        </div>
+        <div>
+            <button type="button" (click)="formSubmit()">Add Amentities</button>
+        </div>
+    </form>
+    <table mat-table matSort [dataSource]="dataSource" class="residence-table">
+        <ng-container matColumnDef="resiAmenGroupName">
+            <th mat-header-cell *matHeaderCellDef><strong>Amentities-Group </strong></th>
+            <td mat-cell *matCellDef="let element; let i = index">
+                <input type="text" [(ngModel)]="element.resiAmenGroupName">
+                <div *ngIf="!element.resiAmenGroupName || element.resiAmenGroupName.trim().length === 0" class="error-message">Amentities Group is required.</div>
+
+
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="resiAmenDetails">
+            <th mat-header-cell *matHeaderCellDef><strong>Amentities Details</strong></th>
+            <td mat-cell *matCellDef="let element; let i = index">
+                <input type="text" [(ngModel)]="element.resiAmenDetails">
+                <div *ngIf="!element.resiAmenGroupName || element.resiAmenGroupName.trim().length === 0" class="error-message">Amentities Details is required.</div>
+
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef
+                style="text-align: center; align-items: center;justify-content: center;"><strong>Actions</strong></th>
+            <td mat-cell *matCellDef="let element; let i=index">
+                <span class="update-btn" (click)="updateAmentities(element)">Update</span>
+
+                <span class="delete-btn" (click)="deleteAmentities(element.resiAmenDetailId)">Delete</span>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;">
+        </tr>
+    </table>
+</main>

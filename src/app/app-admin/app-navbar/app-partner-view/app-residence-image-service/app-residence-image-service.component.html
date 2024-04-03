@@ -1,61 +1,66 @@
-
 <div class="custom-dialog-content" md-dialog-content>
-<main class="bg-primary">
+    <main class="bg-primary">
 
         <div class="close-btn" mat-button mat-dialog-close>
             <span class="close-hover">x</span>
         </div>
-    <header class="bg">
-        <div>
-            <h2 style="color: gold;">Residence Image Service Works!</h2>
-        </div>
-    </header>
+        <header class="bg">
+            <div>
+                <h2 style="color: gold;">Residence Image Service Works!</h2>
+            </div>
+        </header>
 
-    <div>
-        <form [formGroup]="residanceForm" (ngSubmit)="addResidenceImage()">
-            <!-- <label for="">Enter ID:
+        <div>
+            <form [formGroup]="residanceForm" (ngSubmit)="addResidenceImage()">
+                <!-- <label for="">Enter ID:
                 <span *ngIf="residanceForm.get('residenceImagesRefId')?.invalid" class="error-message">
                     {{ getIdError('residenceImagesRefId') }}
                 </span>
                 <input type="text" placeholder="refID:" formControlName="residenceImagesRefId"
                     (change)="onFileSelected($event)">
             </label> -->
-            <br><br>
-            <label for="imgSrc">Select Image(s):
-                <span *ngIf="residanceForm.get('imgSrc')?.invalid" class="error-message">
-                    {{ getFileError('imgSrc') }}
-                </span>
-                <span *ngIf="residanceForm.get('residenceImagesRefId')?.invalid" class="error-message">
-                    {{ getIdError('residenceImagesRefId') }}
-                </span>
-                <input type="file" id="imgSrc" formControlName="imgSrc" (change)="onFileSelected($event)" multiple></label>
-            <br><br>
-            <button type="submit">Upload</button>
-        </form>
-    </div>
+                <br><br>
+                <label for="imgSrc">Select Image(s):
+                    <span *ngIf="residanceForm.get('imgSrc')?.invalid" class="error-message">
+                        {{ getFileError('imgSrc') }}
+                    </span>
+                    <span *ngIf="residanceForm.get('residenceImagesRefId')?.invalid" class="error-message">
+                        {{ getIdError('residenceImagesRefId') }}
+                    </span>
+                    <input type="file" id="imgSrc" formControlName="imgSrc" (change)="onFileSelected($event)"
+                        multiple></label>
+                <br><br>
+                <button type="submit">Upload</button>
+            </form>
+        </div>
 
-    <div class="container bg">    
-        <table mat-table matSort [dataSource]="dataSource" class="tbl-itinerary bg">
-            <ng-container matColumnDef="imgSrc">
-                <th mat-header-cell *matHeaderCellDef><strong>Iti-Images</strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                   <img [src]="apiServerUrl + 'v1/public/' + element.imgSrc" alt="Itinerary Image" style="width: 100px; height: 60px;">
-                </td>
-            </ng-container>
-           
-            <ng-container matColumnDef="deleteAction">
-                <th mat-header-cell *matHeaderCellDef><strong>Delete</strong></th>
-                <td mat-cell *matCellDef="let element;">
-                    <button (click)="deleteAction(element.resImgId,element.imgSrc)" class="del-btn">Delete</button>
-                </td>
-            </ng-container>
+        <div class="container bg">
+            <table mat-table matSort [dataSource]="dataSource" class="tbl-itinerary bg">
+                <ng-container matColumnDef="imgSrc">
+                    <th mat-header-cell *matHeaderCellDef><strong>Iti-Images</strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <img [src]="apiServerUrl + 'v1/public/' + element.imgSrc" alt="Itinerary Image"
+                            style="width: 100px; height: 60px;">
+                    </td>
+                </ng-container>
 
-            <tr mat-header-row *matHeaderRowDef="residenceImageTableColumns"></tr>
-            <tr mat-row (click)="clickedRowsResidenceImage.add(row)"
-                [class.demo-row-is-clicked]="clickedRowsResidenceImage.has(row)"
-                *matRowDef="let row; columns: residenceImageTableColumns;">
-            </tr>
-        </table>
-    </div>
+                <ng-container matColumnDef="deleteAction">
+                    <th mat-header-cell *matHeaderCellDef><strong>Delete</strong></th>
+                    <td mat-cell *matCellDef="let element;">
+                        <button (click)="deleteAction(element.resImgId,element.imgSrc)" class="del-btn">Delete</button>
+                    </td>
+                </ng-container>
 
-</main></div>
+                <tr mat-header-row *matHeaderRowDef="residenceImageTableColumns"></tr>
+                <tr mat-row (click)="clickedRowsResidenceImage.add(row)"
+                    [class.demo-row-is-clicked]="clickedRowsResidenceImage.has(row)"
+                    *matRowDef="let row; columns: residenceImageTableColumns;">
+                </tr>
+            </table>
+        </div>
+    </main>
+</div>
+
+
+
+

@@ -4,7 +4,7 @@ import { Observable, catchError, of, throwError } from 'rxjs';
 import { TokenService } from '../token-service/token.service';
 import { environment } from '../../environments/environment';
 import { User } from '../app-interface/PartnerRegisterDTO';
-import { Residence, ResidenceImage } from '../app-interface/Residence';
+import { ResidencceAmentities, Residence, ResidenceImage } from '../app-interface/Residence';
 
 @Injectable({
   providedIn: 'root',
@@ -64,7 +64,7 @@ export class ApiService {
     return this.http.delete<any>(`${this.apiServerUrl}v1/admin/residences/${rid}`, options);
   }
 
-  
+
 
   //----------------------------------------------Residence Service API (Admin)------------------------------------------------------>
 
@@ -82,13 +82,38 @@ export class ApiService {
   //----------------------------------------------Residence Service API (Manager)------------------------------------------------------>
 
   deleteResidenceImageById(id: number, fileName: string): Observable<any> {
-        const options = {
+    const options = {
       headers: this.token.getContentLessHeadersWithAuthorization(),
     };
     return this.http.delete(`${this.apiServerUrl}v1/manager/residences/image/${id}/${fileName}`, options)
- 
-}
-  //----------------------------------------------Residence Service API (Punlic)------------------------------------------------------>
+
+  }
+  addUpdateResidenceAmentities(payload: ResidencceAmentities): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.post<any>(`${this.apiServerUrl}v1/manager/amentities`,payload, options)
+  }
+  deleteResidenceAmentitiesById(id: number): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.delete(`${this.apiServerUrl}v1/manager/amentities/${id}`, options)
+
+  }
+
+  getResidencesById(id:number): Observable<Residence> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.get<Residence>(
+      `${this.apiServerUrl}v1/manager/residence/${id}`,
+      options
+    );
+  }
+
+
+  //----------------------------------------------Residence Service API (Public)------------------------------------------------------>
 
   getAllResidenceImages(): Observable<ResidenceImage[]> {
     return this.http.get<ResidenceImage[]>(`${this.apiServerUrl}v1/public/`);
