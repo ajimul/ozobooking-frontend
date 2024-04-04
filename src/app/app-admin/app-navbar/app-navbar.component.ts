@@ -71,7 +71,6 @@ export class AppNavbarComponent {
     this.route.navigate(['admin-nav'], { replaceUrl: true });
   }
   addPartner() {
-    console.log('button clicked!');
     this.isMenuOpen = !this.isMenuOpen;
   }
 

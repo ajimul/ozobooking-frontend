@@ -55,16 +55,16 @@ export interface Residence {
   }
   
   export interface ResidencceRoomAmentities {
-    roomAmenId: number;
-    roomAmen_refId: number;
+    roomAmenId?: number;
+    roomAmen_refId?: number;
     roomAmenType: string;
     roomAmenGroupName: string;
     roomAmentitiesDetails: ResidencceRoomAmentitiesDetails[];
   }
   
   export interface ResidencceRoomAmentitiesDetails {
-    roomAmenDetailId: number;
-    roomAmenDetail_refId: number;
+    roomAmenDetailId?: number;
+    roomAmenDetail_refId?: number;
     roomAmenDetails: string;
   }
   

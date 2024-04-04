@@ -4,7 +4,7 @@ import { Observable, catchError, of, throwError } from 'rxjs';
 import { TokenService } from '../token-service/token.service';
 import { environment } from '../../environments/environment';
 import { User } from '../app-interface/PartnerRegisterDTO';
-import { ResidencceAmentities, Residence, ResidenceImage } from '../app-interface/Residence';
+import { ResidencceAmentities, ResidencceRoomAmentities, Residence, ResidenceImage } from '../app-interface/Residence';
 
 @Injectable({
   providedIn: 'root',
@@ -112,6 +112,20 @@ export class ApiService {
     );
   }
 
+  addUpdateResidenceRoomAmentities(payload: ResidencceRoomAmentities): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.post<any>(`${this.apiServerUrl}v1/manager/room/amentities`,payload, options)
+  }
+
+  deleteResidenceRoomAmentitiesById(id: number): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.delete(`${this.apiServerUrl}v1/manager/room/amentities/${id}`, options)
+
+  }
 
   //----------------------------------------------Residence Service API (Public)------------------------------------------------------>
 

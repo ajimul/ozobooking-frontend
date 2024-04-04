@@ -1,0 +1,111 @@
+<main>
+    <h2>Residence Rooms Amentities Group:</h2>
+    <form [formGroup]="amentitiesForm" name="xx">
+        <!-- style="display: none;" -->
+        <div>
+            <label for="autoId">Auto Selected Id:
+                <span
+                    *ngIf="amentitiesForm.get('roomAmen_refId')?.invalid && amentitiesForm.get('roomAmen_refId')?.touched"
+                    class="error-message">
+                    {{ getIdError('roomAmen_refId') }}
+                </span>
+                <input type="text" id="autoId" formControlName="roomAmen_refId" readonly>
+            </label>
+
+        </div>
+        <div id="child-AmentitiesGroup">
+            <label for="amentitiesGroupInput">Enter or Select Amentities Group:
+                <span
+                    *ngIf="amentitiesForm.get('roomAmenGroupName')?.invalid && amentitiesForm.get('roomAmenGroupName')?.touched"
+                    class="error-message">
+                    {{ getTextError('roomAmenGroupName') }}
+                </span>
+                <input type="text" id="amentitiesGroupInput" formControlName="roomAmenGroupName"
+                    [(ngModel)]="roomAmenGroupName" (focus)="toggleAmentitiesGroup(true)"
+                    (keyup)="toggleAmentitiesGroup(false)" (click)="toggleAmentitiesGroupOnClick()">
+
+                <select id="amentitiesGroupSelect" #GroupSelect (change)="selectionAmentitiesGroup(GroupSelect)"
+                    [style.display]="isAmentitiesGroup ? 'block' : 'none'">
+                    <option value="">Select Detail</option>
+                    <option *ngFor="let amentity of amentitiesGroupList" [value]="amentity.group">{{ amentity.group }}
+                    </option>
+
+                </select>
+            </label>
+        </div>
+        <div id="child-AmentitiesType">
+            <label for="amentitiesTypeInput">Enter or Select Amentities Type:
+                <span *ngIf="amentitiesForm.get('roomAmenType')?.invalid && amentitiesForm.get('roomAmenType')?.touched"
+                    class="error-message">
+                    {{ getTextError('roomAmenType') }}
+                </span>
+                <input type="text" id="amentitiesTypeInput" formControlName="roomAmenType" [(ngModel)]="roomAmenType"
+                    (focus)="toggleAmentitiesType(true)" (keyup)="toggleAmentitiesType(false)"
+                    (click)="toggleAmentitiesTypeOnClick()">
+
+                <select id="amentitiesTypeSelect" #TypeSelect (change)="selectionAmentitiesType(TypeSelect)"
+                    [style.display]="isAmentitiesType ? 'block' : 'none'">
+                    <option value="">Select Detail</option>
+                    <option *ngFor="let amentity of amentitiesTypeList" [value]="amentity.type">{{ amentity.type }}
+                    </option>
+
+                </select>
+            </label>
+        </div>
+        <div id="child-AmentitiesDetails">
+            <label for="amentitiesDetailsInput">Description:
+                <span
+                    *ngIf="amentitiesForm.get('roomAmenDetails')?.invalid && amentitiesForm.get('roomAmenDetails')?.touched"
+                    class="error-message">
+                    {{ getTextError('roomAmenDetails') }}
+                </span>
+                <input type="text" id="amentitiesDetailsInput" formControlName="roomAmenDetails">
+            </label>
+        </div>
+        <div>
+            <button type="button" (click)="formSubmit()">Add Amentities</button>
+        </div>
+    </form>
+    <table mat-table matSort [dataSource]="dataSource" class="residence-table">
+        <ng-container matColumnDef="roomAmenGroupName">
+            <th mat-header-cell *matHeaderCellDef><strong>Amentities-Group </strong></th>
+            <td mat-cell *matCellDef="let element; let i = index">
+                <input type="text" [(ngModel)]="element.roomAmenGroupName">
+                <div *ngIf="!element.roomAmenGroupName || element.roomAmenGroupName.trim().length === 0"
+                    class="error-message">Amentities Group is required.</div>
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="roomAmenType">
+            <th mat-header-cell *matHeaderCellDef><strong>Amentities-Type </strong></th>
+            <td mat-cell *matCellDef="let element; let i = index">
+                <input type="text" [(ngModel)]="element.roomAmenType">
+                <div *ngIf="!element.roomAmenType || element.roomAmenType.trim().length === 0" class="error-message">
+                    Amentities Type is required.</div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="roomAmenDetails">
+            <th mat-header-cell *matHeaderCellDef><strong>Amentities Details</strong></th>
+            <td mat-cell *matCellDef="let element; let i = index">
+                <input type="text" [(ngModel)]="element.roomAmenDetails">
+                <div *ngIf="!element.roomAmenDetails || element.roomAmenDetails.trim().length === 0"
+                    class="error-message">Amentities Details is required.</div>
+
+            </td>
+        </ng-container>
+        <ng-container matColumnDef="action">
+            <th mat-header-cell *matHeaderCellDef
+                style="text-align: center; align-items: center;justify-content: center;"><strong>Actions</strong></th>
+            <td mat-cell *matCellDef="let element; let i=index">
+                <span class="update-btn" (click)="updateAmentities(element)">Update</span>
+
+                <span class="delete-btn" (click)="deleteAmentities(element.roomAmenDetailId)">Delete</span>
+            </td>
+        </ng-container>
+
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;">
+        </tr>
+    </table>
+</main>

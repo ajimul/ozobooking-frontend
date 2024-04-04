@@ -1,12 +1,42 @@
 main {
-  display: block;
+  display: flex;
   flex-wrap: nowrap;
   overflow: auto;
   justify-content: center;
-  align-items: center;
+  /* align-items: center; */
   text-align: center;
-  /* border: red solid 1px; */
+  border: red solid 1px;
 }
+.flex-left{
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+flex-grow: 0;
+flex-shrink: 0;
+min-width: 15%;
+border: red solid 1px;
+margin: 5px;
+padding: 5px;
+overflow-y: scroll;
+
+}
+.flex-right{
+display: flex;
+flex-direction: column;
+flex-wrap: wrap;
+flex-grow: 0;
+flex-shrink: 0;
+border: red solid 1px;
+margin: 5px;
+padding: 5px;
+}
+
+
+
+
+
+
+
 
 .residence-table {
   width: 100%;

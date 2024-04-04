@@ -60,7 +60,7 @@
             <th mat-header-cell *matHeaderCellDef><strong>Amentities Details</strong></th>
             <td mat-cell *matCellDef="let element; let i = index">
                 <input type="text" [(ngModel)]="element.resiAmenDetails">
-                <div *ngIf="!element.resiAmenGroupName || element.resiAmenGroupName.trim().length === 0" class="error-message">Amentities Details is required.</div>
+                <div *ngIf="!element.resiAmenDetails || element.resiAmenDetails.trim().length === 0" class="error-message">Amentities Details is required.</div>
 
             </td>
         </ng-container>

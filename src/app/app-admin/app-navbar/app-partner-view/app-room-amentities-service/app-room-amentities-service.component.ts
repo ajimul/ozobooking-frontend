@@ -1,46 +1,50 @@
+import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, HostListener, Inject, ViewChild } from '@angular/core';
-import { ApiService } from '../../../../api-service/api-service.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { CommonModule } from '@angular/common';
-import { ResidencceAmentities, Residence } from '../../../../app-interface/Residence';
-import { ResidencceAmentitiesDTO } from '../../../../app-interface/ResidencceAmentitiesDTO';
+import { ApiService } from '../../../../api-service/api-service.service';
+import { ResidencceRoomAmentities, Residence, ResidenceRooms } from '../../../../app-interface/Residence';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
+import { RoomAmentitiesDTO } from '../../../../app-interface/RoomAmentitiesDTO';
 import { CustomValidation } from '../../../../app-validator/custom-validation';
-import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
-  selector: 'app-app-residence-amentities-service',
+  selector: 'app-app-room-amentities-service',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule],
-  templateUrl: './app-residence-amentities-service.component.html',
-  styleUrl: './app-residence-amentities-service.component.css'
+  templateUrl: './app-room-amentities-service.component.html',
+  styleUrl: './app-room-amentities-service.component.css'
 })
-export class AppResidenceAmentitiesServiceComponent {
-  amentities: ResidencceAmentitiesDTO[] = []
+export class AppRoomAmentitiesServiceComponent {
+  amentities: RoomAmentitiesDTO[] = []
   amentitiesForm!: FormGroup
-  dataSource = new MatTableDataSource<ResidencceAmentitiesDTO>(this.amentities);
+  dataSource = new MatTableDataSource<RoomAmentitiesDTO>(this.amentities);
   tableColumns = [
-    'resiAmenGroupName',
-    'resiAmenDetails',
+    'roomAmenGroupName',
+    'roomAmenType',
+    'roomAmenDetails',
     'action',
   ];
   constructor(
     private apiService: ApiService,
-    @Inject(MAT_DIALOG_DATA) public data: Residence[],
+    @Inject(MAT_DIALOG_DATA) public data: ResidenceRooms[],
     private validationService: CustomValidationService,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<AppResidenceAmentitiesServiceComponent>,
+    private dialogRef: MatDialogRef<AppRoomAmentitiesServiceComponent>,
     private cdr: ChangeDetectorRef
   ) { }
-  resiAmenGroupName: any = "";
+  roomAmenType: any = "";
+  roomAmenGroupName: any = "";
+
   createSubmitForm() {
     this.amentitiesForm = this.fb.group({
-      resiAmen_refId: new FormControl(Array.from(this.data)[0].residenceId, [Validators.required, CustomValidation.idValidation(1)]),
-      resiAmenGroupName: new FormControl(this.resiAmenGroupName, [Validators.required, CustomValidation.textValidation(1, 100)]),
-      resiAmenDetails: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
+      roomAmen_refId: new FormControl(Array.from(this.data)[0].roomId, [Validators.required, CustomValidation.idValidation(1)]),
+      roomAmenType: new FormControl(this.roomAmenType, [Validators.required, CustomValidation.textValidation(1, 100)]),
+      roomAmenGroupName: new FormControl(this.roomAmenGroupName, [Validators.required, CustomValidation.textValidation(1, 100)]),
+      roomAmenDetails: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
 
     })
   }
@@ -54,29 +58,37 @@ export class AppResidenceAmentitiesServiceComponent {
     return control
       ? this.validationService.getTextValidationError(control, '*', '*', '*', '*', '*', '*') : null;
   }
+
+  amentitiesTypeList: { type: string }[] = [];
   amentitiesGroupList: { group: string }[] = [];
   getTableData(): void {
-
-    this.apiService.getResidencesById(Array.from(this.data)[0].residenceId).subscribe({
+    this.apiService.getResidencesById(Array.from(this.data)[0].roomResidence_refId).subscribe({
       next: (value) => {
         this.amentities = [];
         const newData: any = []
+        this.amentitiesTypeList = [];
         this.amentitiesGroupList = [];
-        value.residencceAmentities.forEach(a => {
-          this.amentitiesGroupList.push({
-            group: a.resiAmenGroupName
-          })
-          a.reseAmentitiesDetails.forEach(ad => {
-            newData.push({
-              resiAmenId: a.resiAmenId,
-              resiAmen_refId: a.resiAmen_refId,
-              resiAmenGroupName: a.resiAmenGroupName,
-              resiAmenDetailId: ad.resiAmenDetailId,
-              resiAmenDetail_refId: ad.resiAmenDetail_refId,
-              resiAmenDetails: ad.resiAmenDetails,
+        value.residenceRooms.forEach(room => {
+          room.roomAmentities.forEach(a => {
+            this.amentitiesGroupList.push({
+              group: a.roomAmenGroupName
+            })
+            this.amentitiesTypeList.push({
+              type: a.roomAmenType
+            })
+            a.roomAmentitiesDetails.forEach(ad => {
+              newData.push({
+                roomAmenId: a.roomAmenId,
+                roomAmen_refId: a.roomAmen_refId,
+                roomAmenType: a.roomAmenType,
+                roomAmenGroupName: a.roomAmenGroupName,
+                roomAmenDetailId: ad.roomAmenDetailId,
+                roomAmenDetail_refId: ad.roomAmenDetail_refId,
+                roomAmenDetails: ad.roomAmenDetails,
+              });
             });
-          })
-        })
+          });
+        });
         this.dataSource.data = [];
         this.amentities = newData
       },
@@ -85,7 +97,7 @@ export class AppResidenceAmentitiesServiceComponent {
         alert('Error')
       },
       complete: () => {
-        this.dataSource = new MatTableDataSource<ResidencceAmentitiesDTO>(this.amentities);
+        this.dataSource = new MatTableDataSource<RoomAmentitiesDTO>(this.amentities);
       }
     });
   }
@@ -93,46 +105,48 @@ export class AppResidenceAmentitiesServiceComponent {
     // Clear the array before populating it with new data
     this.amentities = [];
     const newData: any = []
-
-    // Populate the amentities array with new data
     this.data.forEach(residence => {
-      this.amentitiesGroupList = [];
-      residence.residencceAmentities.forEach(residencceAmentities => {
+      // residence.residenceRooms.forEach(room => {
+      residence.roomAmentities.forEach(a => {
         this.amentitiesGroupList.push({
-          group: residencceAmentities.resiAmenGroupName
+          group: a.roomAmenGroupName
         })
-        residencceAmentities.reseAmentitiesDetails.forEach(reseAmentitiesDetails => {
+        this.amentitiesTypeList.push({
+          type: a.roomAmenType
+        })
+        a.roomAmentitiesDetails.forEach(ad => {
           newData.push({
-            resiAmenId: residencceAmentities.resiAmenId,
-            resiAmen_refId: residence.residenceId,
-            resiAmenGroupName: residencceAmentities.resiAmenGroupName,
-            resiAmenDetailId: reseAmentitiesDetails.resiAmenDetailId,
-            resiAmenDetail_refId: residencceAmentities.resiAmenId,
-            resiAmenDetails: reseAmentitiesDetails.resiAmenDetails,
+            roomAmenId: a.roomAmenId,
+            roomAmen_refId: a.roomAmen_refId,
+            roomAmenType: a.roomAmenType,
+            roomAmenGroupName: a.roomAmenGroupName,
+            roomAmenDetailId: ad.roomAmenDetailId,
+            roomAmenDetail_refId: ad.roomAmenDetail_refId,
+            roomAmenDetails: ad.roomAmenDetails,
           });
         });
       });
+      // });
     });
     this.dataSource.data = [];
     this.amentities = newData
-    this.dataSource = new MatTableDataSource<ResidencceAmentitiesDTO>(this.amentities);
+    this.dataSource = new MatTableDataSource<RoomAmentitiesDTO>(this.amentities);
 
   }
-
 
   ngOnInit(): void {
     this.setAmentitiesTableData();
     this.createSubmitForm();
   }
 
-  
- 
+
+
 
   @ViewChild('amentitiesGroupInput') amentitiesGroupInput: any;
   isAmentitiesGroup: boolean = false;
   selectionAmentitiesGroup(selectElement: any) {
     const selectedValue = selectElement.value;
-    this.resiAmenGroupName = selectedValue;
+    this.roomAmenGroupName = selectedValue;
     this.isAmentitiesGroup = false;
     this.cdr.detectChanges();
   }
@@ -143,7 +157,21 @@ export class AppResidenceAmentitiesServiceComponent {
     this.isAmentitiesGroup = true;
   }
 
+  @ViewChild('amentitiesTypeInput') amentitiesTypeInput: any;
+  isAmentitiesType: boolean = false;
+  selectionAmentitiesType(selectElement: any) {
+    const selectedValue = selectElement.value;
+    this.roomAmenType = selectedValue;
+    this.isAmentitiesType = false;
+    this.cdr.detectChanges();
+  }
 
+  toggleAmentitiesType(visible: boolean) {
+    this.isAmentitiesType = visible;
+  }
+  toggleAmentitiesTypeOnClick() {
+    this.isAmentitiesType = true;
+  }
   @HostListener('document:mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
     const target = event.target as HTMLElement;
@@ -152,7 +180,6 @@ export class AppResidenceAmentitiesServiceComponent {
       this.isAmentitiesGroup = false;
     }
   }
-
   isDescendant(parent: HTMLElement, child: HTMLElement): boolean {
     let node = child.parentNode;
     while (node != null) {
@@ -167,16 +194,18 @@ export class AppResidenceAmentitiesServiceComponent {
   formSubmit() {
     this.markFormGroupTouched(this.amentitiesForm);
     if (this.amentitiesForm.valid) {
-      const payload: ResidencceAmentities = {
-        resiAmen_refId: this.amentitiesForm.get('resiAmen_refId')?.value,
-        resiAmenGroupName: this.amentitiesForm.get('resiAmenGroupName')?.value,
-        reseAmentitiesDetails: [
+      const payload: ResidencceRoomAmentities = {
+        roomAmen_refId: this.amentitiesForm.get('roomAmen_refId')?.value,
+        roomAmenGroupName: this.amentitiesForm.get('roomAmenGroupName')?.value,
+        roomAmenType: this.amentitiesForm.get('roomAmenType')?.value,
+        roomAmentitiesDetails: [
           {
-            resiAmenDetails: this.amentitiesForm.get('resiAmenDetails')?.value,
+            roomAmenDetails: this.amentitiesForm.get('roomAmenDetails')?.value,
           }
         ]
       };
-      this.apiService.addUpdateResidenceAmentities(payload).subscribe({
+
+      this.apiService.addUpdateResidenceRoomAmentities(payload).subscribe({
         next: (value) => {
           alert('Success')
         },
@@ -203,28 +232,26 @@ export class AppResidenceAmentitiesServiceComponent {
     });
   }
 
-  // isInputValid: boolean = true;
-
-
   updateAmentities($event: any): void {
-    let amentitiesGroup: string = $event.resiAmenGroupName
-    let amentitiesGroupDetails: string = $event.resiAmenDetails
+
+    let amentitiesGroup: string = $event.roomAmenGroupName
+    let amentitiesGroupDetails: string = $event.roomAmenDetails
     if (amentitiesGroup.trim().length > 0
       && amentitiesGroupDetails.trim().length > 0) {
-      const payload: ResidencceAmentities = {
-        resiAmenId: $event.resiAmenId,
-        resiAmen_refId: $event.resiAmen_refId,
-        resiAmenGroupName: $event.resiAmenGroupName,
-        reseAmentitiesDetails: [
+      const payload: ResidencceRoomAmentities = {
+        roomAmenId: $event.roomAmenId,
+        roomAmen_refId: $event.roomAmen_refId,
+        roomAmenGroupName: $event.roomAmenGroupName,
+        roomAmenType: $event.roomAmenType,
+        roomAmentitiesDetails: [
           {
-            resiAmenDetailId: $event.resiAmenDetailId,
-            resiAmenDetail_refId: $event.resiAmenDetail_refId,
-            resiAmenDetails: $event.resiAmenDetails,
-
+            roomAmenDetailId: $event.roomAmenDetailId,
+            roomAmenDetail_refId: $event.roomAmenDetail_refId,
+            roomAmenDetails: $event.roomAmenDetails,
           }
         ]
       };
-      this.apiService.addUpdateResidenceAmentities(payload).subscribe({
+      this.apiService.addUpdateResidenceRoomAmentities(payload).subscribe({
         next: (value) => {
           alert('Success')
         },
@@ -241,7 +268,7 @@ export class AppResidenceAmentitiesServiceComponent {
 
   }
   deleteAmentities($event: number): void {
-    this.apiService.deleteResidenceAmentitiesById($event)
+    this.apiService.deleteResidenceRoomAmentitiesById($event)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
@@ -266,6 +293,4 @@ export class AppResidenceAmentitiesServiceComponent {
         },
       })
   }
-
-
 }
