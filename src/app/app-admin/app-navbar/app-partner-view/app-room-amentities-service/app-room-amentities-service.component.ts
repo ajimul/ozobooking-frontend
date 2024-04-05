@@ -36,13 +36,12 @@ export class AppRoomAmentitiesServiceComponent {
     private dialogRef: MatDialogRef<AppRoomAmentitiesServiceComponent>,
     private cdr: ChangeDetectorRef
   ) { }
-  roomAmenType: any = "";
   roomAmenGroupName: any = "";
 
   createSubmitForm() {
     this.amentitiesForm = this.fb.group({
       roomAmen_refId: new FormControl(Array.from(this.data)[0].roomId, [Validators.required, CustomValidation.idValidation(1)]),
-      roomAmenType: new FormControl(this.roomAmenType, [Validators.required, CustomValidation.textValidation(1, 100)]),
+      roomAmenType: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
       roomAmenGroupName: new FormControl(this.roomAmenGroupName, [Validators.required, CustomValidation.textValidation(1, 100)]),
       roomAmenDetails: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
 
@@ -157,21 +156,6 @@ export class AppRoomAmentitiesServiceComponent {
     this.isAmentitiesGroup = true;
   }
 
-  @ViewChild('amentitiesTypeInput') amentitiesTypeInput: any;
-  isAmentitiesType: boolean = false;
-  selectionAmentitiesType(selectElement: any) {
-    const selectedValue = selectElement.value;
-    this.roomAmenType = selectedValue;
-    this.isAmentitiesType = false;
-    this.cdr.detectChanges();
-  }
-
-  toggleAmentitiesType(visible: boolean) {
-    this.isAmentitiesType = visible;
-  }
-  toggleAmentitiesTypeOnClick() {
-    this.isAmentitiesType = true;
-  }
   @HostListener('document:mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
     const target = event.target as HTMLElement;

@@ -39,17 +39,7 @@
                     class="error-message">
                     {{ getTextError('roomAmenType') }}
                 </span>
-                <input type="text" id="amentitiesTypeInput" formControlName="roomAmenType" [(ngModel)]="roomAmenType"
-                    (focus)="toggleAmentitiesType(true)" (keyup)="toggleAmentitiesType(false)"
-                    (click)="toggleAmentitiesTypeOnClick()">
-
-                <select id="amentitiesTypeSelect" #TypeSelect (change)="selectionAmentitiesType(TypeSelect)"
-                    [style.display]="isAmentitiesType ? 'block' : 'none'">
-                    <option value="">Select Detail</option>
-                    <option *ngFor="let amentity of amentitiesTypeList" [value]="amentity.type">{{ amentity.type }}
-                    </option>
-
-                </select>
+                <input id="amentitiesTypeInput" formControlName="roomAmenType">
             </label>
         </div>
         <div id="child-AmentitiesDetails">

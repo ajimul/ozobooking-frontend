@@ -1,31 +1,29 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, Inject } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { environment } from '../../../../../environments/environment';
+import {  ResidenceRooms, ResidenceRoomsImages } from '../../../../app-interface/Residence';
 import { ApiService } from '../../../../api-service/api-service.service';
+import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CustomValidation } from '../../../../app-validator/custom-validation';
-import { ResidenceImage } from '../../../../app-interface/Residence';
-import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
 import { HttpErrorResponse } from '@angular/common/http';
-import { environment } from '../../../../../environments/environment';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { catchError } from 'rxjs';
 
-
 @Component({
-  selector: 'app-app-residence-image-service',
+  selector: 'app-app-room-images-service',
   standalone: true,
-  imports: [ ReactiveFormsModule, CommonModule, MatTableModule],
-  templateUrl: './app-residence-image-service.component.html',
-  styleUrl: './app-residence-image-service.component.css'
+  imports: [ReactiveFormsModule, CommonModule, MatTableModule],
+  templateUrl: './app-room-images-service.component.html',
+  styleUrl: './app-room-images-service.component.css'
 })
-export class AppResidenceImageServiceComponent {
+export class AppRoomImagesServiceComponent {
   apiServerUrl = environment.apiBaseUrl;
-  residenceImage: ResidenceImage[] = [];
-  dataSource = new MatTableDataSource<ResidenceImage>(this.residenceImage);
-  residanceForm!: FormGroup;
-  clickedRowsResidenceImage = new Set<ResidenceImage>();
-  residenceImageTableColumns = [
+  residenceRoomsImages: ResidenceRoomsImages[] = [];
+  dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
+  roomImageForm!: FormGroup;
+  roomImageTableColumns = [
     'imgSrc',
     'deleteAction',
   ];
@@ -33,28 +31,37 @@ export class AppResidenceImageServiceComponent {
     private apiService: ApiService,
     private validationService: CustomValidationService,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: any,
-    private dialogRef: MatDialogRef<AppResidenceImageServiceComponent>) { }
+    @Inject(MAT_DIALOG_DATA) public data: ResidenceRooms,
+    private dialogRef: MatDialogRef<AppRoomImagesServiceComponent>) {
+    this.setMatTableDatasource();
 
+  }
 
-  ngOnInit(): void {
-    this.getResidenceImages();
-    this.residanceForm = this.fb.group({
-      residenceImagesRefId: new FormControl(this.data.residenceId, [Validators.required,
+  setMatTableDatasource() {
+    this.residenceRoomsImages = Array.from(this.data.roomImages)
+    this.dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
+  }
+
+  setFormField() {
+    this.roomImageForm = this.fb.group({
+      imagResidenceRoom_refId: new FormControl(this.data.roomId, [Validators.required,
       CustomValidation.idValidation(1),]),
       imgSrc: new FormControl("", [
         Validators.required, CustomValidation.textValidation(1, 100)
       ]),
     })
   }
-
+  ngOnInit(): void {
+    this.setFormField();
+  }
+// Validation
   getIdError(controlName: string): string | null {
-    const control = this.residanceForm.get(controlName);
+    const control = this.roomImageForm.get(controlName);
     return control
       ? this.validationService.getIdValidationError(control) : null;
   }
   getFileError(controlName: string): string | null {
-    const control = this.residanceForm.get(controlName);
+    const control = this.roomImageForm.get(controlName);
     return control
       ? this.validationService.getTextValidationError(control, '*', '*', '*', '*', '*', '*') : null;
   }
@@ -67,10 +74,10 @@ export class AppResidenceImageServiceComponent {
       this.file = Array.from(selectedFiles) as File[];
     }
   }
-  addResidenceImage() {
+  addRoomImage() {
     // Check if the form is valid
-    if (this.residanceForm.invalid) {
-      this.residanceForm.markAllAsTouched();
+    if (this.roomImageForm.invalid) {
+      this.roomImageForm.markAllAsTouched();
       return;
     }
 
@@ -82,10 +89,10 @@ export class AppResidenceImageServiceComponent {
 
     // Proceed with file upload if the form is valid and a file is selected
     const files: File[] = this.file;
-    this.apiService.uploadResidenceImages(this.data.residenceId, files).subscribe({
+    this.apiService.uploadResidenceRoomImages(this.data.roomId, files).subscribe({
       next: (response) => {
         this.file = [];
-        this.residanceForm.get('imgSrc')?.reset(); // Reset the value of the file input control
+        this.roomImageForm.get('imgSrc')?.reset(); // Reset the value of the file input control
         alert(response.message);
       },
       error: (error) => {
@@ -101,29 +108,28 @@ export class AppResidenceImageServiceComponent {
         alert(errorMessage);
       },
       complete: () => {
-        this.getResidenceImages();
-        console.log('complete');
+        this.getRoomImages();
       }
     });
   }
-  getResidenceImages() {
-    this.apiService.getAllResidenceImages().subscribe({
+  getRoomImages() {
+    this.apiService.getRoomImagesByRoomId(this.data.roomId).subscribe({
       next: (value) => {
-        this.residenceImage = value;
+        this.dataSource.data = [];
+        this.residenceRoomsImages = [];
+        this.residenceRoomsImages = value;
+        console.log('value', value)
       },
       error: (err) => {
-
+        console.log(err);
       },
       complete: () => {
-        this.dataSource = new MatTableDataSource<ResidenceImage>(this.residenceImage);
+        this.dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
       },
     })
   }
-
-
-
   deleteAction(id: any, fileName: any) {
-    this.apiService.deleteResidenceImageById(id, fileName)
+    this.apiService.deleteResidenceRoomImageById(id, fileName)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
@@ -144,10 +150,8 @@ export class AppResidenceImageServiceComponent {
           alert('File Not Found!');
         },
         complete: () => {
-          this.getResidenceImages()
+          this.getRoomImages()
         },
       })
   }
-
-
 }

@@ -49,8 +49,8 @@ export interface Residence {
   }
   
   export interface ResidenceRoomsImages {
-    imagId: number;
-    imagResidenceRoom_refId: number;
+    imagId?: number;
+    imagResidenceRoom_refId?: number;
     imgSrc: string;
   }
   
