@@ -4,7 +4,7 @@ import { Observable, catchError, of, throwError } from 'rxjs';
 import { TokenService } from '../token-service/token.service';
 import { environment } from '../../environments/environment';
 import { User } from '../app-interface/PartnerRegisterDTO';
-import { ResidencceAmentities, ResidencceRoomAmentities, Residence, ResidenceImage, ResidenceRoomsImages } from '../app-interface/Residence';
+import { ResidencceAmentities, ResidencceRoomAmentities, Residence, ResidenceImage, ResidenceRoomsImages, ResidenceRoomsPolicy } from '../app-interface/Residence';
 
 @Injectable({
   providedIn: 'root',
@@ -151,6 +151,39 @@ export class ApiService {
     return this.http.delete(`${this.apiServerUrl}v1/manager/residences/room/image/${id}/${fileName}`, options)
 
   }
+
+
+  //----------------------------------------------Residence Room Policy Service API (Public)------------------------------------------------------>
+  addUpdateResidenceRoomPolicy(residenceRoomsPolicy: ResidenceRoomsPolicy): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.post<any>(`${this.apiServerUrl}v1/manager/residences/room/policy`, residenceRoomsPolicy, options)
+
+  }
+  getRoomPolicyByRoomId(roomId: number): Observable<ResidenceRoomsPolicy[]> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.get<ResidenceRoomsPolicy[]>(`${this.apiServerUrl}v1/manager/residences/room/policy/${roomId}`, options);
+  }
+
+  deleteResidenceRoomsPolicyDetailsById(roomPolicyDetailsId: number,): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.delete(`${this.apiServerUrl}v1/manager/residences/room/policy/details/${roomPolicyDetailsId}`, options)
+
+  }
+  deleteResidenceRoomsPolicyById(roomPolicyId: number,): Observable<any> {
+    const options = {
+      headers: this.token.getContentLessHeadersWithAuthorization(),
+    };
+    return this.http.delete(`${this.apiServerUrl}v1/manager/residences/room/policy/${roomPolicyId}`, options)
+
+  }
+
+
 
 
   //----------------------------------------------Residence Service API (Public)------------------------------------------------------>

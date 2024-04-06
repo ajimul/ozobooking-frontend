@@ -75,15 +75,15 @@ export interface Residence {
   }
   
   export interface ResidenceRoomsPolicy {
-    roomPolicyId: number;
-    roomPolicyRoom_refId: number;
+    roomPolicyId?: number;
+    roomPolicyRoom_refId?: number;
     roomPolicyName: string;
     roomsPolicyDetails: ResidenceRoomsPolicyDetails[];
   }
   
   export interface ResidenceRoomsPolicyDetails {
-    roomPolicyDetailsId: number;
-    roomPolicyDetails_refId: number;
+    roomPolicyDetailsId?: number;
+    roomPolicyDetails_refId?: number;
     roomPolicyDescription: string;
   }
   

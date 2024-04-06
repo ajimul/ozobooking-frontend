@@ -58,23 +58,21 @@ export class AppRoomAmentitiesServiceComponent {
       ? this.validationService.getTextValidationError(control, '*', '*', '*', '*', '*', '*') : null;
   }
 
-  amentitiesTypeList: { type: string }[] = [];
+
   amentitiesGroupList: { group: string }[] = [];
   getTableData(): void {
     this.apiService.getResidencesById(Array.from(this.data)[0].roomResidence_refId).subscribe({
       next: (value) => {
         this.amentities = [];
         const newData: any = []
-        this.amentitiesTypeList = [];
+    
         this.amentitiesGroupList = [];
         value.residenceRooms.forEach(room => {
           room.roomAmentities.forEach(a => {
             this.amentitiesGroupList.push({
               group: a.roomAmenGroupName
             })
-            this.amentitiesTypeList.push({
-              type: a.roomAmenType
-            })
+        
             a.roomAmentitiesDetails.forEach(ad => {
               newData.push({
                 roomAmenId: a.roomAmenId,
@@ -110,9 +108,7 @@ export class AppRoomAmentitiesServiceComponent {
         this.amentitiesGroupList.push({
           group: a.roomAmenGroupName
         })
-        this.amentitiesTypeList.push({
-          type: a.roomAmenType
-        })
+    
         a.roomAmentitiesDetails.forEach(ad => {
           newData.push({
             roomAmenId: a.roomAmenId,

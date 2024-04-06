@@ -275,12 +275,12 @@ export class AppPartnerViewComponent {
       // this.getResidenceTableData();
     });
   }
-  roomPolicyService(residenceId: any) {
+  roomPolicyService(element: ResidenceRooms) {
 
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
-    config.data = { residenceId };
+    config.data = element;
     const dialogRef = this.dialog.open(AppRoomPolicyServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       // this.getResidenceTableData();
@@ -292,7 +292,7 @@ export class AppPartnerViewComponent {
         break;
       case '2': this.roomsAmentitiesService();
         break;
-      case '3': this.roomPolicyService(roomId);
+      case '3': this.roomPolicyService(element);
         break;
       default:
         // Handle other cases if needed
