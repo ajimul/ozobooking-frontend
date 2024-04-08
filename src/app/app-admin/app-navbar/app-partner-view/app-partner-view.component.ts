@@ -92,7 +92,7 @@ export class AppPartnerViewComponent {
   //Residence MatTable DataSource 
   residence: Residence[] = [];
   residenceDataSource = new MatTableDataSource<Residence>(this.residence);
-  residenceTableRow = new Set<Residence>();
+  // residenceTableRow = new Set<Residence>();
   residenceTableColumns = [
     'residenceId',
     'residenceName',
@@ -106,12 +106,12 @@ export class AppPartnerViewComponent {
   applyResidenceFilter($event: any) {
     this.residenceDataSource.filter = $event.target.value;
   }
-  getResidenceTableRow(row: any) {
-    this.residenceTableRow.clear();
-    this.residenceTableRow.add(row);
+  // getResidenceTableRow(row: any) {
+  //   this.residenceTableRow.clear();
+  //   this.residenceTableRow.add(row);
    
 
-  }
+  // }
   addPartner() {
     const config = new MatDialogConfig<any>();
     config.width = '40%';
@@ -173,11 +173,11 @@ export class AppPartnerViewComponent {
       // this.getResidenceTableData();
     });
   }
-  residenceAmentitiesService() {
+  residenceAmentitiesService(element:Residence) {
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
-    config.data = this.residenceTableRow;
+    config.data = element;
     const dialogRef = this.dialog.open(AppResidenceAmentitiesServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       this.clearSelection('residenceDialogRefSet');
@@ -195,11 +195,11 @@ export class AppPartnerViewComponent {
       // this.getResidenceTableData();
     });
   }
-  residenceRoomService(residenceId: any) {
+  residenceRoomService(element: Residence) {
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
-    config.data = { residenceId };
+    config.data = element;
     const dialogRef = this.dialog.open(AppResidenceRoomsServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       this.clearSelection('residenceDialogRefSet');
@@ -207,17 +207,17 @@ export class AppPartnerViewComponent {
     });
   }
 
-  onResidenceSelectionChange(residenceDialogRefSet: HTMLSelectElement, residenceId: any): void {
+  onResidenceSelectionChange(residenceDialogRefSet: HTMLSelectElement, element: Residence): void {
     switch (residenceDialogRefSet.value) {
-      case '1': this.residenceAgreementService(residenceId);
+      case '1': this.residenceAgreementService(element.residenceId);
         break;
-      case '2': this.residenceImageService(residenceId);
+      case '2': this.residenceImageService(element.residenceId);
         break;
-      case '3': this.residenceAmentitiesService();
+      case '3': this.residenceAmentitiesService(element);
         break;
-      case '4': this.residenceLocationService(residenceId);
+      case '4': this.residenceLocationService(element.residenceId);
         break;
-      case '5': this.residenceRoomService(residenceId);
+      case '5': this.residenceRoomService(element);
         break;
       default:
         // Handle other cases if needed

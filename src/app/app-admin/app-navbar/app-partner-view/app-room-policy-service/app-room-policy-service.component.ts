@@ -44,7 +44,7 @@ export class AppRoomPolicyServiceComponent {
   }
 
   setMatTableDatasource() {
-    let roomPolicies = Array.from(this.data.roomPolicies);
+    let roomPolicies = Array.from(this.data.roomPolicies!);
     this.moomPolicyDTO = [];
     roomPolicies.forEach(policys => {
       policys.roomsPolicyDetails.forEach(policysDetails => {
@@ -63,7 +63,7 @@ export class AppRoomPolicyServiceComponent {
 
   roomPoliciesList: { policy: string }[] = [];
   getRoomPolicys() {
-    this.apiService.getRoomPolicyByRoomId(this.data.roomId).subscribe({
+    this.apiService.getRoomPolicyByRoomId(this.data.roomId!).subscribe({
       next: (value) => {
         let roomPolicies = Array.from(value);
         this.moomPolicyDTO = [];

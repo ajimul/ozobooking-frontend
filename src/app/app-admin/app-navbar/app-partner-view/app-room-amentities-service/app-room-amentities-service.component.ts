@@ -61,14 +61,14 @@ export class AppRoomAmentitiesServiceComponent {
 
   amentitiesGroupList: { group: string }[] = [];
   getTableData(): void {
-    this.apiService.getResidencesById(Array.from(this.data)[0].roomResidence_refId).subscribe({
+    this.apiService.getResidencesById(Array.from(this.data)[0].roomResidence_refId!).subscribe({
       next: (value) => {
         this.amentities = [];
         const newData: any = []
     
         this.amentitiesGroupList = [];
         value.residenceRooms.forEach(room => {
-          room.roomAmentities.forEach(a => {
+          room.roomAmentities!.forEach(a => {
             this.amentitiesGroupList.push({
               group: a.roomAmenGroupName
             })
@@ -104,7 +104,7 @@ export class AppRoomAmentitiesServiceComponent {
     const newData: any = []
     this.data.forEach(residence => {
       // residence.residenceRooms.forEach(room => {
-      residence.roomAmentities.forEach(a => {
+      residence.roomAmentities!.forEach(a => {
         this.amentitiesGroupList.push({
           group: a.roomAmenGroupName
         })

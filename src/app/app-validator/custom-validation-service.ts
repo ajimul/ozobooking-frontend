@@ -117,11 +117,10 @@ export class CustomValidationService {
 
   getNumberValidationError(control: AbstractControl): string | null {
     if (control.errors) {
-      // Access error properties using bracket notation
-      if (control.errors['required']) { // Access with ['required']
-        const minLength = control.errors['minLength'];
+      if (control.errors['required']) { 
+        const minLength = control.errors['required'];
         return `${minLength}`;
-      }
+      }      
       if (control.errors['notANumber']) {
         const notANumber = control.errors['notANumber'];
         return `${notANumber}`;
@@ -147,6 +146,7 @@ export class CustomValidationService {
         const minLength = control.errors['required'];
         return `${minLength}`;
       }
+
       if (control.errors['notANumber']) {
         const notANumber = control.errors['notANumber'];
         return `${notANumber}`;

@@ -15,8 +15,8 @@ export interface Residence {
   }
   
   export interface ResidenceRooms {
-    roomId: number;
-    roomResidence_refId: number;
+    roomId?: number;
+    roomResidence_refId?: number;
     roomType: string;
     roomAvailability: string;
     roomBedType: string;
@@ -25,11 +25,11 @@ export interface Residence {
     roomDiscount: number;
     roomDescription: string;
     roomIssueDate: string; // Assuming LocalDate is serialized as string
-    roomBooking: ResidenceRoomsBooking[];
-    roomImages: ResidenceRoomsImages[];
-    roomAmentities: ResidencceRoomAmentities[];
-    roomCommant: ResidenceRoomsCommants[];
-    roomPolicies: ResidenceRoomsPolicy[];
+    roomBooking?: ResidenceRoomsBooking[];
+    roomImages?: ResidenceRoomsImages[];
+    roomAmentities?: ResidencceRoomAmentities[];
+    roomCommant?: ResidenceRoomsCommants[];
+    roomPolicies?: ResidenceRoomsPolicy[];
   }
   
   export interface ResidenceRoomsBooking {

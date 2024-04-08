@@ -38,7 +38,7 @@ export class AppRoomImagesServiceComponent {
   }
 
   setMatTableDatasource() {
-    this.residenceRoomsImages = Array.from(this.data.roomImages)
+    this.residenceRoomsImages = Array.from(this.data.roomImages!)
     this.dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
   }
 
@@ -89,7 +89,7 @@ export class AppRoomImagesServiceComponent {
 
     // Proceed with file upload if the form is valid and a file is selected
     const files: File[] = this.file;
-    this.apiService.uploadResidenceRoomImages(this.data.roomId, files).subscribe({
+    this.apiService.uploadResidenceRoomImages(this.data.roomId!, files).subscribe({
       next: (response) => {
         this.file = [];
         this.roomImageForm.get('imgSrc')?.reset(); // Reset the value of the file input control
@@ -113,7 +113,7 @@ export class AppRoomImagesServiceComponent {
     });
   }
   getRoomImages() {
-    this.apiService.getRoomImagesByRoomId(this.data.roomId).subscribe({
+    this.apiService.getRoomImagesByRoomId(this.data.roomId!).subscribe({
       next: (value) => {
         this.dataSource.data = [];
         this.residenceRoomsImages = [];

@@ -29,7 +29,7 @@ export class AppResidenceAmentitiesServiceComponent {
   ];
   constructor(
     private apiService: ApiService,
-    @Inject(MAT_DIALOG_DATA) public data: Residence[],
+    @Inject(MAT_DIALOG_DATA) public data: Residence,
     private validationService: CustomValidationService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AppResidenceAmentitiesServiceComponent>,
@@ -38,7 +38,7 @@ export class AppResidenceAmentitiesServiceComponent {
   resiAmenGroupName: any = "";
   createSubmitForm() {
     this.amentitiesForm = this.fb.group({
-      resiAmen_refId: new FormControl(Array.from(this.data)[0].residenceId, [Validators.required, CustomValidation.idValidation(1)]),
+      resiAmen_refId: new FormControl(this.data.residenceId, [Validators.required, CustomValidation.idValidation(1)]),
       resiAmenGroupName: new FormControl(this.resiAmenGroupName, [Validators.required, CustomValidation.textValidation(1, 100)]),
       resiAmenDetails: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
 
@@ -57,7 +57,7 @@ export class AppResidenceAmentitiesServiceComponent {
   amentitiesGroupList: { group: string }[] = [];
   getTableData(): void {
 
-    this.apiService.getResidencesById(Array.from(this.data)[0].residenceId).subscribe({
+    this.apiService.getResidencesById(this.data.residenceId).subscribe({
       next: (value) => {
         this.amentities = [];
         const newData: any = []
@@ -95,16 +95,16 @@ export class AppResidenceAmentitiesServiceComponent {
     const newData: any = []
 
     // Populate the amentities array with new data
-    this.data.forEach(residence => {
+    // this.data.forEach(residence => {
       this.amentitiesGroupList = [];
-      residence.residencceAmentities.forEach(residencceAmentities => {
+      this.data.residencceAmentities.forEach(residencceAmentities => {
         this.amentitiesGroupList.push({
           group: residencceAmentities.resiAmenGroupName
         })
         residencceAmentities.reseAmentitiesDetails.forEach(reseAmentitiesDetails => {
           newData.push({
             resiAmenId: residencceAmentities.resiAmenId,
-            resiAmen_refId: residence.residenceId,
+            resiAmen_refId: this.data.residenceId,
             resiAmenGroupName: residencceAmentities.resiAmenGroupName,
             resiAmenDetailId: reseAmentitiesDetails.resiAmenDetailId,
             resiAmenDetail_refId: residencceAmentities.resiAmenId,
@@ -112,7 +112,7 @@ export class AppResidenceAmentitiesServiceComponent {
           });
         });
       });
-    });
+    // });
     this.dataSource.data = [];
     this.amentities = newData
     this.dataSource = new MatTableDataSource<ResidencceAmentitiesDTO>(this.amentities);
@@ -206,20 +206,20 @@ export class AppResidenceAmentitiesServiceComponent {
   // isInputValid: boolean = true;
 
 
-  updateAmentities($event: any): void {
-    let amentitiesGroup: string = $event.resiAmenGroupName
-    let amentitiesGroupDetails: string = $event.resiAmenDetails
+  updateAmentities(element:ResidencceAmentitiesDTO): void {
+    let amentitiesGroup: string = element.resiAmenGroupName
+    let amentitiesGroupDetails: string = element.resiAmenDetails
     if (amentitiesGroup.trim().length > 0
       && amentitiesGroupDetails.trim().length > 0) {
       const payload: ResidencceAmentities = {
-        resiAmenId: $event.resiAmenId,
-        resiAmen_refId: $event.resiAmen_refId,
-        resiAmenGroupName: $event.resiAmenGroupName,
+        resiAmenId: element.resiAmenId,
+        resiAmen_refId: element.resiAmen_refId,
+        resiAmenGroupName: element.resiAmenGroupName,
         reseAmentitiesDetails: [
           {
-            resiAmenDetailId: $event.resiAmenDetailId,
-            resiAmenDetail_refId: $event.resiAmenDetail_refId,
-            resiAmenDetails: $event.resiAmenDetails,
+            resiAmenDetailId: element.resiAmenDetailId,
+            resiAmenDetail_refId: element.resiAmenDetail_refId,
+            resiAmenDetails: element.resiAmenDetails,
 
           }
         ]
@@ -240,8 +240,8 @@ export class AppResidenceAmentitiesServiceComponent {
     }
 
   }
-  deleteAmentities($event: number): void {
-    this.apiService.deleteResidenceAmentitiesById($event)
+  deleteAmentities(element:ResidencceAmentitiesDTO): void {
+    this.apiService.deleteResidenceAmentitiesById(element.resiAmenDetailId!)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
