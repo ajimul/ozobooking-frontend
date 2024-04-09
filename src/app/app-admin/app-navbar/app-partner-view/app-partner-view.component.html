@@ -153,19 +153,6 @@
                         </select>
                     </td>
                 </ng-container>
-                <ng-container matColumnDef="action">
-                    <th mat-header-cell *matHeaderCellDef><strong>Actions</strong></th>
-                    <td mat-cell *matCellDef="let element; let i=index">
-                        <span class="delete-btn" (click)="deleteRoom(element.roomId)">Delete</span>
-                    </td>
-                </ng-container>
-                <ng-container matColumnDef="view">
-                    <th mat-header-cell *matHeaderCellDef><strong>View/Edit</strong></th>
-                    <td mat-cell *matCellDef="let element; let i=index">
-                        <span class="edit-btn" (click)="updateRoom(element)">View/Edit</span>
-                    </td>
-                </ng-container>
-
                 <tr mat-header-row *matHeaderRowDef="roomsTableColumns"></tr>
                 <tr mat-row (click)="getRoomsTableRow(row)" [class.demo-row-is-clicked]="roomsTableRow.has(row)"
                     *matRowDef="let row; columns: roomsTableColumns;">

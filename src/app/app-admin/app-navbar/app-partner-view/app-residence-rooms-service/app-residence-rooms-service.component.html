@@ -3,16 +3,7 @@
 <main>
     <div class="flex-box">
         <form [formGroup]="residenceRoomForm">
-            <div class="flex-form-group">
-                <label for="roomResidence_refId">Room ID:
-                    <span
-                        *ngIf="residenceRoomForm.get('roomResidence_refId')?.invalid && residenceRoomForm.get('roomResidence_refId')?.touched"
-                        class="error-message">
-                        {{ getIdError('roomResidence_refId') }}
-                    </span>
-                    <input type="number" id="roomResidence_refId" name="roomId" formControlName="roomResidence_refId">
-                </label>
-            </div>
+
             <div class="flex-form-group">
                 <label for="roomResidence_refId">Room Residence Reference ID:
                     <span

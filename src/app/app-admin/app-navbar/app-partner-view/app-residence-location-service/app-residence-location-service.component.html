@@ -1,1 +1,80 @@
 <p>app-residence-location-service works!</p>
+<main>
+    <div class="flex-box">
+        <form [formGroup]="residenceDistanceForm">
+
+            <div class="flex-form-group">
+                <label for="distanceResidence_refId">Residence Location Reference ID:
+                    <span
+                        *ngIf="residenceDistanceForm.get('distanceResidence_refId')?.invalid && residenceDistanceForm.get('distanceResidence_refId')?.touched"
+                        class="error-message">
+                        {{ getIdError('distanceResidence_refId') }}
+                    </span>
+                    <input type="number" id="distanceResidence_refId" name="distanceResidence_refId"
+                        formControlName="distanceResidence_refId">
+                </label>
+            </div>
+            <div class="flex-form-group">
+                <label for="distanceFrom">Enter Distance From:
+                    <span
+                        *ngIf="residenceDistanceForm.get('distanceFrom')?.invalid && residenceDistanceForm.get('distanceFrom')?.touched"
+                        class="error-message">
+                        {{ getTextError('distanceFrom') }}
+                    </span>
+                    <input type="text" id="distanceFrom" name="distanceFrom" formControlName="distanceFrom">
+                </label>
+            </div>
+            <div class="flex-form-group">
+
+                <label for="distanceValue">Enter Distance Value:
+                    <span
+                        *ngIf="residenceDistanceForm.get('distanceValue')?.invalid && residenceDistanceForm.get('distanceValue')?.touched"
+                        class="error-message">
+                        {{ getTextError('distanceValue') }}
+                    </span>
+                    <input type="text" id="distanceValue" name="distanceValue" formControlName="distanceValue">
+                </label>
+            </div>
+            <div class="flex-form-group">
+                <button type="submit" (click)="formSubmit()">Submit</button>
+            </div>
+        </form>
+    </div>
+    <div class="flex-box">
+        <table mat-table matSort [dataSource]="dataSource" class="residence-room-table">
+            
+            <ng-container matColumnDef="distanceFrom">
+                <th mat-header-cell *matHeaderCellDef><strong>Bed Type </strong></th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <input type="text" [(ngModel)]="element.distanceFrom"
+                        (keyup)="nonControl_textValidation(element.distanceFrom,element)">
+                    <div *ngIf="!isValuePresent(element.distanceFrom)" class="error-message">Set Distance From!
+                    </div>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="distanceValue">
+                <th mat-header-cell *matHeaderCellDef><strong>Room Availability </strong></th>
+                <td mat-cell *matCellDef="let element; let i = index">
+                    <input type="text" [(ngModel)]="element.distanceValue"
+                    (keyup)="nonControl_textValidation(element.distanceValue,element)">
+                    <div *ngIf="!isValuePresent(element.distanceValue)" class="error-message">Set Distance Value!
+                    </div>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef
+                    style="text-align: center; align-items: center;justify-content: center;"><strong>Actions</strong>
+                </th>
+                <td mat-cell *matCellDef="let element; let i=index">
+                    <span class="update-btn" (click)="updateDistance(element)">Update</span>
+
+                    <span class="delete-btn" (click)="deleteDistance(element)">Delete</span>
+                </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: tableColumns;">
+            </tr>
+        </table>
+    </div>
+</main>

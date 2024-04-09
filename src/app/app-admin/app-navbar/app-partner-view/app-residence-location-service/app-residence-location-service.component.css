@@ -1,0 +1,76 @@
+main{
+    display: block;
+    /* align-items: center;
+    justify-content: center; */
+    /* overflow-y: scroll; */
+    width: 100%;
+    /* border: red solid 1px; */
+  
+  }
+  .flex-box{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex-wrap: nowrap;
+    /* border: rgb(0, 17, 255) solid 1px; */
+  }
+  form{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+  }
+  .flex-form-group{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width:25%;
+    margin: 5px;
+    padding: 5px;
+    /* border: red solid 1px; */
+    flex-grow: 1;
+    flex-shrink: 0;
+  }
+  .flex-form-group label,input,textarea{
+   width: 100%;
+  
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .delete-btn {
+      color: #ffffff;
+      cursor: pointer;
+      background-color: #ff0000;
+      margin: 2px;
+      margin-left: 30px;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    .delete-btn:hover {
+      color: #ffffff;
+      background-color: #e40909;
+      font-size: 1rem;
+    }
+    .update-btn {
+      cursor: pointer;
+      color: rgb(255, 255, 255);
+      background-color: #04AA6D;
+      margin: 2px;
+      margin-right: 30px;
+      padding: 5px;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    .update-btn:hover {
+      background-color: #018353;
+      font-size: 1rem;
+      color: rgb(255, 255, 255);
+    }
+    

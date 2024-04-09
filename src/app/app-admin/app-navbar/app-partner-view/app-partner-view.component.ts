@@ -184,11 +184,11 @@ export class AppPartnerViewComponent {
       // this.getResidenceTableData();
     });
   }
-  residenceLocationService(residenceId: any) {
+  residenceLocationService(element: Residence) {
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
-    config.data = { residenceId };
+    config.data = element;
     const dialogRef = this.dialog.open(AppResidenceLocationServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       this.clearSelection('residenceDialogRefSet');
@@ -215,7 +215,7 @@ export class AppPartnerViewComponent {
         break;
       case '3': this.residenceAmentitiesService(element);
         break;
-      case '4': this.residenceLocationService(element.residenceId);
+      case '4': this.residenceLocationService(element);
         break;
       case '5': this.residenceRoomService(element);
         break;
@@ -235,9 +235,7 @@ export class AppPartnerViewComponent {
     'roomPrice',
     'roomTradingPrice',
     'roomDiscount',
-    'property',
-    'action',
-    'view',
+    'property'
   ];
   applyRoomsFilter($event: any) {
     this.roomsDataSource.filter = $event.target.value;
@@ -250,10 +248,7 @@ export class AppPartnerViewComponent {
   addRooms() {
 
   }
-  deleteRoom($event: number): void {
 
-  }
-  updateRoom($event: number): void { }
   roomsAmentitiesService() {
     const config = new MatDialogConfig<any>();
     config.width = '90%';

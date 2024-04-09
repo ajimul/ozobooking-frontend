@@ -55,6 +55,7 @@ export class AppResidenceRoomsServiceComponent {
   }
   resiAmenGroupName: any = "";
   createSubmitForm() {
+    
     this.residenceRoomForm = this.fb.group({
       roomResidence_refId: new FormControl(this.data.residenceId, [Validators.required, CustomValidation.idValidation(1)]),
       roomType: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
@@ -301,7 +302,7 @@ export class AppResidenceRoomsServiceComponent {
     this.markFormGroupTouched(this.residenceRoomForm);
     if (this.residenceRoomForm.valid) {
       const payload: ResidenceRooms = {
-        roomResidence_refId: this.residenceRoomForm.get('resiAmen_refId')?.value,
+        roomResidence_refId: this.residenceRoomForm.get('roomResidence_refId')?.value,
         roomType: this.residenceRoomForm.get('roomType')?.value,
         roomAvailability: this.residenceRoomForm.get('roomAvailability')?.value,
         roomBedType: this.residenceRoomForm.get('roomBedType')?.value,
@@ -378,7 +379,7 @@ export class AppResidenceRoomsServiceComponent {
 
 
   deleteRoom(element: ResidenceRoomsDTO): void {
-    this.apiService.deleteResidenceAmentitiesById(element.roomId!)
+    this.apiService.deleteResidenceRoomById(element.roomId!)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose

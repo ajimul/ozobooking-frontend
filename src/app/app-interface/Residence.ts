@@ -89,8 +89,8 @@ export interface Residence {
   
   
   export interface Distance {
-    distanceId: number;
-    distanceResidence_refId: number;
+    distanceId?: number;
+    distanceResidence_refId?: number;
     distanceFrom: string;
     distanceValue: number | null;
   }
