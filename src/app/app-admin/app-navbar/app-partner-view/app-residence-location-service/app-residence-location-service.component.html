@@ -1,6 +1,14 @@
-<p>app-residence-location-service works!</p>
+
 <main>
     <div class="flex-box">
+        <div class="close-btn"  mat-dialog-close>
+            <span class="close-hover">x</span>
+        </div>
+        <header class="bg">
+            <div>
+                <h2 style="color: gold;">Residence Location Service Works!</h2>
+            </div>
+        </header>
         <form [formGroup]="residenceDistanceForm">
 
             <div class="flex-form-group">
@@ -44,7 +52,7 @@
         <table mat-table matSort [dataSource]="dataSource" class="residence-room-table">
             
             <ng-container matColumnDef="distanceFrom">
-                <th mat-header-cell *matHeaderCellDef><strong>Bed Type </strong></th>
+                <th mat-header-cell *matHeaderCellDef><strong>Location </strong></th>
                 <td mat-cell *matCellDef="let element; let i = index">
                     <input type="text" [(ngModel)]="element.distanceFrom"
                         (keyup)="nonControl_textValidation(element.distanceFrom,element)">
@@ -53,7 +61,7 @@
                 </td>
             </ng-container>
             <ng-container matColumnDef="distanceValue">
-                <th mat-header-cell *matHeaderCellDef><strong>Room Availability </strong></th>
+                <th mat-header-cell *matHeaderCellDef><strong>Distance </strong></th>
                 <td mat-cell *matCellDef="let element; let i = index">
                     <input type="text" [(ngModel)]="element.distanceValue"
                     (keyup)="nonControl_textValidation(element.distanceValue,element)">

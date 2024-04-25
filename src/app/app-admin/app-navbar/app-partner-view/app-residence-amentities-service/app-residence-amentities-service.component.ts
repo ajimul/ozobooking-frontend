@@ -1,6 +1,6 @@
 import { ChangeDetectorRef, Component, HostListener, Inject, ViewChild } from '@angular/core';
 import { ApiService } from '../../../../api-service/api-service.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
@@ -14,7 +14,7 @@ import { catchError } from 'rxjs';
 @Component({
   selector: 'app-app-residence-amentities-service',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule,MatDialogModule],
   templateUrl: './app-residence-amentities-service.component.html',
   styleUrl: './app-residence-amentities-service.component.css'
 })

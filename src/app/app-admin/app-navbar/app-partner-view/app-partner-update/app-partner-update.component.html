@@ -1,12 +1,12 @@
-<div class="custom-dialog-content" md-dialog-content>
+<div class="custom-dialog-content " md-dialog-content>
 
     <main class="bg-primary">
 
-        <form class="container bg-secondary" [formGroup]="userForm" (ngSubmit)="formSubmit()" >
+        <form class="container bg-secondary" [formGroup]="userForm" (ngSubmit)="formSubmit()" autocomplete="off" >
             <div class="close-btn" mat-button mat-dialog-close>
                 <span class="close-hover">x</span>
             </div>
-            <h1 class="accent">Sign Up</h1>
+            <h1 class="accent">Residence Update Works</h1>
 
             <div class="flex-col">
                 <label for="residenceName">Residence Name:
@@ -55,7 +55,7 @@
                 </label>
             </div>
             <div class="flex-col">
-                <button class="bg-accent btn-sign-up">Sign Up</button>
+                <button class="bg-accent btn-sign-up">Update</button>
             </div>
 
         </form>

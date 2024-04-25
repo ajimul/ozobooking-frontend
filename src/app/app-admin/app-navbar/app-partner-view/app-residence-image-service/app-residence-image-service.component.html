@@ -1,66 +1,64 @@
-<div class="custom-dialog-content" md-dialog-content>
-    <main class="bg-primary">
+<div class="dialog-content">
 
-        <div class="close-btn" mat-button mat-dialog-close>
-            <span class="close-hover">x</span>
-        </div>
-        <header class="bg">
-            <div>
-                <h2 style="color: gold;">Residence Image Service Works!</h2>
-            </div>
-        </header>
+    <div class="dialog-close" mat-dialog-close>
+        <span class="close-btn">X</span>
+    </div>
 
+    <header>
         <div>
-            <form [formGroup]="residanceForm" (ngSubmit)="addResidenceImage()">
-                <!-- <label for="">Enter ID:
-                <span *ngIf="residanceForm.get('residenceImagesRefId')?.invalid" class="error-message">
-                    {{ getIdError('residenceImagesRefId') }}
-                </span>
-                <input type="text" placeholder="refID:" formControlName="residenceImagesRefId"
-                    (change)="onFileSelected($event)">
-            </label> -->
-                <br><br>
-                <label for="imgSrc">Select Image(s):
-                    <span *ngIf="residanceForm.get('imgSrc')?.invalid" class="error-message">
+            <h2 class="residence-heading">Residence Image Service Works!</h2>
+        </div>
+    </header>
+
+    <main>
+
+        <form class="form-image" [formGroup]="residanceForm" (ngSubmit)="addResidenceImage()">
+            <div class="form-field">
+                <label for="imgSrc" (click)="stopParentPropagation($event)">Select Image:
+
+                    <span style="display: inline-block;" *ngIf="residanceForm.get('imgSrc')?.invalid"
+                        class="error-message">
                         {{ getFileError('imgSrc') }}
                     </span>
-                    <span *ngIf="residanceForm.get('residenceImagesRefId')?.invalid" class="error-message">
+                    <span style="display: inline-block;" *ngIf="residanceForm.get('residenceImagesRefId')?.invalid"
+                        class="error-message">
                         {{ getIdError('residenceImagesRefId') }}
                     </span>
-                    <input type="file" id="imgSrc" formControlName="imgSrc" (change)="onFileSelected($event)"
-                        multiple></label>
-                <br><br>
-                <button type="submit">Upload</button>
-            </form>
+
+                </label>
+                <input type="file" id="imgSrcx" formControlName="imgSrc" (change)="onFileSelected($event)" multiple>
+            </div>
+            <div class="form-submit">
+                <button type="submit" class="upload-button">Upload</button>
+            </div>
+        </form>
+        <div class="image-card-container">
+            <div *ngFor="let element of residenceImage" class="image-card">
+                <div class="card-content">
+                    <img [src]="apiServerUrl + 'v1/public/' + element.imgSrc" alt="Itinerary Image"
+                        class="image-thumbnail">
+                    <div class="image-details">
+                        <span class="image-name-span">{{element.imgSrc}}
+                        </span>
+                        <span class="image-delete-span">
+                            <svg (click)="showConfirmDelete()"
+                                (click)="deleteAction(element.resImgId,element.imgSrc)"
+                                style="width: 25px; height: 25px;color: red !important;"
+                                xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path
+                                    d="M170.5 51.6L151.5 80h145l-19-28.4c-1.5-2.2-4-3.6-6.7-3.6H177.1c-2.7 0-5.2 1.3-6.7 3.6zm147-26.6L354.2 80H368h48 8c13.3 0 24 10.7 24 24s-10.7 24-24 24h-8V432c0 44.2-35.8 80-80 80H112c-44.2 0-80-35.8-80-80V128H24c-13.3 0-24-10.7-24-24S10.7 80 24 80h8H80 93.8l36.7-55.1C140.9 9.4 158.4 0 177.1 0h93.7c18.7 0 36.2 9.4 46.6 24.9zM80 128V432c0 17.7 14.3 32 32 32H336c17.7 0 32-14.3 32-32V128H80zm80 64V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16zm80 0V400c0 8.8-7.2 16-16 16s-16-7.2-16-16V192c0-8.8 7.2-16 16-16s16 7.2 16 16z" />
+                            </svg>
+                        </span>
+                    </div>
+                </div>
+                <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
+                    <button (click)="deleteAction(element.resImgId,element.imgSrc)">Delete</button>
+                    <button (click)="showDeleteConfirmation = false">Cancel</button>
+                </div>
+            </div>
         </div>
 
-        <div class="container bg">
-            <table mat-table matSort [dataSource]="dataSource" class="tbl-itinerary bg">
-                <ng-container matColumnDef="imgSrc">
-                    <th mat-header-cell *matHeaderCellDef><strong>Iti-Images</strong></th>
-                    <td mat-cell *matCellDef="let element; let i = index">
-                        <img [src]="apiServerUrl + 'v1/public/' + element.imgSrc" alt="Itinerary Image"
-                            style="width: 100px; height: 60px;">
-                    </td>
-                </ng-container>
 
-                <ng-container matColumnDef="deleteAction">
-                    <th mat-header-cell *matHeaderCellDef><strong>Delete</strong></th>
-                    <td mat-cell *matCellDef="let element;">
-                        <button (click)="deleteAction(element.resImgId,element.imgSrc)" class="del-btn">Delete</button>
-                    </td>
-                </ng-container>
 
-                <tr mat-header-row *matHeaderRowDef="residenceImageTableColumns"></tr>
-                <tr mat-row (click)="clickedRowsResidenceImage.add(row)"
-                    [class.demo-row-is-clicked]="clickedRowsResidenceImage.has(row)"
-                    *matRowDef="let row; columns: residenceImageTableColumns;">
-                </tr>
-            </table>
-        </div>
     </main>
 </div>
-
-
-
-

@@ -1,7 +1,7 @@
 <div class="custom-dialog-content" md-dialog-content>
     <main class="bg-primary">
 
-        <div class="close-btn" mat-button mat-dialog-close>
+        <div class="close-btn" mat-dialog-close>
             <span class="close-hover">x</span>
         </div>
         <header class="bg">
@@ -13,12 +13,12 @@
         <div>
             <form [formGroup]="roomImageForm" (ngSubmit)="addRoomImage()">
                 <label for="">Enter ID:
-                <span *ngIf="roomImageForm.get('imagResidenceRoom_refId')?.invalid" class="error-message">
-                    {{ getIdError('imagResidenceRoom_refId') }}
-                </span>
-                <input type="text" placeholder="refID:" formControlName="imagResidenceRoom_refId"
-                    (change)="onFileSelected($event)">
-            </label> 
+                    <span *ngIf="roomImageForm.get('imagResidenceRoom_refId')?.invalid" class="error-message">
+                        {{ getIdError('imagResidenceRoom_refId') }}
+                    </span>
+                    <input type="text" placeholder="refID:" formControlName="imagResidenceRoom_refId"
+                        (change)="onFileSelected($event)">
+                </label>
                 <br><br>
                 <label for="imgSrc">Select Image(s):
                     <span *ngIf="roomImageForm.get('imgSrc')?.invalid" class="error-message">
@@ -55,7 +55,3 @@
         </div>
     </main>
 </div>
-
-
-
-

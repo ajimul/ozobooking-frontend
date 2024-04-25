@@ -3,18 +3,19 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { environment } from '../../../../../environments/environment';
-import {  ResidenceRooms, ResidenceRoomsImages } from '../../../../app-interface/Residence';
+import { ResidenceRooms, ResidenceRoomsImages } from '../../../../app-interface/Residence';
 import { ApiService } from '../../../../api-service/api-service.service';
 import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CustomValidation } from '../../../../app-validator/custom-validation';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-app-room-images-service',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatTableModule],
+  imports: [ReactiveFormsModule, CommonModule, MatTableModule, MatDialogModule],
   templateUrl: './app-room-images-service.component.html',
   styleUrl: './app-room-images-service.component.css'
 })
@@ -54,7 +55,7 @@ export class AppRoomImagesServiceComponent {
   ngOnInit(): void {
     this.setFormField();
   }
-// Validation
+  // Validation
   getIdError(controlName: string): string | null {
     const control = this.roomImageForm.get(controlName);
     return control

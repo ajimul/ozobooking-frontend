@@ -19,7 +19,6 @@ import { AppRoomPolicyServiceComponent } from './app-room-policy-service/app-roo
 import { AppPartnerAgreementComponent } from './app-partner-agreement/app-partner-agreement.component';
 import { AppResidenceLocationServiceComponent } from './app-residence-location-service/app-residence-location-service.component';
 import { AppResidenceRoomsServiceComponent } from './app-residence-rooms-service/app-residence-rooms-service.component';
-
 @Component({
   selector: 'app-app-partner-view',
   standalone: true,
@@ -92,7 +91,6 @@ export class AppPartnerViewComponent {
   //Residence MatTable DataSource 
   residence: Residence[] = [];
   residenceDataSource = new MatTableDataSource<Residence>(this.residence);
-  // residenceTableRow = new Set<Residence>();
   residenceTableColumns = [
     'residenceId',
     'residenceName',
@@ -106,17 +104,10 @@ export class AppPartnerViewComponent {
   applyResidenceFilter($event: any) {
     this.residenceDataSource.filter = $event.target.value;
   }
-  // getResidenceTableRow(row: any) {
-  //   this.residenceTableRow.clear();
-  //   this.residenceTableRow.add(row);
-   
-
-  // }
   addPartner() {
     const config = new MatDialogConfig<any>();
     config.width = '40%';
     config.height = '90%';
-    config.data = [];
     config.panelClass = ['custom-dialog-bg'];
     const dialogRef = this.dialog.open(AppPartnerSignupComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
@@ -146,7 +137,7 @@ export class AppPartnerViewComponent {
   updatePartner(element: Residence) {
     const config = new MatDialogConfig<any>();
     config.width = '30%';
-    config.height = '90%';
+    config.height = '71.5%';
     config.data = element;
     const dialogRef = this.dialog.open(AppPartnerUpdateComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {

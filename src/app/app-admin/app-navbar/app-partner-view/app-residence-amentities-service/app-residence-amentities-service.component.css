@@ -1,3 +1,32 @@
+.close-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  color: red;
+  /* border: blue solid 0.5px; */
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 100%;
+}
+
+.close-btn > span {
+  color: rgb(255, 255, 255);
+  background-color: red;
+  width: 50px;
+  height: 22px;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-size: 1.5rem;
+  border-radius: 2px;
+}
+.close-btn>span:hover {
+  box-shadow: 0 5px 10px rgb(49, 50, 54);
+}
 .delete-btn {
     color: #ffffff;
     cursor: pointer;

@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Inject } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, FormsModule, FormControl, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ApiService } from '../../../../api-service/api-service.service';
 import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
@@ -15,7 +15,7 @@ import { catchError } from 'rxjs';
 @Component({
   selector: 'app-app-residence-location-service',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatTableModule, FormsModule],
+  imports: [ReactiveFormsModule, CommonModule, MatTableModule, FormsModule,MatDialogModule],
   templateUrl: './app-residence-location-service.component.html',
   styleUrl: './app-residence-location-service.component.css'
 })

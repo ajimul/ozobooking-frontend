@@ -2,7 +2,7 @@ import { ChangeDetectorRef, Component, HostListener, Inject, ViewChild } from '@
 import { ApiService } from '../../../../api-service/api-service.service';
 import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../../../environments/environment';
 import { ResidenceRooms,ResidenceRoomsPolicy } from '../../../../app-interface/Residence';
@@ -15,7 +15,7 @@ import { RoomPolicyDTO } from '../../../../app-interface/RoomPolicyDTO';
 @Component({
   selector: 'app-app-room-policy-service',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule,MatDialogModule],
   templateUrl: './app-room-policy-service.component.html',
   styleUrl: './app-room-policy-service.component.css'
 })

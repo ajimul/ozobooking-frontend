@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, HostListener, Inject, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ApiService } from '../../../../api-service/api-service.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CustomValidation } from '../../../../app-validator/custom-validation';
 import { ResidenceImage } from '../../../../app-interface/Residence';
 import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
@@ -10,33 +10,32 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../../../environments/environment';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { catchError } from 'rxjs';
-
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @Component({
   selector: 'app-app-residence-image-service',
   standalone: true,
-  imports: [ ReactiveFormsModule, CommonModule, MatTableModule],
+  imports: [ReactiveFormsModule, CommonModule, MatTableModule, MatDialogModule],
   templateUrl: './app-residence-image-service.component.html',
   styleUrl: './app-residence-image-service.component.css'
 })
 export class AppResidenceImageServiceComponent {
   apiServerUrl = environment.apiBaseUrl;
   residenceImage: ResidenceImage[] = [];
-  dataSource = new MatTableDataSource<ResidenceImage>(this.residenceImage);
+  showDeleteConfirmation = false;
   residanceForm!: FormGroup;
-  clickedRowsResidenceImage = new Set<ResidenceImage>();
-  residenceImageTableColumns = [
-    'imgSrc',
-    'deleteAction',
-  ];
+
   constructor(
     private apiService: ApiService,
     private validationService: CustomValidationService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
+    private elRef: ElementRef,
     private dialogRef: MatDialogRef<AppResidenceImageServiceComponent>) { }
 
-
+    showConfirmDelete() {
+      this.showDeleteConfirmation = true; // Show confirmation dialog
+    }
   ngOnInit(): void {
     this.getResidenceImages();
     this.residanceForm = this.fb.group({
@@ -58,10 +57,13 @@ export class AppResidenceImageServiceComponent {
     return control
       ? this.validationService.getTextValidationError(control, '*', '*', '*', '*', '*', '*') : null;
   }
-
+  stopParentPropagation(event: MouseEvent) {
+    event.stopPropagation();
+  }
 
   file: File[] = [];
   onFileSelected(event: any): void {
+    console.log('event')
     const selectedFiles: FileList = event.target.files;
     if (selectedFiles) {
       this.file = Array.from(selectedFiles) as File[];
@@ -115,7 +117,6 @@ export class AppResidenceImageServiceComponent {
 
       },
       complete: () => {
-        this.dataSource = new MatTableDataSource<ResidenceImage>(this.residenceImage);
       },
     })
   }
@@ -123,7 +124,9 @@ export class AppResidenceImageServiceComponent {
 
 
   deleteAction(id: any, fileName: any) {
-    this.apiService.deleteResidenceImageById(id, fileName)
+
+    if (confirm("Are you sure you want to delete this image?")) {
+      this.apiService.deleteResidenceImageById(id, fileName)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
@@ -147,7 +150,9 @@ export class AppResidenceImageServiceComponent {
           this.getResidenceImages()
         },
       })
+      this.showDeleteConfirmation = false; 
+    } else {
+      this.showDeleteConfirmation = false;
+    }
   }
-
-
 }

@@ -18,10 +18,9 @@ body {
 }
 
 .mat-mdc-dialog-container .mdc-dialog__surface {
-  padding: 20px !important;
   display: flex !important;
+  flex-direction: column;
   flex-direction: column !important;
-  justify-content: center !important;
   align-items: center !important;
   border-radius: 5px;
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import {  Component } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,23 +8,16 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-
 import {
-  MAT_DIALOG_DATA,
-  MatDialogContainer,
-  MatDialogContent,
   MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
 import { ApiService } from '../../../../api-service/api-service.service';
 import { CustomValidation } from '../../../../app-validator/custom-validation';
-import { AppClientSignupComponent } from '../../../../app-client-signup/app-client-signup.component';
-import { User } from '../../../../app-interface/PartnerRegisterDTO';
 import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-app-partner-signup',
@@ -32,7 +25,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    CommonModule
+    CommonModule,MatFormFieldModule, MatInputModule, FormsModule, MatDialogModule
     ],
   templateUrl: './app-partner-signup.component.html',
   styleUrl: './app-partner-signup.component.css',
@@ -42,7 +35,6 @@ export class AppPartnerSignupComponent {
     private apiService: ApiService,
     private validationService: CustomValidationService,
     private fb: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) private data: any,
     private dialogRef: MatDialogRef<AppPartnerSignupComponent>
   ) {}
   userForm!: FormGroup;
@@ -221,7 +213,7 @@ export class AppPartnerSignupComponent {
             distance: [
               {
                 distanceFrom: this.userForm.get('residenceLocation')?.value,
-                distanceValue: this.userForm.get('distanceFrom')?.value,
+                distanceValue: this.userForm.get('distanceValue')?.value,
               },
             ],
           },

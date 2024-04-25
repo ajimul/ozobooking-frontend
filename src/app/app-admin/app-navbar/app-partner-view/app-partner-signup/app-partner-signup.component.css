@@ -1,55 +1,19 @@
-.bg-primary {
-  background-color: #07241d;
+* {
+  box-sizing: border-box;
 }
 .bg-primary {
   background-color: #ffffff;
 }
-.bg-secondary {
-  background-color: #ffffff;
-}
+
 .bg-secondary {
   background-color: #9eb8df;
 }
-.bg-accent {
-  background-color: #0000e6;
-}
+
 .accent {
   color: #0000e6;
 }
-.semantic-bg-primary,
-.information {
-  background-color: #0065ff;
-}
-.semantic-bg-secondary,
-.unavailable,
-.default {
-  background-color: #ebecf0;
-}
-.semantic-bg-confirm,
-.success,
-.available,
-.added,
-.complete {
-  background-color: #36b37e;
-}
-.semantic-bg-warning,
-.moved {
-  background-color: #ffab00;
-}
-.semantic-bg-remove,
-.error,
-.busy,
-.failed {
-  background-color: #ff5630;
-}
-.semantic-bg-help,
-.focus,
-.new {
-  background-color: #6554c0;
-}
-
-* {
-  box-sizing: border-box;
+.bg-accent {
+  background-color: #0000e6;
 }
 
 main {
@@ -111,13 +75,6 @@ main {
   margin: 2px;
   width: 100%;
 }
-input,
-textarea,
-select,
-button,
-label {
-  font-size: 1rem;
-}
 .flex-col label {
   /* border: solid 0.5px rgb(0, 0, 0); */
   width: 100%;
@@ -141,6 +98,15 @@ button {
   border-radius: 5px;
   /* box-shadow: 0 5px 10px rgb(49, 50, 54); */
 }
+
+input,
+textarea,
+select,
+button,
+label {
+  font-size: 1rem;
+}
+
 .btn-sign-up {
   color: #ffffff;
 }
@@ -148,3 +114,4 @@ button {
   cursor: pointer;
   background-color: #0000b3;
 }
+

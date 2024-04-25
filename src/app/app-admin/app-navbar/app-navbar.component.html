@@ -23,7 +23,8 @@
     </nav>
     <div class="body-container">
         <aside [class.aside-open]="isMenuOpen" [class.aside-close]="!isMenuOpen">
-            <a routerLink="partner-view" [routerLinkActive]="'active-link'"><span (click)="addPartner()">Partners-view</span></a>
+            <a routerLink="partner-view" [routerLinkActive]="'active-link'"><span
+                    (click)="addPartner()">Partners-view</span></a>
         </aside>
         <main>
             <router-outlet></router-outlet>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ChangeDetectorRef, Component, Inject } from '@angular/core';
+import {  Component, Inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -8,17 +8,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
 
 import {
   MAT_DIALOG_DATA,
+  MatDialogModule,
   MatDialogRef,
 } from '@angular/material/dialog';
-import { MatInputModule } from '@angular/material/input';
 import { ApiService } from '../../../../api-service/api-service.service';
 import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
-import { AppPartnerSignupComponent } from '../app-partner-signup/app-partner-signup.component';
 import { CustomValidation } from '../../../../app-validator/custom-validation';
 import { Residence } from '../../../../app-interface/Residence';
 @Component({
@@ -27,7 +24,7 @@ import { Residence } from '../../../../app-interface/Residence';
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,
+    CommonModule,MatDialogModule
   ],
   templateUrl: './app-partner-update.component.html',
   styleUrl: './app-partner-update.component.css',

@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ApiService } from '../../../../api-service/api-service.service';
 import { ResidencceRoomAmentities, Residence, ResidenceRooms } from '../../../../app-interface/Residence';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CustomValidationService } from '../../../../app-validator/custom-validation-service';
 import { RoomAmentitiesDTO } from '../../../../app-interface/RoomAmentitiesDTO';
 import { CustomValidation } from '../../../../app-validator/custom-validation';
@@ -14,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-app-room-amentities-service',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule],
+  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule,MatDialogModule],
   templateUrl: './app-room-amentities-service.component.html',
   styleUrl: './app-room-amentities-service.component.css'
 })
