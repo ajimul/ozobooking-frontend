@@ -22,12 +22,13 @@ import { MatButtonModule } from '@angular/material/button';
 export class AppRoomImagesServiceComponent {
   apiServerUrl = environment.apiBaseUrl;
   residenceRoomsImages: ResidenceRoomsImages[] = [];
-  dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
+  showDeleteConfirmation = false;
+  // dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
   roomImageForm!: FormGroup;
-  roomImageTableColumns = [
-    'imgSrc',
-    'deleteAction',
-  ];
+  // roomImageTableColumns = [
+  //   'imgSrc',
+  //   'deleteAction',
+  // ];
   constructor(
     private apiService: ApiService,
     private validationService: CustomValidationService,
@@ -38,9 +39,10 @@ export class AppRoomImagesServiceComponent {
 
   }
 
+
   setMatTableDatasource() {
     this.residenceRoomsImages = Array.from(this.data.roomImages!)
-    this.dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
+    // this.dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
   }
 
   setFormField() {
@@ -52,6 +54,13 @@ export class AppRoomImagesServiceComponent {
       ]),
     })
   }
+  showConfirmDelete() {
+    this.showDeleteConfirmation = true; // Show confirmation dialog
+  }
+  stopParentPropagation(event: MouseEvent) {
+    event.stopPropagation();
+  }
+
   ngOnInit(): void {
     this.setFormField();
   }
@@ -116,7 +125,7 @@ export class AppRoomImagesServiceComponent {
   getRoomImages() {
     this.apiService.getRoomImagesByRoomId(this.data.roomId!).subscribe({
       next: (value) => {
-        this.dataSource.data = [];
+        // this.dataSource.data = [];
         this.residenceRoomsImages = [];
         this.residenceRoomsImages = value;
         console.log('value', value)
@@ -125,11 +134,12 @@ export class AppRoomImagesServiceComponent {
         console.log(err);
       },
       complete: () => {
-        this.dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
+        // this.dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
       },
     })
   }
   deleteAction(id: any, fileName: any) {
+    if (confirm("Are you sure you want to delete this image?")) {
     this.apiService.deleteResidenceRoomImageById(id, fileName)
       .pipe(
         catchError((error: HttpErrorResponse) => {
@@ -154,5 +164,9 @@ export class AppRoomImagesServiceComponent {
           this.getRoomImages()
         },
       })
+      this.showDeleteConfirmation = false; 
+    } else {
+      this.showDeleteConfirmation = false;
+    }
   }
 }

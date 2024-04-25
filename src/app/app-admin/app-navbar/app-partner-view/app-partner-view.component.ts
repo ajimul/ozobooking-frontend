@@ -242,6 +242,7 @@ export class AppPartnerViewComponent {
 
   roomsAmentitiesService() {
     const config = new MatDialogConfig<any>();
+    config.panelClass = 'my-dialog-class';
     config.width = '90%';
     config.height = '90%';
     config.data = this.roomsTableRow;

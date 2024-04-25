@@ -20,6 +20,7 @@ import { catchError } from 'rxjs';
 })
 export class AppResidenceAmentitiesServiceComponent {
   amentities: ResidencceAmentitiesDTO[] = []
+  showDeleteConfirmation = false;
   amentitiesForm!: FormGroup
   dataSource = new MatTableDataSource<ResidencceAmentitiesDTO>(this.amentities);
   tableColumns = [
@@ -240,7 +241,11 @@ export class AppResidenceAmentitiesServiceComponent {
     }
 
   }
+  showConfirmDelete() {
+    this.showDeleteConfirmation = true; // Show confirmation dialog
+  }
   deleteAmentities(element:ResidencceAmentitiesDTO): void {
+    if (confirm("Are you sure you want to delete this amentities?")) {
     this.apiService.deleteResidenceAmentitiesById(element.resiAmenDetailId!)
       .pipe(
         catchError((error: HttpErrorResponse) => {
@@ -265,6 +270,10 @@ export class AppResidenceAmentitiesServiceComponent {
           this.getTableData();
         },
       })
+      this.showDeleteConfirmation = false; 
+    } else {
+      this.showDeleteConfirmation = false;
+    }
   }
 
 
