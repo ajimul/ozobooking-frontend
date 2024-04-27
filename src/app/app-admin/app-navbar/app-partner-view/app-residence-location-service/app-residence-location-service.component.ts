@@ -15,7 +15,7 @@ import { catchError } from 'rxjs';
 @Component({
   selector: 'app-app-residence-location-service',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatTableModule, FormsModule,MatDialogModule],
+  imports: [ReactiveFormsModule, CommonModule, MatTableModule, FormsModule, MatDialogModule],
   templateUrl: './app-residence-location-service.component.html',
   styleUrl: './app-residence-location-service.component.css'
 })
@@ -28,7 +28,7 @@ export class AppResidenceLocationServiceComponent {
   roomTradingPrice: any;
   roomDiscount: any;
   roomDescription: any;
-
+  showDeleteConfirmation = false;
   residenceDistance: DistanceDTO[] = []
   residenceDistanceForm!: FormGroup
   dataSource = new MatTableDataSource<DistanceDTO>(this.residenceDistance);
@@ -49,12 +49,12 @@ export class AppResidenceLocationServiceComponent {
   }
   resiAmenGroupName: any = "";
   createSubmitForm() {
-    
+
     this.residenceDistanceForm = this.fb.group({
       distanceResidence_refId: new FormControl(this.data.residenceId, [Validators.required, CustomValidation.idValidation(1)]),
       distanceFrom: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
       distanceValue: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
-     
+
     })
   }
   getIdError(controlName: string): string | null {
@@ -67,7 +67,7 @@ export class AppResidenceLocationServiceComponent {
     return control
       ? this.validationService.getTextValidationError(control, '*', '*', '*', '*', '*', '*') : null;
   }
- 
+
   isPositiveNumber(num: number | null | undefined): boolean {
     return num !== null && num !== undefined && !isNaN(num) && num > 0;
   }
@@ -128,12 +128,12 @@ export class AppResidenceLocationServiceComponent {
         this.residenceDistance = [];
         let newData: DistanceDTO[] = []
         value.distance.forEach(rr => {
-            newData.push({
+          newData.push({
             distanceId: rr.distanceId,
             distanceResidence_refId: rr.distanceResidence_refId,
             distanceFrom: rr.distanceFrom,
             distanceValue: rr.distanceValue,
-            errorMessage:''
+            errorMessage: ''
           });
 
         })
@@ -153,14 +153,14 @@ export class AppResidenceLocationServiceComponent {
     // Clear the array before populating it with new data
     this.residenceDistance = [];
     let newData: DistanceDTO[] = []
-   
+
     this.data.distance.forEach(rr => {
       newData.push({
         distanceId: rr.distanceId,
         distanceResidence_refId: rr.distanceResidence_refId,
         distanceFrom: rr.distanceFrom,
         distanceValue: rr.distanceValue,
-        errorMessage:''
+        errorMessage: ''
       });
 
     });
@@ -170,7 +170,9 @@ export class AppResidenceLocationServiceComponent {
     this.dataSource = new MatTableDataSource<Distance>(this.residenceDistance);
 
   }
-
+  showConfirmDelete() {
+    this.showDeleteConfirmation = true; // Show confirmation dialog
+  }
 
   ngOnInit(): void {
     this.setRoomTableData();
@@ -208,6 +210,11 @@ export class AppResidenceLocationServiceComponent {
           alert('Internal Server Error!')
         },
         complete: () => {
+          this.residenceDistanceForm.patchValue({
+            distanceFrom: '',
+            distanceValue: ''
+          })
+
           this.getTableData();
 
         }
@@ -260,30 +267,35 @@ export class AppResidenceLocationServiceComponent {
 
 
   deleteDistance(element: DistanceDTO): void {
-    this.apiService.deleteResidenceDistanceById(element.distanceId!)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
-            console.log('Deleted successfully');
-          } else if (error.status === 404) {
-            console.error('Not found');
-          } else {
-            console.error('An error occurred:', error);
-          }
-          throw error;
+    if (confirm("Are you sure you want to delete this amentities?")) {
+      this.apiService.deleteResidenceDistanceById(element.distanceId!)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
+              console.log('Deleted successfully');
+            } else if (error.status === 404) {
+              console.error('Not found');
+            } else {
+              console.error('An error occurred:', error);
+            }
+            throw error;
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            alert('Room Deleted successfully');
+          },
+          error: (error) => {
+            alert('Room Not Found!');
+          },
+          complete: () => {
+            this.getTableData();
+          },
         })
-      )
-      .subscribe({
-        next: (response) => {
-          alert('Room Deleted successfully');
-        },
-        error: (error) => {
-          alert('Room Not Found!');
-        },
-        complete: () => {
-          this.getTableData();
-        },
-      })
+      this.showDeleteConfirmation = false;
+    } else {
+      this.showDeleteConfirmation = false;
+    }
   }
 
 

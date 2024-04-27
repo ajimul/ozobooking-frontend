@@ -23,6 +23,7 @@ export class AppRoomPolicyServiceComponent {
   apiServerUrl = environment.apiBaseUrl;
   residenceRoomsPolicy: ResidenceRoomsPolicy[] = [];
   moomPolicyDTO: RoomPolicyDTO[] = [];
+  showDeleteConfirmation = false;
   dataSource = new MatTableDataSource<RoomPolicyDTO>(this.moomPolicyDTO);
   roomPolicyForm!: FormGroup;
   roomPolicyTableColumns = [
@@ -107,6 +108,9 @@ export class AppRoomPolicyServiceComponent {
       ])
     })
   }
+  showConfirmDelete() {
+    this.showDeleteConfirmation = true; // Show confirmation dialog
+  }
   ngOnInit(): void {
     this.setFormField();
   }
@@ -182,6 +186,10 @@ export class AppRoomPolicyServiceComponent {
         alert('Policy Added aborted!');
       },
       complete: () => {
+        this.roomPolicyForm.patchValue({
+          roomPolicyName: '',
+          roomPolicyDescription:''
+        })
         this.getRoomPolicys();
       }
     });
@@ -237,10 +245,12 @@ export class AppRoomPolicyServiceComponent {
          
         },
       })
+
   }
 
   deleteAction(element: any) {
-    this.apiService.deleteResidenceRoomsPolicyDetailsById(element.roomPolicyDetailsId)
+    if (confirm("Are you sure you want to delete this policy?")) {
+      this.apiService.deleteResidenceRoomsPolicyDetailsById(element.roomPolicyDetailsId)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
@@ -266,6 +276,10 @@ export class AppRoomPolicyServiceComponent {
           this.getRoomPolicys()
         },
       })
+      this.showDeleteConfirmation = false; 
+    } else {
+      this.showDeleteConfirmation = false;
+    }
   }
   
 

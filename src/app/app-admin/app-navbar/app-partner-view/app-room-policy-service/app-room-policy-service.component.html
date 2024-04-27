@@ -1,89 +1,158 @@
-<main>
-    <div class="close-btn" mat-dialog-close>
-        <span class="close-hover">x</span>
+<div class="
+dialog-content 
+width-100 
+flex
+border-radius-5 
+margin-top-0 
+margin-bottom-0 
+margin-left-auto 
+padding-20 
+margin-right-auto 
+column 
+justify-content-center 
+overflow-auto">
+    <div class="align-self-flex-end margin-bottom-20" mat-dialog-close>
+        <span class=" flex flex-wrap-nowrap close-btn padding-inline-25 padding-block-2  cursor-pointer 
+        justify-content-center align-items-center font-size-102  border-radius-2 ">X</span>
     </div>
-    <header class="bg">
+    <header>
         <div>
-            <h2 style="color: gold;">Room Policy Service Works!</h2>
+            <h2 class="flex justify-content-center margin-bottom-20 residence-heading">Room Policy Service Works!</h2>
         </div>
     </header>
-    <form [formGroup]="roomPolicyForm" >
-        <div style="display: none;">
-            <label for="autoId">Auto Selected Id:
+    <main>
+        <form class="
+        flex 
+        flex-wrap 
+        !border-red
+        margin-bottom-20  
+        gap-10 
+        justify-content-space-evenly 
+        width-100" [formGroup]="roomPolicyForm">
+            <!-- <div class="flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red  position-relative">
+                <label class="width-100" for="autoId">Auto Selected Id:
                 <span
                     *ngIf="roomPolicyForm.get('roomPolicyRoom_refId')?.invalid && roomPolicyForm.get('roomPolicyRoom_refId')?.touched"
                     class="error-message">
                     {{ getIdError('roomPolicyRoom_refId') }}
                 </span>
-                <input type="text" id="autoId" formControlName="roomPolicyRoom_refId" readonly >
+                <input  class="width-100" type="text" id="autoId" formControlName="roomPolicyRoom_refId" readonly >
             </label>
+        </div> -->
+            <div id="child-PolicyGroup" class="flex 
+        column  
+       form-element-width
+        padding-5 
+        justify-self-space-around  
+        !border-red  position-relative">
+                <label class="width-100" for="policyGroupInput">Enter or Select Amentities Group:
+                    <span
+                        *ngIf="roomPolicyForm.get('roomPolicyName')?.invalid && roomPolicyForm.get('roomPolicyName')?.touched"
+                        class="error-message">
+                        {{ getTextError('roomPolicyName') }}
+                    </span>
+                    <input class="width-100" type="text" id="policyGroupInput" formControlName="roomPolicyName"
+                        [(ngModel)]="roomPolicyName" (focus)="togglePolicyGroup(true)"
+                        (keyup)="togglePolicyGroup(false)" (click)="togglePolicyGroupOnClick()">
 
-        </div>
-        <div id="child-PolicyGroup">
-            <label for="policyGroupInput">Enter or Select Amentities Group:
-                <span
-                    *ngIf="roomPolicyForm.get('roomPolicyName')?.invalid && roomPolicyForm.get('roomPolicyName')?.touched"
-                    class="error-message">
-                    {{ getTextError('roomPolicyName') }}
-                </span>
-                <input type="text" id="policyGroupInput" formControlName="roomPolicyName" 
-                 [(ngModel)]="roomPolicyName"
-                    (focus)="togglePolicyGroup(true)" (keyup)="togglePolicyGroup(false)"
-                    (click)="togglePolicyGroupOnClick()">
+                    <select class="position-absolute right-0 width-100" id="PolicyGroupSelect" #GroupSelect
+                        (change)="selectionPolicyGroup(GroupSelect)"
+                        [style.display]="isRoomPolicyName ? 'block' : 'none'">
+                        <option value="">Select Detail</option>
+                        <option *ngFor="let policy of roomPoliciesList" [value]="policy.policy">{{ policy.policy }}
+                        </option>
 
-                <select id="PolicyGroupSelect" #GroupSelect (change)="selectionPolicyGroup(GroupSelect)"
-                    [style.display]="isRoomPolicyName ? 'block' : 'none'">
-                    <option value="">Select Detail</option>
-                    <option *ngFor="let policy of roomPoliciesList" [value]="policy.policy">{{ policy.policy }}</option>
-
-                </select>
-            </label>
-        </div>
-        <div id="child-PolicyDetails">
-            <label for="amentitiesDetailsInput">Description:
-                <span
-                    *ngIf="roomPolicyForm.get('roomPolicyDescription')?.invalid && roomPolicyForm.get('roomPolicyDescription')?.touched"
-                    class="error-message">
-                    {{ getTextError('roomPolicyDescription') }}
-                </span>
-                <input type="text" id="amentitiesDetailsInput" formControlName="roomPolicyDescription">
-            </label>
-        </div>
-        <div>
-            <button type="button" (click)="addPolicy()">Add Policy</button>
-        </div>
-    </form>
-    <table mat-table matSort [dataSource]="dataSource" class="residence-table">
-        <ng-container matColumnDef="roomPolicyName">
-            <th mat-header-cell *matHeaderCellDef><strong>Policy-Group </strong></th>
-            <td mat-cell *matCellDef="let element; let i = index">
-                <input type="text" [(ngModel)]="element.roomPolicyName">
-                <div *ngIf="!element.roomPolicyName || element.roomPolicyName.trim().length === 0" class="error-message">Amentities Group is required.</div>
-
-
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="roomPolicyDescription">
-            <th mat-header-cell *matHeaderCellDef><strong>Policy Details</strong></th>
-            <td mat-cell *matCellDef="let element; let i = index">
-                <input type="text" [(ngModel)]="element.roomPolicyDescription">
-                <div *ngIf="!element.roomPolicyDescription || element.roomPolicyDescription.trim().length === 0" class="error-message">Amentities Details is required.</div>
-
-            </td>
-        </ng-container>
-        <ng-container matColumnDef="action">
-            <th mat-header-cell *matHeaderCellDef
-                style="text-align: center; align-items: center;justify-content: center;"><strong>Actions</strong></th>
-            <td mat-cell *matCellDef="let element; let i=index">
-                <span class="update-btn" (click)="updatePolicy(element)">Update</span>
-
-                <span class="delete-btn" (click)="deleteAction(element)">Delete</span>
-            </td>
-        </ng-container>
+                    </select>
+                </label>
+            </div>
+            <div id="child-PolicyDetails" class="flex 
+            column  
+           form-element-width
+            padding-5 
+            justify-self-space-around  
+            !border-red  position-relative">
+                <label class="width-100" for="amentitiesDetailsInput">Description:
+                    <span
+                        *ngIf="roomPolicyForm.get('roomPolicyDescription')?.invalid && roomPolicyForm.get('roomPolicyDescription')?.touched"
+                        class="error-message">
+                        {{ getTextError('roomPolicyDescription') }}
+                    </span>
+                    <input class="width-100" type="text" id="amentitiesDetailsInput"
+                        formControlName="roomPolicyDescription">
+                </label>
+            </div>
+            <div class="flex 
+            column  
+           form-element-width
+            padding-5 
+            justify-content-flex-end  
+            !border-red  
+           ">
+                <button class="padding-block-5 padding-inline-16 border-none border-radius-4 cursor-pointer submit-btn"
+                    type="button" (click)="addPolicy()">Add Policy</button>
+            </div>
+        </form>
+        <div class="overflow-x-auto   overflow-y-auto table-wrapper">
+            <table mat-table matSort [dataSource]="dataSource" class="residence-table">
+                <ng-container matColumnDef="roomPolicyName">
+                    <th mat-header-cell *matHeaderCellDef><strong>Policy-Group </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.roomPolicyName">
+                        <div *ngIf="!element.roomPolicyName || element.roomPolicyName.trim().length === 0"
+                            class="error-message">Amentities Group is required.</div>
 
 
-        <tr mat-header-row *matHeaderRowDef="roomPolicyTableColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: roomPolicyTableColumns;">
-        </tr>
-    </table>
-</main>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="roomPolicyDescription">
+                    <th mat-header-cell *matHeaderCellDef><strong>Policy Details</strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.roomPolicyDescription">
+                        <div *ngIf="!element.roomPolicyDescription || element.roomPolicyDescription.trim().length === 0"
+                            class="error-message">Amentities Details is required.</div>
+
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef
+                        style="text-align: center; align-items: center;justify-content: center;">
+                        <strong>Actions</strong>
+                    </th>
+                    <td mat-cell *matCellDef="let element; let i=index">
+                        <span class="
+                    cursor-pointer 
+                    margin-2  
+                    margin-right-30 
+                    padding-5 
+                    border-radius-5 
+                    font-size-09 
+                    update-btn " (click)="updatePolicy(element)">Update</span>
+
+                        <span class="
+                    cursor-pointer 
+                    margin-2 
+                    margin-left-30 
+                    padding-5 
+                    border-radius-5 
+                    font-size-09 
+                    delete-btn" (click)="showConfirmDelete()" (click)="deleteAction(element)">Delete</span>
+                        <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
+                            <button (click)="deleteAction(element)">Delete</button>
+                            <button (click)="showDeleteConfirmation = false">Cancel</button>
+                        </div>
+                    </td>
+                </ng-container>
+
+
+                <tr mat-header-row *matHeaderRowDef="roomPolicyTableColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: roomPolicyTableColumns;">
+                </tr>
+            </table>
+            </div>
+    </main>
+</div>

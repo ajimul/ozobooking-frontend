@@ -5,128 +5,77 @@
   font: 1.1rem sans-serif;
 }
 .dialog-content {
-  width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f5f5f5;
-  border-radius: 5px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.dialog-close {
-  align-self: flex-end;
-  margin-bottom: 20px;
-  /* border: solid black; */
 }
 
 .close-btn {
-  display: flex;
-  flex-wrap: nowrap;
   color: rgb(255, 255, 255);
-  padding-inline: 25px;
-  padding-block: 2px;
   background-color: red;
-  cursor: pointer;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.2rem;
-  border-radius: 2px;
 }
 
 .close-btn:hover {
   box-shadow: 0 5px 10px rgb(49, 50, 54);
 }
 
+.form-element-width{
+  width: 300px;
+}
+
 .residence-heading {
   /* border: solid rgb(0, 0, 0); */
-  display: flex;
-  justify-content: center;
   color: rgb(0, 0, 0);
-  margin-bottom: 20px;
   font-size: clamp(1rem, 5vw, 1.5rem);
 }
 
-.submit-btn{
-    background-color: #007bff;
-    color: #fff;
-    padding: 5px 16px;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: clamp(1rem, 3vw, 1.2rem);
-
-}
-
-/* Styles for the table */
-.mat-mdc-table {
-  width: 100%;
-  border:solid #9c9c9c 0.5px;
-  height: 200px;
-  overflow: scroll;
- 
- }
-
-/* Styles for table header */
-.mat-mdc-table th {
-  background-color: #0D4541; 
-  color: #ffffff;
-  padding: 8px; 
-  text-align: left; 
-}
-
-/* Styles for table cells */
-.mat-mdc-table td {
-  padding: 8px; 
-  height:10px !important;
-}
-
-/* Styles for table rows */
-.mat-mdc-table tr:nth-child(even) {
-  background-color: #f9f9f9; 
-}
-
-/* Styles for row hover effect */
- .mat-mdc-table tr:hover {
-  background-color: #e2e2e2;
+.submit-btn {
+  background-color: #007bff;
+  color: #fff;
+ font-size: clamp(1rem, 3vw, 1.2rem);
 }
 .table-wrapper {
-  overflow-x: auto;  /* Enable horizontal scrolling if needed */
-  overflow-y: auto;  /* Enable vertical scrolling */
-  height: 300px;     /* Adjust the height as needed */
+  height: 300px;
+}
+
+.mat-mdc-table {
+  width: 100%;
+  border: solid #9c9c9c 0.5px;
+  overflow: scroll;
+}
+.table-row {
+  height: 10px !important;
+}
+.mat-mdc-table th {
+  background-color: #0d4541;
+  color: #ffffff;
+  padding: 8px;
+  text-align: left;
+}
+.mat-mdc-table td {
+  padding: 8px;
+}
+.mat-mdc-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.mat-mdc-table tr:hover {
+  background-color: #e2e2e2;
 }
 
 .delete-btn {
-    color: #ffffff;
-    cursor: pointer;
-    background-color: #ff0000;
-    margin: 2px;
-    margin-left: 30px;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-  }
-  .delete-btn:hover {
-    color: #ffffff;
-    background-color: #e40909;
-    font-size: 1rem;
-  }
-  .update-btn {
-    cursor: pointer;
-    color: rgb(255, 255, 255);
-    background-color: #04AA6D;
-    margin: 2px;
-    margin-right: 30px;
-    padding: 5px;
-    border-radius: 5px;
-    font-size: 0.9rem;
-  }
-  .update-btn:hover {
-    background-color: #018353;
-    font-size: 1rem;
-    color: rgb(255, 255, 255);
-  }
-  
+  color: #ffffff;
+  background-color: #ff0000;
+}
+.delete-btn:hover {
+  color: #ffffff;
+  background-color: #e40909;
+  font-size: 1rem;
+}
+.update-btn {
+  color: rgb(255, 255, 255);
+  background-color: #04aa6d;
+}
+.update-btn:hover {
+  background-color: #018353;
+  font-size: 1rem;
+  color: rgb(255, 255, 255);
+}

@@ -15,12 +15,12 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-app-residence-rooms-service',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, MatTableModule, FormsModule,MatDialogModule],
+  imports: [ReactiveFormsModule, CommonModule, MatTableModule, FormsModule, MatDialogModule],
   templateUrl: './app-residence-rooms-service.component.html',
   styleUrl: './app-residence-rooms-service.component.css'
 })
 export class AppResidenceRoomsServiceComponent {
-  [x: string]: any;
+
   roomType: any;
   roomAvailability: any;
   roomBedType: any;
@@ -28,7 +28,7 @@ export class AppResidenceRoomsServiceComponent {
   roomTradingPrice: any;
   roomDiscount: any;
   roomDescription: any;
-
+  showDeleteConfirmation = false;
   residenceRoom: ResidenceRoomsDTO[] = []
   residenceRoomForm!: FormGroup
   dataSource = new MatTableDataSource<ResidenceRoomsDTO>(this.residenceRoom);
@@ -55,7 +55,7 @@ export class AppResidenceRoomsServiceComponent {
   }
   resiAmenGroupName: any = "";
   createSubmitForm() {
-    
+
     this.residenceRoomForm = this.fb.group({
       roomResidence_refId: new FormControl(this.data.residenceId, [Validators.required, CustomValidation.idValidation(1)]),
       roomType: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
@@ -276,7 +276,9 @@ export class AppResidenceRoomsServiceComponent {
     this.dataSource = new MatTableDataSource<ResidenceRoomsDTO>(this.residenceRoom);
 
   }
-
+  showConfirmDelete() {
+    this.showDeleteConfirmation = true; // Show confirmation dialog
+  }
 
   ngOnInit(): void {
     this.setRoomTableData();
@@ -321,6 +323,17 @@ export class AppResidenceRoomsServiceComponent {
           alert('Internal Server Error!')
         },
         complete: () => {
+          this.residenceRoomForm.patchValue({
+            roomType: '',
+            roomAvailability: '',
+            roomBedType: '',
+            roomPrice: '',
+            roomTradingPrice: '',
+            roomDiscount: '',
+            roomDescription: '',
+            roomIssueDate: ''
+          })
+
           this.getTableData();
 
         }
@@ -379,30 +392,35 @@ export class AppResidenceRoomsServiceComponent {
 
 
   deleteRoom(element: ResidenceRoomsDTO): void {
-    this.apiService.deleteResidenceRoomById(element.roomId!)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
-            console.log('Deleted successfully');
-          } else if (error.status === 404) {
-            console.error('Not found');
-          } else {
-            console.error('An error occurred:', error);
-          }
-          throw error;
+    if (confirm("Are you sure you want to delete this room?")) {
+      this.apiService.deleteResidenceRoomById(element.roomId!)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
+              console.log('Deleted successfully');
+            } else if (error.status === 404) {
+              console.error('Not found');
+            } else {
+              console.error('An error occurred:', error);
+            }
+            throw error;
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            alert('Room Deleted successfully');
+          },
+          error: (error) => {
+            alert('Room Not Found!');
+          },
+          complete: () => {
+            this.getTableData();
+          },
         })
-      )
-      .subscribe({
-        next: (response) => {
-          alert('Room Deleted successfully');
-        },
-        error: (error) => {
-          alert('Room Not Found!');
-        },
-        complete: () => {
-          this.getTableData();
-        },
-      })
+      this.showDeleteConfirmation = false;
+    } else {
+      this.showDeleteConfirmation = false;
+    }
   }
 
 

@@ -1,202 +1,322 @@
+<div class="
+dialog-content 
+width-100 
+flex
+border-radius-5 
+margin-top-0 
+margin-bottom-0 
+margin-left-auto 
+padding-20 
+margin-right-auto 
+column 
+justify-content-center 
+overflow-auto">
 
-<main>
-    <div class="close-btn" mat-dialog-close>
-        <span class="close-hover">x</span>
+
+    <div class="align-self-flex-end margin-bottom-20" mat-dialog-close>
+        <span class=" flex flex-wrap-nowrap close-btn padding-inline-25 padding-block-2  cursor-pointer 
+        justify-content-center align-items-center font-size-102  border-radius-2 ">X</span>
     </div>
-    <header class="bg">
+    <header>
         <div>
-            <h2 style="color: gold;">Room Service Works!</h2>
+            <h2 class="
+            flex 
+            justify-content-center 
+            margin-bottom-20 
+            residence-heading">Room Service Works!</h2>
         </div>
     </header>
-    <div class="flex-box">
-        <form [formGroup]="residenceRoomForm">
+    <main>
+        <form class="
+        flex 
+        flex-wrap 
+        !border-red
+        margin-bottom-20  
+        gap-10 
+        justify-content-space-evenly 
+        width-100" [formGroup]="residenceRoomForm">
 
-            <div class="flex-form-group">
-                <label for="roomResidence_refId">Room Residence Reference ID:
+            <!-- <div class="
+                flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red  
+                position-relative ">
+                <label class="width-100" for="roomResidence_refId">Room Residence Reference ID:
                     <span
                         *ngIf="residenceRoomForm.get('roomResidence_refId')?.invalid && residenceRoomForm.get('roomResidence_refId')?.touched"
                         class="error-message">
                         {{ getIdError('roomResidence_refId') }}
                     </span>
-                    <input type="number" id="roomResidence_refId" name="roomResidence_refId"
+                    <input class="width-100" type="number" id="roomResidence_refId" name="roomResidence_refId"
                         formControlName="roomResidence_refId">
                 </label>
-            </div>
-            <div class="flex-form-group">
-                <label for="roomType">Room Type:
+            </div> -->
+            <div class="
+                flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red">
+                <label class="width-100" for="roomType">Room Type:
                     <span
                         *ngIf="residenceRoomForm.get('roomType')?.invalid && residenceRoomForm.get('roomType')?.touched"
                         class="error-message">
                         {{ getTextError('roomType') }}
                     </span>
-                    <input type="text" id="roomType" name="roomType" formControlName="roomType">
+                    <input class="width-100" type="text" id="roomType" name="roomType" formControlName="roomType">
                 </label>
             </div>
-            <div class="flex-form-group">
+            <div class="
+                flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red ">
 
-                <label for="roomAvailability">Room Availability:
+                <label class="width-100" for="roomAvailability">Room Availability:
                     <span
                         *ngIf="residenceRoomForm.get('roomAvailability')?.invalid && residenceRoomForm.get('roomAvailability')?.touched"
                         class="error-message">
                         {{ getTextError('roomAvailability') }}
                     </span>
-                    <input type="text" id="roomAvailability" name="roomAvailability" formControlName="roomAvailability">
+                    <input class="width-100" type="text" id="roomAvailability" name="roomAvailability"
+                        formControlName="roomAvailability">
                 </label>
             </div>
-            <div class="flex-form-group">
+            <div class="
+                flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red  
+               ">
 
-                <label for="roomBedType">Room Bed Type:
+                <label class="width-100" for="roomBedType">Room Bed Type:
                     <span
                         *ngIf="residenceRoomForm.get('roomBedType')?.invalid && residenceRoomForm.get('roomBedType')?.touched"
                         class="error-message">
                         {{ getTextError('roomBedType') }}
                     </span>
-                    <input type="text" id="roomBedType" name="roomBedType" formControlName="roomBedType">
+                    <input class="width-100" type="text" id="roomBedType" name="roomBedType"
+                        formControlName="roomBedType">
                 </label>
             </div>
-            <div class="flex-form-group">
+            <div class="
+                flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red  
+               ">
 
-                <label for="roomPrice">Room Price:
+                <label class="width-100" for="roomPrice">Room Price:
                     <span
                         *ngIf="residenceRoomForm.get('roomPrice')?.invalid && residenceRoomForm.get('roomPrice')?.touched"
                         class="error-message">
                         {{ getIdError('roomPrice') }}
                     </span>
-                    <input type="number" id="roomPrice" name="roomPrice" formControlName="roomPrice">
+                    <input class="width-100" type="number" id="roomPrice" name="roomPrice" formControlName="roomPrice">
                 </label>
             </div>
-            <div class="flex-form-group">
+            <div class="
+                flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red  
+                ">
 
-                <label for="roomTradingPrice">Room Trading Price:
+                <label class="width-100" for="roomTradingPrice">Room Trading Price:
                     <span
                         *ngIf="residenceRoomForm.get('roomTradingPrice')?.invalid && residenceRoomForm.get('roomTradingPrice')?.touched"
                         class="error-message">
                         {{ getNumberError('roomTradingPrice') }}
                     </span>
-                    <input type="number" id="roomTradingPrice" name="roomTradingPrice"
+                    <input class="width-100" type="number" id="roomTradingPrice" name="roomTradingPrice"
                         formControlName="roomTradingPrice">
                 </label>
             </div>
-            <div class="flex-form-group">
-                <label for="roomDiscount">Room Discount:
+            <div class="
+                flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red  
+               ">
+                <label class="width-100" for="roomDiscount">Room Discount:
                     <span
                         *ngIf="residenceRoomForm.get('roomDiscount')?.invalid && residenceRoomForm.get('roomDiscount')?.touched"
                         class="error-message">
                         {{ getNumberError('roomDiscount') }}
                     </span>
-                    <input type="number" id="roomDiscount" name="roomDiscount" formControlName="roomDiscount">
+                    <input class="width-100" type="number" id="roomDiscount" name="roomDiscount"
+                        formControlName="roomDiscount">
                 </label>
             </div>
-            <div class="flex-form-group">
+            <div class="
+                flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red  
+               ">
 
-                <label for="roomDescription">Room Description:
+                <label class="width-100" for="roomDescription">Room Description:
                     <span
                         *ngIf="residenceRoomForm.get('roomDescription')?.invalid && residenceRoomForm.get('roomDescription')?.touched"
                         class="error-message">
                         {{ getTextError('roomDescription') }}
                     </span>
-                    <textarea id="roomDescription" name="roomDescription" rows="2"
+                    <textarea class="width-100 overflow-hidden " id="roomDescription" name="roomDescription" rows="1"
                         formControlName="roomDescription"></textarea>
 
                 </label>
             </div>
-            <div class="flex-form-group">
+            <div class="
+                flex 
+                column  
+               form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red  
+                 ">
 
-                <label for="roomIssueDate">Room Issue Date:
+                <label class="width-100" for="roomIssueDate">Room Issue Date:
                     <span
                         *ngIf="residenceRoomForm.get('roomIssueDate')?.invalid && residenceRoomForm.get('roomIssueDate')?.touched"
                         class="error-message">
                         {{ getDateError('roomIssueDate') }}
                     </span>
-                    <input type="date" id="roomIssueDate" name="roomIssueDate" formControlName="roomIssueDate">
+                    <input class="width-100" type="date" id="roomIssueDate" name="roomIssueDate"
+                        formControlName="roomIssueDate">
                 </label>
             </div>
-            <div class="flex-form-group">
-                <button type="submit" (click)="formSubmit()">Submit</button>
+            <div class="flex 
+            column  
+           form-element-width
+            padding-5 
+            justify-content-flex-end  
+            !border-red  
+           ">
+                <button class="padding-block-5 padding-inline-16 border-none border-radius-4 cursor-pointer submit-btn" type="submit" (click)="formSubmit()">Submit</button>
             </div>
         </form>
-    </div>
-    <div class="flex-box">
-        <table mat-table matSort [dataSource]="dataSource" class="residence-room-table">
-            <ng-container matColumnDef="roomType">
-                <th mat-header-cell *matHeaderCellDef><strong>Room Type </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    <input type="text" [(ngModel)]="element.roomType"
-                        (keyup)="nonControl_textValidation(element.roomType,element)">
-                        <div *ngIf="!isValuePresent(element.roomType)" class="error-message">Room Type is Required! 
-                        </div>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="roomAvailability">
-                <th mat-header-cell *matHeaderCellDef><strong>Room Availability </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    <input type="text" [(ngModel)]="element.roomAvailability">
-                        <div *ngIf="!isValuePresent(element.roomAvailability)" class="error-message">Set Room Availability! 
-                        </div>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="roomBedType">
-                <th mat-header-cell *matHeaderCellDef><strong>Bed Type </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    <input type="text" [(ngModel)]="element.roomBedType"
-                        (keyup)="nonControl_textValidation(element.roomBedType,element)">
-                        <div *ngIf="!isValuePresent(element.roomBedType)" class="error-message">Bed Type is Required! 
-                        </div>
-</td>
-            </ng-container>
-            <ng-container matColumnDef="roomPrice">
-                <th mat-header-cell *matHeaderCellDef><strong>Room Price </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    <input type="text" [(ngModel)]="element.roomPrice"
-                        (keyup)="nonControl_NumberValidation(element.roomPrice,element)">
-                    <div *ngIf="!isPositiveNumber(element.roomPrice)" class="error-message">Set Price! 
-                    </div>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="roomTradingPrice">
-                <th mat-header-cell *matHeaderCellDef><strong>Room Trading Price </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    <input type="text" [(ngModel)]="element.roomTradingPrice"
-                        (keyup)="nonControl_NumberValidation(element.roomTradingPrice,element)">
-                    <div *ngIf="!isPositiveNumber(element.roomTradingPrice)" class="error-message">Set Trading Price!
-                    </div>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="roomDiscount">
-                <th mat-header-cell *matHeaderCellDef><strong>Discount </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    <input type="text" [(ngModel)]="element.roomDiscount"
-                    (keyup)="nonControl_NumberValidation(element.roomDiscount,element)">
-                    <div *ngIf="!isPositiveNumber(element.roomDiscount)" class="error-message">Set Discount Price!
-                    </div>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="roomDescription">
-                <th mat-header-cell *matHeaderCellDef><strong>Description </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    <textarea name="" id="" cols="20" rows="2" [(ngModel)]="element.roomDescription"></textarea>
-                    <div *ngIf="!isValuePresent(element.roomDescription)" class="error-message">Set Room Description! 
-                    </div>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="roomIssueDate">
-                <th mat-header-cell *matHeaderCellDef><strong>Issue Date </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    {{element.roomIssueDate}}
-                </td>
-            </ng-container> <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef
-                    style="text-align: center; align-items: center;justify-content: center;"><strong>Actions</strong>
-                </th>
-                <td mat-cell *matCellDef="let element; let i=index">
-                    <span class="update-btn" (click)="updateRoom(element)">Update</span>
 
-                    <span class="delete-btn" (click)="deleteRoom(element)">Delete</span>
-                </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: tableColumns;">
-            </tr>
-        </table>
-    </div>
-</main>
+        <div class="overflow-x-auto   overflow-y-auto table-wrapper">
+            <table mat-table matSort [dataSource]="dataSource" class="residence-room-table">
+                <ng-container matColumnDef="roomType">
+                    <th mat-header-cell *matHeaderCellDef><strong>Room Type </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.roomType"
+                            (keyup)="nonControl_textValidation(element.roomType,element)">
+                        <div *ngIf="!isValuePresent(element.roomType)" class="error-message">Room Type is Required!
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="roomAvailability">
+                    <th mat-header-cell *matHeaderCellDef><strong>Room Availability </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.roomAvailability">
+                        <div *ngIf="!isValuePresent(element.roomAvailability)" class="error-message">Set Room
+                            Availability!
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="roomBedType">
+                    <th mat-header-cell *matHeaderCellDef><strong>Bed Type </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.roomBedType"
+                            (keyup)="nonControl_textValidation(element.roomBedType,element)">
+                        <div *ngIf="!isValuePresent(element.roomBedType)" class="error-message">Bed Type is Required!
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="roomPrice">
+                    <th mat-header-cell *matHeaderCellDef><strong>Room Price </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.roomPrice"
+                            (keyup)="nonControl_NumberValidation(element.roomPrice,element)">
+                        <div *ngIf="!isPositiveNumber(element.roomPrice)" class="error-message">Set Price!
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="roomTradingPrice">
+                    <th mat-header-cell *matHeaderCellDef><strong>Room Trading Price </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.roomTradingPrice"
+                            (keyup)="nonControl_NumberValidation(element.roomTradingPrice,element)">
+                        <div *ngIf="!isPositiveNumber(element.roomTradingPrice)" class="error-message">Set Trading
+                            Price!
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="roomDiscount">
+                    <th mat-header-cell *matHeaderCellDef><strong>Discount </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.roomDiscount"
+                            (keyup)="nonControl_NumberValidation(element.roomDiscount,element)">
+                        <div *ngIf="!isPositiveNumber(element.roomDiscount)" class="error-message">Set Discount Price!
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="roomDescription">
+                    <th mat-header-cell *matHeaderCellDef><strong>Description </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <textarea name="" id="" cols="20" rows="2" [(ngModel)]="element.roomDescription"></textarea>
+                        <div *ngIf="!isValuePresent(element.roomDescription)" class="error-message">Set Room
+                            Description!
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="roomIssueDate">
+                    <th mat-header-cell *matHeaderCellDef><strong>Issue Date </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        {{element.roomIssueDate}}
+                    </td>
+                </ng-container> <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef
+                        style="text-align: center; align-items: center;justify-content: center;">
+                        <strong>Actions</strong>
+                    </th>
+                    <td mat-cell *matCellDef="let element; let i=index">
+                        <span class="
+                        cursor-pointer 
+                        margin-2  
+                        margin-right-30 
+                        padding-5 
+                        border-radius-5 
+                        font-size-09 
+                        update-btn" (click)="updateRoom(element)">Update</span>
+
+                        <span class="
+                        cursor-pointer 
+                        margin-2 
+                        margin-left-30 
+                        padding-5 
+                        border-radius-5 
+                        font-size-09 
+                        delete-btn" (click)="showConfirmDelete()" (click)="deleteRoom(element)">Delete</span>
+                        <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
+                            <button (click)="deleteRoom(element)">Delete</button>
+                            <button (click)="showDeleteConfirmation = false">Cancel</button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: tableColumns;">
+                </tr>
+            </table>
+        </div>
+    </main>
+
+</div>

@@ -94,9 +94,6 @@ export class AppResidenceAmentitiesServiceComponent {
     // Clear the array before populating it with new data
     this.amentities = [];
     const newData: any = []
-
-    // Populate the amentities array with new data
-    // this.data.forEach(residence => {
       this.amentitiesGroupList = [];
       this.data.residencceAmentities.forEach(residencceAmentities => {
         this.amentitiesGroupList.push({
@@ -113,7 +110,6 @@ export class AppResidenceAmentitiesServiceComponent {
           });
         });
       });
-    // });
     this.dataSource.data = [];
     this.amentities = newData
     this.dataSource = new MatTableDataSource<ResidencceAmentitiesDTO>(this.amentities);
@@ -185,6 +181,9 @@ export class AppResidenceAmentitiesServiceComponent {
           alert('Internal Server Error!')
         },
         complete: () => {
+          this.amentitiesForm.patchValue({
+            resiAmenGroupName: '',
+            resiAmenDetails: ''});
           this.getTableData();
 
         }

@@ -1,17 +1,22 @@
+<div
+    class="dialog-content width-100 flex border-radius-5 margin-top-0 margin-bottom-0 margin-left-auto; padding-20 margin-right-auto column justify-content-center overflow-hidden">
 
-<main>
-    <div class="flex-box">
-        <div class="close-btn"  mat-dialog-close>
-            <span class="close-hover">x</span>
+    <div class="align-self-flex-end margin-bottom-20" mat-dialog-close>
+        <span class=" flex flex-wrap-nowrap close-btn padding-inline-25 padding-block-2  cursor-pointer 
+        justify-content-center align-items-center font-size-102  border-radius-2 ">X</span>
+    </div>
+    <header>
+        <div>
+            <h2 class="flex justify-content-center margin-bottom-20 residence-heading">
+                Residence Location Service Works!
+            </h2>
         </div>
-        <header class="bg">
-            <div>
-                <h2 style="color: gold;">Residence Location Service Works!</h2>
-            </div>
-        </header>
-        <form [formGroup]="residenceDistanceForm">
+    </header>
+    <main>
+        <form class="flex  margin-bottom-20  gap-10 justify-content-space-evenly width-100"
+            [formGroup]="residenceDistanceForm">
 
-            <div class="flex-form-group">
+            <!-- <div class="flex-form-group">
                 <label for="distanceResidence_refId">Residence Location Reference ID:
                     <span
                         *ngIf="residenceDistanceForm.get('distanceResidence_refId')?.invalid && residenceDistanceForm.get('distanceResidence_refId')?.touched"
@@ -21,68 +26,95 @@
                     <input type="number" id="distanceResidence_refId" name="distanceResidence_refId"
                         formControlName="distanceResidence_refId">
                 </label>
-            </div>
-            <div class="flex-form-group">
-                <label for="distanceFrom">Enter Distance From:
+            </div> -->
+            <div class="flex column hight-20 flex-40 padding-5 justify-self-space-around  !border-red">
+                <label class="width-100" for="distanceFrom">Enter Distance From:
                     <span
                         *ngIf="residenceDistanceForm.get('distanceFrom')?.invalid && residenceDistanceForm.get('distanceFrom')?.touched"
                         class="error-message">
                         {{ getTextError('distanceFrom') }}
                     </span>
-                    <input type="text" id="distanceFrom" name="distanceFrom" formControlName="distanceFrom">
+                    <input class="width-100" type="text" id="distanceFrom" name="distanceFrom"
+                        formControlName="distanceFrom">
                 </label>
             </div>
-            <div class="flex-form-group">
+            <div class="flex column hight-20 flex-40 padding-5 justify-self-space-around  !border-red">
 
-                <label for="distanceValue">Enter Distance Value:
+                <label class="width-100" for="distanceValue">Enter Distance Value:
                     <span
                         *ngIf="residenceDistanceForm.get('distanceValue')?.invalid && residenceDistanceForm.get('distanceValue')?.touched"
                         class="error-message">
                         {{ getTextError('distanceValue') }}
                     </span>
-                    <input type="text" id="distanceValue" name="distanceValue" formControlName="distanceValue">
+                    <input class="width-100" type="text" id="distanceValue" name="distanceValue"
+                        formControlName="distanceValue">
                 </label>
             </div>
-            <div class="flex-form-group">
-                <button type="submit" (click)="formSubmit()">Submit</button>
+            <div class="flex column flex-10  padding-5 hight-25 justify-content-flex-end !border-red">
+                <button class="padding-block-5 padding-inline-16 border-none border-radius-4 cursor-pointer
+                submit-btn" type="submit" (click)="formSubmit()">Submit</button>
             </div>
         </form>
-    </div>
-    <div class="flex-box">
-        <table mat-table matSort [dataSource]="dataSource" class="residence-room-table">
-            
-            <ng-container matColumnDef="distanceFrom">
-                <th mat-header-cell *matHeaderCellDef><strong>Location </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    <input type="text" [(ngModel)]="element.distanceFrom"
-                        (keyup)="nonControl_textValidation(element.distanceFrom,element)">
-                    <div *ngIf="!isValuePresent(element.distanceFrom)" class="error-message">Set Distance From!
-                    </div>
-                </td>
-            </ng-container>
-            <ng-container matColumnDef="distanceValue">
-                <th mat-header-cell *matHeaderCellDef><strong>Distance </strong></th>
-                <td mat-cell *matCellDef="let element; let i = index">
-                    <input type="text" [(ngModel)]="element.distanceValue"
-                    (keyup)="nonControl_textValidation(element.distanceValue,element)">
-                    <div *ngIf="!isValuePresent(element.distanceValue)" class="error-message">Set Distance Value!
-                    </div>
-                </td>
-            </ng-container>
 
-            <ng-container matColumnDef="action">
-                <th mat-header-cell *matHeaderCellDef
-                    style="text-align: center; align-items: center;justify-content: center;"><strong>Actions</strong>
-                </th>
-                <td mat-cell *matCellDef="let element; let i=index">
-                    <span class="update-btn" (click)="updateDistance(element)">Update</span>
+        <div class="
+        overflow-x-auto 
+        overflow-y-auto ">
+            <table mat-table matSort [dataSource]="dataSource" class="residence-room-table">
 
-                    <span class="delete-btn" (click)="deleteDistance(element)">Delete</span>
-                </td>
-            </ng-container>
-            <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: tableColumns;">
-            </tr>
-        </table>
-    </div>
-</main>
+                <ng-container matColumnDef="distanceFrom">
+                    <th mat-header-cell *matHeaderCellDef><strong>Location </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.distanceFrom"
+                            (keyup)="nonControl_textValidation(element.distanceFrom,element)">
+                        <div *ngIf="!isValuePresent(element.distanceFrom)" class="error-message">Set Distance From!
+                        </div>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="distanceValue">
+                    <th mat-header-cell *matHeaderCellDef><strong>Distance </strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                        <input type="text" [(ngModel)]="element.distanceValue"
+                            (keyup)="nonControl_textValidation(element.distanceValue,element)">
+                        <div *ngIf="!isValuePresent(element.distanceValue)" class="error-message">Set Distance Value!
+                        </div>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef class="
+                text-align-center 
+                align-items-center 
+                justify-content-center"><strong>Actions</strong>
+                    </th>
+                    <td mat-cell *matCellDef="let element; let i=index">
+                        <span class="
+                    cursor-pointer 
+                    margin-2  
+                    margin-right-30 
+                    padding-5 
+                    border-radius-5 
+                    font-size-09 
+                    update-btn" (click)="updateDistance(element)">Update</span>
+
+                        <span class="
+                    cursor-pointer 
+                    margin-2 
+                    margin-left-30 
+                    padding-5 
+                    border-radius-5 
+                    font-size-09 
+                    delete-btn" (click)="showConfirmDelete()" (click)="deleteDistance(element)">Delete</span>
+
+                        <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
+                            <button (click)="deleteDistance(element)">Delete</button>
+                            <button (click)="showDeleteConfirmation = false">Cancel</button>
+                        </div>
+                    </td>
+                </ng-container>
+                <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: tableColumns;">
+                </tr>
+            </table>
+        </div>
+    </main>
+</div>

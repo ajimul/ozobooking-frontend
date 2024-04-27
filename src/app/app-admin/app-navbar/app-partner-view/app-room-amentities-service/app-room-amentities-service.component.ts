@@ -22,6 +22,7 @@ export class AppRoomAmentitiesServiceComponent {
   amentities: RoomAmentitiesDTO[] = []
   amentitiesForm!: FormGroup
   dataSource = new MatTableDataSource<RoomAmentitiesDTO>(this.amentities);
+  showDeleteConfirmation = false;
   tableColumns = [
     'roomAmenGroupName',
     'roomAmenType',
@@ -128,6 +129,9 @@ export class AppRoomAmentitiesServiceComponent {
     this.dataSource = new MatTableDataSource<RoomAmentitiesDTO>(this.amentities);
 
   }
+  showConfirmDelete() {
+    this.showDeleteConfirmation = true; // Show confirmation dialog
+  }
 
   ngOnInit(): void {
     this.setAmentitiesTableData();
@@ -193,6 +197,10 @@ export class AppRoomAmentitiesServiceComponent {
           alert('Internal Server Error!')
         },
         complete: () => {
+          this.amentitiesForm .patchValue({
+            roomAmenType: '',
+            roomAmenGroupName:'',
+            roomAmenDetails: ''})      
           this.getTableData();
 
         }
@@ -213,7 +221,7 @@ export class AppRoomAmentitiesServiceComponent {
   }
 
   updateAmentities($event: any): void {
-
+    
     let amentitiesGroup: string = $event.roomAmenGroupName
     let amentitiesGroupDetails: string = $event.roomAmenDetails
     if (amentitiesGroup.trim().length > 0
@@ -242,12 +250,14 @@ export class AppRoomAmentitiesServiceComponent {
           this.getTableData();
         },
       })
+      
     } else {
       alert('Empty Data Not Allowed!')
     }
 
   }
   deleteAmentities($event: number): void {
+    if (confirm("Are you sure you want to delete this amentities?")) {
     this.apiService.deleteResidenceRoomAmentitiesById($event)
       .pipe(
         catchError((error: HttpErrorResponse) => {
@@ -272,5 +282,9 @@ export class AppRoomAmentitiesServiceComponent {
           this.getTableData();
         },
       })
+      this.showDeleteConfirmation = false;
+    } else {
+      this.showDeleteConfirmation = false;
+    }
   }
 }
