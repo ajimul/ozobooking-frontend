@@ -35,14 +35,13 @@ export class AppRoomImagesServiceComponent {
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: ResidenceRooms,
     private dialogRef: MatDialogRef<AppRoomImagesServiceComponent>) {
-    this.setMatTableDatasource();
+    this.setRoomImages();
 
   }
 
 
-  setMatTableDatasource() {
-    this.residenceRoomsImages = Array.from(this.data.roomImages!)
-    // this.dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
+  setRoomImages() {
+    this.residenceRoomsImages = Array.from(this.data.roomsImages!)
   }
 
   setFormField() {
@@ -122,19 +121,17 @@ export class AppRoomImagesServiceComponent {
       }
     });
   }
+
   getRoomImages() {
     this.apiService.getRoomImagesByRoomId(this.data.roomId!).subscribe({
       next: (value) => {
-        // this.dataSource.data = [];
         this.residenceRoomsImages = [];
         this.residenceRoomsImages = value;
-        console.log('value', value)
       },
       error: (err) => {
         console.log(err);
       },
       complete: () => {
-        // this.dataSource = new MatTableDataSource<ResidenceRoomsImages>(this.residenceRoomsImages);
       },
     })
   }

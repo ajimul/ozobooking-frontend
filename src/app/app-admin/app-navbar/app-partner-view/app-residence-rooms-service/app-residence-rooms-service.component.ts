@@ -225,7 +225,9 @@ export class AppResidenceRoomsServiceComponent {
             roomTradingPrice: rr.roomTradingPrice,
             roomDiscount: rr.roomDiscount,
             roomDescription: rr.roomDescription,
-            roomIssueDate: rr.roomIssueDate
+            roomIssueDate: rr.roomIssueDate,
+            errorMessage: '',
+
           });
 
         })

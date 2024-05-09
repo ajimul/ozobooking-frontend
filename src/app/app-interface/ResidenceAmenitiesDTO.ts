@@ -1,4 +1,4 @@
-export interface ResidencceAmentitiesDTO {
+export interface ResidenceAmenitiesDTO {
 
     resiAmenId?: number;
     resiAmen_refId?: number;

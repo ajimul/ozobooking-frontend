@@ -5,24 +5,24 @@ import { CustomValidationService } from '../../../../app-validator/custom-valida
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { ResidencceAmentities, Residence } from '../../../../app-interface/Residence';
-import { ResidencceAmentitiesDTO } from '../../../../app-interface/ResidencceAmentitiesDTO';
+import { ResidenceAmenities, Residence } from '../../../../app-interface/Residence';
 import { CustomValidation } from '../../../../app-validator/custom-validation';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
+import { ResidenceAmenitiesDTO } from '../../../../app-interface/ResidenceAmenitiesDTO';
 
 @Component({
-  selector: 'app-app-residence-amentities-service',
+  selector: 'app-app-residence-amenities-service',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule,MatDialogModule],
-  templateUrl: './app-residence-amentities-service.component.html',
-  styleUrl: './app-residence-amentities-service.component.css'
+  templateUrl: './app-residence-amenities-service.component.html',
+  styleUrl: './app-residence-amenities-service.component.css'
 })
-export class AppResidenceAmentitiesServiceComponent {
-  amentities: ResidencceAmentitiesDTO[] = []
+export class AppResidenceAmenitiesServiceComponent {
+  amenities: ResidenceAmenitiesDTO[] = []
   showDeleteConfirmation = false;
-  amentitiesForm!: FormGroup
-  dataSource = new MatTableDataSource<ResidencceAmentitiesDTO>(this.amentities);
+  amenitiesForm!: FormGroup
+  dataSource = new MatTableDataSource<ResidenceAmenitiesDTO>(this.amenities);
   tableColumns = [
     'resiAmenGroupName',
     'resiAmenDetails',
@@ -33,12 +33,12 @@ export class AppResidenceAmentitiesServiceComponent {
     @Inject(MAT_DIALOG_DATA) public data: Residence,
     private validationService: CustomValidationService,
     private fb: FormBuilder,
-    private dialogRef: MatDialogRef<AppResidenceAmentitiesServiceComponent>,
+    private dialogRef: MatDialogRef<AppResidenceAmenitiesServiceComponent>,
     private cdr: ChangeDetectorRef
   ) { }
   resiAmenGroupName: any = "";
   createSubmitForm() {
-    this.amentitiesForm = this.fb.group({
+    this.amenitiesForm = this.fb.group({
       resiAmen_refId: new FormControl(this.data.residenceId, [Validators.required, CustomValidation.idValidation(1)]),
       resiAmenGroupName: new FormControl(this.resiAmenGroupName, [Validators.required, CustomValidation.textValidation(1, 100)]),
       resiAmenDetails: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
@@ -46,28 +46,28 @@ export class AppResidenceAmentitiesServiceComponent {
     })
   }
   getIdError(controlName: string): string | null {
-    const control = this.amentitiesForm.get(controlName);
+    const control = this.amenitiesForm.get(controlName);
     return control
       ? this.validationService.getIdValidationError(control) : null;
   }
   getTextError(controlName: string): string | null {
-    const control = this.amentitiesForm.get(controlName);
+    const control = this.amenitiesForm.get(controlName);
     return control
       ? this.validationService.getTextValidationError(control, '*', '*', '*', '*', '*', '*') : null;
   }
-  amentitiesGroupList: { group: string }[] = [];
+  amenitiesGroupList: { group: string }[] = [];
   getTableData(): void {
 
     this.apiService.getResidencesById(this.data.residenceId).subscribe({
       next: (value) => {
-        this.amentities = [];
+        this.amenities = [];
         const newData: any = []
-        this.amentitiesGroupList = [];
-        value.residencceAmentities.forEach(a => {
-          this.amentitiesGroupList.push({
+        this.amenitiesGroupList = [];
+        value.residenceAmenities.forEach(a => {
+          this.amenitiesGroupList.push({
             group: a.resiAmenGroupName
           })
-          a.reseAmentitiesDetails.forEach(ad => {
+          a.reseAmenitiesDetails.forEach(ad => {
             newData.push({
               resiAmenId: a.resiAmenId,
               resiAmen_refId: a.resiAmen_refId,
@@ -79,74 +79,73 @@ export class AppResidenceAmentitiesServiceComponent {
           })
         })
         this.dataSource.data = [];
-        this.amentities = newData
+        this.amenities = newData
       },
       error: (error) => {
         console.log(JSON.stringify(error))
         alert('Error')
       },
       complete: () => {
-        this.dataSource = new MatTableDataSource<ResidencceAmentitiesDTO>(this.amentities);
+        this.dataSource = new MatTableDataSource<ResidenceAmenitiesDTO>(this.amenities);
       }
     });
   }
-  setAmentitiesTableData(): void {
+  setAmenitiesTableData(): void {
     // Clear the array before populating it with new data
-    this.amentities = [];
+    this.amenities = [];
     const newData: any = []
-      this.amentitiesGroupList = [];
-      this.data.residencceAmentities.forEach(residencceAmentities => {
-        this.amentitiesGroupList.push({
-          group: residencceAmentities.resiAmenGroupName
+      this.amenitiesGroupList = [];
+      this.data.residenceAmenities.forEach(residenceAmenities => {
+        this.amenitiesGroupList.push({
+          group: residenceAmenities.resiAmenGroupName
         })
-        residencceAmentities.reseAmentitiesDetails.forEach(reseAmentitiesDetails => {
+        residenceAmenities.reseAmenitiesDetails.forEach(reseAmenitiesDetails => {
           newData.push({
-            resiAmenId: residencceAmentities.resiAmenId,
+            resiAmenId: residenceAmenities.resiAmenId,
             resiAmen_refId: this.data.residenceId,
-            resiAmenGroupName: residencceAmentities.resiAmenGroupName,
-            resiAmenDetailId: reseAmentitiesDetails.resiAmenDetailId,
-            resiAmenDetail_refId: residencceAmentities.resiAmenId,
-            resiAmenDetails: reseAmentitiesDetails.resiAmenDetails,
+            resiAmenGroupName: residenceAmenities.resiAmenGroupName,
+            resiAmenDetailId: reseAmenitiesDetails.resiAmenDetailId,
+            resiAmenDetail_refId: residenceAmenities.resiAmenId,
+            resiAmenDetails: reseAmenitiesDetails.resiAmenDetails,
           });
         });
       });
     this.dataSource.data = [];
-    this.amentities = newData
-    this.dataSource = new MatTableDataSource<ResidencceAmentitiesDTO>(this.amentities);
+    this.amenities = newData
+    this.dataSource = new MatTableDataSource<ResidenceAmenitiesDTO>(this.amenities);
 
   }
 
 
   ngOnInit(): void {
-    this.setAmentitiesTableData();
+    this.setAmenitiesTableData();
     this.createSubmitForm();
   }
 
   
  
 
-  @ViewChild('amentitiesGroupInput') amentitiesGroupInput: any;
-  isAmentitiesGroup: boolean = false;
-  selectionAmentitiesGroup(selectElement: any) {
+  isAmenitiesGroup: boolean = false;
+  selectionAmenitiesGroup(selectElement: any) {
     const selectedValue = selectElement.value;
     this.resiAmenGroupName = selectedValue;
-    this.isAmentitiesGroup = false;
+    this.isAmenitiesGroup = false;
     this.cdr.detectChanges();
   }
-  toggleAmentitiesGroup(visible: boolean) {
-    this.isAmentitiesGroup = visible;
+  toggleAmenitiesGroup(visible: boolean) {
+    this.isAmenitiesGroup = visible;
   }
-  toggleAmentitiesGroupOnClick() {
-    this.isAmentitiesGroup = true;
+  toggleAmenitiesGroupOnClick() {
+    this.isAmenitiesGroup = true;
   }
 
 
   @HostListener('document:mousedown', ['$event'])
   onMouseDown(event: MouseEvent) {
     const target = event.target as HTMLElement;
-    const childElement1 = document.getElementById('child-AmentitiesGroup');
+    const childElement1 = document.getElementById('child-AmenitiesGroup');
     if (childElement1 && !this.isDescendant(childElement1, target)) {
-      this.isAmentitiesGroup = false;
+      this.isAmenitiesGroup = false;
     }
   }
 
@@ -162,18 +161,18 @@ export class AppResidenceAmentitiesServiceComponent {
   }
 
   formSubmit() {
-    this.markFormGroupTouched(this.amentitiesForm);
-    if (this.amentitiesForm.valid) {
-      const payload: ResidencceAmentities = {
-        resiAmen_refId: this.amentitiesForm.get('resiAmen_refId')?.value,
-        resiAmenGroupName: this.amentitiesForm.get('resiAmenGroupName')?.value,
-        reseAmentitiesDetails: [
+    this.markFormGroupTouched(this.amenitiesForm);
+    if (this.amenitiesForm.valid) {
+      const payload: ResidenceAmenities = {
+        resiAmen_refId: this.amenitiesForm.get('resiAmen_refId')?.value,
+        resiAmenGroupName: this.amenitiesForm.get('resiAmenGroupName')?.value,
+        reseAmenitiesDetails: [
           {
-            resiAmenDetails: this.amentitiesForm.get('resiAmenDetails')?.value,
+            resiAmenDetails: this.amenitiesForm.get('resiAmenDetails')?.value,
           }
         ]
       };
-      this.apiService.addUpdateResidenceAmentities(payload).subscribe({
+      this.apiService.addUpdateResidenceAmenities(payload).subscribe({
         next: (value) => {
           alert('Success')
         },
@@ -181,7 +180,7 @@ export class AppResidenceAmentitiesServiceComponent {
           alert('Internal Server Error!')
         },
         complete: () => {
-          this.amentitiesForm.patchValue({
+          this.amenitiesForm.patchValue({
             resiAmenGroupName: '',
             resiAmenDetails: ''});
           this.getTableData();
@@ -206,16 +205,16 @@ export class AppResidenceAmentitiesServiceComponent {
   // isInputValid: boolean = true;
 
 
-  updateAmentities(element:ResidencceAmentitiesDTO): void {
-    let amentitiesGroup: string = element.resiAmenGroupName
-    let amentitiesGroupDetails: string = element.resiAmenDetails
-    if (amentitiesGroup.trim().length > 0
-      && amentitiesGroupDetails.trim().length > 0) {
-      const payload: ResidencceAmentities = {
+  updateAmenities(element:ResidenceAmenitiesDTO): void {
+    let amenitiesGroup: string = element.resiAmenGroupName
+    let amenitiesGroupDetails: string = element.resiAmenDetails
+    if (amenitiesGroup.trim().length > 0
+      && amenitiesGroupDetails.trim().length > 0) {
+      const payload: ResidenceAmenities = {
         resiAmenId: element.resiAmenId,
         resiAmen_refId: element.resiAmen_refId,
         resiAmenGroupName: element.resiAmenGroupName,
-        reseAmentitiesDetails: [
+        reseAmenitiesDetails: [
           {
             resiAmenDetailId: element.resiAmenDetailId,
             resiAmenDetail_refId: element.resiAmenDetail_refId,
@@ -224,7 +223,7 @@ export class AppResidenceAmentitiesServiceComponent {
           }
         ]
       };
-      this.apiService.addUpdateResidenceAmentities(payload).subscribe({
+      this.apiService.addUpdateResidenceAmenities(payload).subscribe({
         next: (value) => {
           alert('Success')
         },
@@ -243,9 +242,9 @@ export class AppResidenceAmentitiesServiceComponent {
   showConfirmDelete() {
     this.showDeleteConfirmation = true; // Show confirmation dialog
   }
-  deleteAmentities(element:ResidencceAmentitiesDTO): void {
-    if (confirm("Are you sure you want to delete this amentities?")) {
-    this.apiService.deleteResidenceAmentitiesById(element.resiAmenDetailId!)
+  deleteAmenities(element:ResidenceAmenitiesDTO): void {
+    if (confirm("Are you sure you want to delete this amenities?")) {
+    this.apiService.deleteResidenceAmenitiesById(element.resiAmenDetailId!)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
@@ -260,10 +259,10 @@ export class AppResidenceAmentitiesServiceComponent {
       )
       .subscribe({
         next: (response) => {
-          alert('Amentities Deleted successfully');
+          alert('Amenities Deleted successfully');
         },
         error: (error) => {
-          alert('Amentities Not Found!');
+          alert('Amenities Not Found!');
         },
         complete: () => {
           this.getTableData();

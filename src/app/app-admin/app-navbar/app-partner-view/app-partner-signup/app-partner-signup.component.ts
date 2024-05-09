@@ -46,19 +46,19 @@ export class AppPartnerSignupComponent {
           Validators.required,
           CustomValidation.nameValidation(3),
         ]),
-        email: new FormControl('', [
+        email: new FormControl('example@gmail.com', [
           Validators.required,
           CustomValidation.emailValidator(),
         ]),
-        phone: new FormControl('', [
+        phone: new FormControl('8670731872', [
           Validators.required,
           CustomValidation.mobileValidation(),
         ]),
-        password: new FormControl('', [
+        password: new FormControl('Example@933', [
           Validators.required,
           CustomValidation.passwordValidator(),
         ]),
-        confirmPassword: new FormControl('', [
+        confirmPassword: new FormControl('Example@933', [
           Validators.required,
           CustomValidation.passwordValidator(),
         ]),
@@ -72,14 +72,14 @@ export class AppPartnerSignupComponent {
         ]),
         residenceLocation: new FormControl('', [
           Validators.required,
-          CustomValidation.textValidation(3, 20),
+          CustomValidation.textValidation(3, 200),
         ]),
         residenceAddress: new FormControl('', [
           Validators.required,
-          CustomValidation.textValidation(5, 150),
+          CustomValidation.textValidation(5, 300),
         ]),
 
-        distanceValue: new FormControl('', [
+        distanceValue: new FormControl('0 km', [
           Validators.required,
           CustomValidation.textValidation(3, 10),
         ]),

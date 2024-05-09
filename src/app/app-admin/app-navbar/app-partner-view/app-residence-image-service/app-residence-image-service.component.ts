@@ -37,9 +37,10 @@ export class AppResidenceImageServiceComponent {
       this.showDeleteConfirmation = true; // Show confirmation dialog
     }
   ngOnInit(): void {
-    this.getResidenceImages();
+    console.log('images',this.data);
+    this.setResidenceImages();
     this.residanceForm = this.fb.group({
-      residenceImagesRefId: new FormControl(this.data.residenceId, [Validators.required,
+      residenceImagesRefId: new FormControl(this.data.residence.residenceId, [Validators.required,
       CustomValidation.idValidation(1),]),
       imgSrc: new FormControl("", [
         Validators.required, CustomValidation.textValidation(1, 100)
@@ -84,7 +85,7 @@ export class AppResidenceImageServiceComponent {
 
     // Proceed with file upload if the form is valid and a file is selected
     const files: File[] = this.file;
-    this.apiService.uploadResidenceImages(this.data.residenceId, files).subscribe({
+    this.apiService.uploadResidenceImages(this.data.residence.residenceId, files).subscribe({
       next: (response) => {
         this.file = [];
         this.residanceForm.get('imgSrc')?.reset(); // Reset the value of the file input control
@@ -108,10 +109,13 @@ export class AppResidenceImageServiceComponent {
       }
     });
   }
+  setResidenceImages() {
+        this.residenceImage = this.data.residence.residenceImages;
+  }
   getResidenceImages() {
-    this.apiService.getAllResidenceImages().subscribe({
+    this.apiService.getResidencesById(this.data.residence.residenceId).subscribe({
       next: (value) => {
-        this.residenceImage = value;
+        this.residenceImage = value.residenceImages;
       },
       error: (err) => {
 

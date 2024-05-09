@@ -11,7 +11,7 @@ export interface Residence {
     distance: Distance[];
     residenceImages: ResidenceImage[];
     residenceRatings: ResidenceRating[];
-    residencceAmentities: ResidencceAmentities[];
+    residenceAmenities: ResidenceAmenities[];
   }
   
   export interface ResidenceRooms {
@@ -25,11 +25,11 @@ export interface Residence {
     roomDiscount: number;
     roomDescription: string;
     roomIssueDate: string; // Assuming LocalDate is serialized as string
-    roomBooking?: ResidenceRoomsBooking[];
-    roomImages?: ResidenceRoomsImages[];
-    roomAmentities?: ResidencceRoomAmentities[];
-    roomCommant?: ResidenceRoomsCommants[];
-    roomPolicies?: ResidenceRoomsPolicy[];
+    roomsBooking?: ResidenceRoomsBooking[];
+    roomsImages?: ResidenceRoomsImages[];
+    roomsAmenities?: ResidenceRoomAmenities[];
+    roomsCommant?: ResidenceRoomsCommants[];
+    roomsPolicies?: ResidenceRoomsPolicy[];
   }
   
   export interface ResidenceRoomsBooking {
@@ -54,15 +54,15 @@ export interface Residence {
     imgSrc: string;
   }
   
-  export interface ResidencceRoomAmentities {
+  export interface ResidenceRoomAmenities {
     roomAmenId?: number;
     roomAmen_refId?: number;
     roomAmenType: string;
     roomAmenGroupName: string;
-    roomAmentitiesDetails: ResidencceRoomAmentitiesDetails[];
+    roomAmenitiesDetails: ResidenceRoomAmenitiesDetails[];
   }
   
-  export interface ResidencceRoomAmentitiesDetails {
+  export interface ResidenceRoomAmenitiesDetails {
     roomAmenDetailId?: number;
     roomAmenDetail_refId?: number;
     roomAmenDetails: string;
@@ -110,13 +110,13 @@ export interface Residence {
     commandDate: string;
   }
   // "Entertainment Amenities", "Security Features","Gym/Fitness Center", "Cardio Equipment", "Weightlifting Equipment", "Yoga Studio",
-  export interface ResidencceAmentities {
+  export interface ResidenceAmenities {
     resiAmenId?: number; 
     resiAmen_refId?: number;
     resiAmenGroupName: string;
-    reseAmentitiesDetails: ReseAmentitiesDetails[];  }
+    reseAmenitiesDetails: ReseAmenitiesDetails[];  }
   
-  export interface ReseAmentitiesDetails {
+  export interface ReseAmenitiesDetails {
     resiAmenDetailId?: number; 
     resiAmenDetail_refId?: number;
     resiAmenDetails: string;

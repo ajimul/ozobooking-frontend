@@ -12,13 +12,13 @@ import { ApiService } from '../../../api-service/api-service.service';
 import { AppPartnerSignupComponent } from './app-partner-signup/app-partner-signup.component';
 import { AppPartnerUpdateComponent } from './app-partner-update/app-partner-update.component';
 import { AppResidenceImageServiceComponent } from './app-residence-image-service/app-residence-image-service.component';
-import { AppResidenceAmentitiesServiceComponent } from './app-residence-amentities-service/app-residence-amentities-service.component';
-import { AppRoomAmentitiesServiceComponent } from './app-room-amentities-service/app-room-amentities-service.component';
+import { AppResidenceAmenitiesServiceComponent } from './app-residence-amenities-service/app-residence-amenities-service.component';
 import { AppRoomImagesServiceComponent } from './app-room-images-service/app-room-images-service.component';
 import { AppRoomPolicyServiceComponent } from './app-room-policy-service/app-room-policy-service.component';
 import { AppPartnerAgreementComponent } from './app-partner-agreement/app-partner-agreement.component';
 import { AppResidenceLocationServiceComponent } from './app-residence-location-service/app-residence-location-service.component';
 import { AppResidenceRoomsServiceComponent } from './app-residence-rooms-service/app-residence-rooms-service.component';
+import { AppRoomAmenitiesServiceComponent } from './app-room-amenities-service/app-room-amenities-service.component';
 @Component({
   selector: 'app-app-partner-view',
   standalone: true,
@@ -32,6 +32,7 @@ import { AppResidenceRoomsServiceComponent } from './app-residence-rooms-service
   styleUrl: './app-partner-view.component.css',
 })
 export class AppPartnerViewComponent {
+  showDeleteConfirmation = false;
   customDialogClass = 'custom-dialog-bgx';
   constructor(private dialog: MatDialog, private service: ApiService) { }
   ngOnInit(): void {
@@ -101,9 +102,7 @@ export class AppPartnerViewComponent {
     'action',
     'view',
   ];
-  applyResidenceFilter($event: any) {
-    this.residenceDataSource.filter = $event.target.value;
-  }
+
   addPartner() {
     const config = new MatDialogConfig<any>();
     config.width = '40%';
@@ -114,25 +113,33 @@ export class AppPartnerViewComponent {
       this.getResidenceTableData();
     });
   }
-
+  showConfirmDelete() {
+    this.showDeleteConfirmation = true; // Show confirmation dialog
+  }
   deletePartner($event: number): void {
-    this.service.deleteResidence($event).subscribe({
-      next: (response) => {
-        alert(response.message);
-        this.getResidenceTableData();
-      },
-      error: (error) => {
-        let errorMessage = '';
-        if (error.error && error.error.message) {
-          errorMessage = error.error.message;
+    if (confirm("Are you sure you want to delete this Residence?")) {
+      this.service.deleteResidence($event).subscribe({
+        next: (response) => {
+          alert(response.message);
+          this.getResidenceTableData();
+        },
+        error: (error) => {
+          let errorMessage = '';
+          if (error.error && error.error.message) {
+            errorMessage = error.error.message;
+          }
+          else if (error.message) {
+            errorMessage = error.message;
+          }
+          console.log('Error Message: ', errorMessage);
+          alert(errorMessage);
         }
-        else if (error.message) {
-          errorMessage = error.message;
-        }
-        console.log('Error Message: ', errorMessage);
-        alert(errorMessage);
-      }
-    });
+      });
+      this.showDeleteConfirmation = false;
+    } else {
+      this.showDeleteConfirmation = false;
+    }
+
   }
   updatePartner(element: Residence) {
     const config = new MatDialogConfig<any>();
@@ -154,22 +161,22 @@ export class AppPartnerViewComponent {
       // this.getResidenceTableData();
     });
   }
-  residenceImageService(residenceId: any) {
+  residenceImageService(residence: any) {
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
-    config.data = { residenceId };
+    config.data = { residence };
     const dialogRef = this.dialog.open(AppResidenceImageServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       // this.getResidenceTableData();
     });
   }
-  residenceAmentitiesService(element:Residence) {
+  residenceAmenitiesService(element: Residence) {
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
     config.data = element;
-    const dialogRef = this.dialog.open(AppResidenceAmentitiesServiceComponent, config);
+    const dialogRef = this.dialog.open(AppResidenceAmenitiesServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       this.clearSelection('residenceDialogRefSet');
       // this.getResidenceTableData();
@@ -202,9 +209,9 @@ export class AppPartnerViewComponent {
     switch (residenceDialogRefSet.value) {
       case '1': this.residenceAgreementService(element.residenceId);
         break;
-      case '2': this.residenceImageService(element.residenceId);
+      case '2': this.residenceImageService(element);
         break;
-      case '3': this.residenceAmentitiesService(element);
+      case '3': this.residenceAmenitiesService(element);
         break;
       case '4': this.residenceLocationService(element);
         break;
@@ -240,22 +247,22 @@ export class AppPartnerViewComponent {
 
   }
 
-  roomsAmentitiesService() {
+  roomsAmenitiesService() {
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
     config.data = this.roomsTableRow;
-    const dialogRef = this.dialog.open(AppRoomAmentitiesServiceComponent, config);
+    const dialogRef = this.dialog.open(AppRoomAmenitiesServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       this.clearSelection("roomDialogRefSet");
       // this.getResidenceTableData();
     });
   }
-  roomImageService(element:ResidenceRooms) {
+  roomImageService(residenceRooms: ResidenceRooms) {
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
-    config.data = element;
+    config.data = residenceRooms;
     const dialogRef = this.dialog.open(AppRoomImagesServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       // this.getResidenceTableData();
@@ -272,11 +279,11 @@ export class AppPartnerViewComponent {
       // this.getResidenceTableData();
     });
   }
-  onRoomSelectionChange(roomDialogRefSet: HTMLSelectElement, roomId: any,element:ResidenceRooms): void {
+  onRoomSelectionChange(roomDialogRefSet: HTMLSelectElement, roomId: any, element: ResidenceRooms): void {
     switch (roomDialogRefSet.value) {
       case '1': this.roomImageService(element);
         break;
-      case '2': this.roomsAmentitiesService();
+      case '2': this.roomsAmenitiesService();
         break;
       case '3': this.roomPolicyService(element);
         break;
@@ -291,12 +298,4 @@ export class AppPartnerViewComponent {
     if (selectElement) {
       selectElement.selectedIndex = 0; // Set the selectedIndex to 0 to select the first option
     }
-  }
-
-
-
-
-
-
-
-}
+  }}

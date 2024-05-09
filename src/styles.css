@@ -24,6 +24,9 @@ body {
   align-items: center !important;
   border-radius: 5px;
 }
+.overflow-auto {
+  overflow: auto;
+}
 .overflow-hidden {
   overflow: hidden;
 }
@@ -128,6 +131,7 @@ body {
 .border-red {
   border: solid red;
 }
+
 .position-relative {
   position: relative;
 }
@@ -627,6 +631,9 @@ body {
   row-gap: 20px;
 }
 
+.justify-content-center {
+  justify-content:center;
+}
 .justify-content-flex-start {
   justify-content: flex-start;
 }
@@ -763,6 +770,36 @@ body {
 }
 .font-size-2 {
   font-size: 2rem;
+}
+.font-weight-100 {
+  font-weight: 100;
+}
+.font-weight-200 {
+  font-weight: 200;
+}
+.font-weight-300 {
+  font-weight: 300;
+}
+.font-weight-400 {
+  font-weight: 400;
+}
+.font-weight-500 {
+  font-weight: 500;
+}
+.font-weight-600 {
+  font-weight: 600;
+}
+.font-weight-bold {
+  font-weight: bold;
+}
+.font-weight-bolder {
+  font-weight: bolder;
+}
+.font-weight-lighter {
+  font-weight: lighter;
+}
+.font-weight-normal {
+  font-weight: normal;
 }
 
 .top--10 {

@@ -2,10 +2,9 @@ main {
   display: flex;
   flex-wrap: nowrap;
   overflow: auto;
-  justify-content: center;
   /* align-items: center; */
   text-align: center;
-  border: red solid 1px;
+  /* border: red solid 1px; */
 }
 .flex-left{
 display: flex;
@@ -14,10 +13,10 @@ flex-wrap: wrap;
 flex-grow: 0;
 flex-shrink: 0;
 min-width: 15%;
-border: red solid 1px;
+/* border: red solid 1px; */
 margin: 5px;
 padding: 5px;
-overflow-y: scroll;
+overflow-y: auto;
 
 }
 .flex-right{
@@ -26,9 +25,13 @@ flex-direction: column;
 flex-wrap: wrap;
 flex-grow: 0;
 flex-shrink: 0;
-border: red solid 1px;
+/* border: red solid 1px; */
+border: rgb(168, 163, 163) solid 1px;
 margin: 5px;
 padding: 5px;
+overflow-x: hidden;
+min-width:80%;
+
 }
 
 
@@ -71,29 +74,14 @@ padding: 5px;
   flex: 50% 1 0;
   /* border: red solid 0.5px; */
 }
-
-.search {
-  justify-content: center;
-  align-items: center;
-}
 .add-partner {
   justify-content: flex-end;
   align-items: center;
 }
 
-.search input {
-  width: 50%;
-  margin: 5px;
-  padding: 10px;
-  border-radius: 10px;
-  outline: aliceblue;
-  font-size: 1rem;
-  font-weight: 600;
-  border: none;
-  color: blue;
-}
+
 .add-partner button {
-  width: 25%;
+  width: 15%;
   border: none;
   outline: none;
   margin: 5px;
@@ -137,3 +125,10 @@ padding: 5px;
   color: rgb(255, 255, 255);
 }
 
+.td-width{
+  width: 100px;
+}
+.mat-mdc-cell{
+  cursor: pointer;
+  border-top: solid 0.5px rgb(0, 68, 255);
+}

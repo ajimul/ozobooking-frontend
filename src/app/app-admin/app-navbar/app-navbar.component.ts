@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, HostListener } from '@angular/core';
 import {
   Router,
   RouterLink,
@@ -78,4 +78,23 @@ export class AppNavbarComponent {
     this.isLogin();
     this.cd.detectChanges();
   }
+  @HostListener('document:mousedown', ['$event'])
+  onMouseDown(event: MouseEvent) {
+    const target = event.target as HTMLElement;
+    const childElement1 = document.getElementById('aside-open-closer-action');
+    if (childElement1 && !this.isDescendant(childElement1, target)) {
+      this.isMenuOpen = false;
+    }
+  }
+  isDescendant(parent: HTMLElement, child: HTMLElement): boolean {
+    let node = child.parentNode;
+    while (node != null) {
+      if (node === parent) {
+        return true;
+      }
+      node = node.parentNode;
+    }
+    return false;
+  }
+
 }

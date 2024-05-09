@@ -4,7 +4,7 @@ import { Observable, catchError, of, throwError } from 'rxjs';
 import { TokenService } from '../token-service/token.service';
 import { environment } from '../../environments/environment';
 import { User } from '../app-interface/PartnerRegisterDTO';
-import { Distance, ResidencceAmentities, ResidencceRoomAmentities, Residence, ResidenceImage, ResidenceRooms, ResidenceRoomsImages, ResidenceRoomsPolicy } from '../app-interface/Residence';
+import { Distance, ResidenceAmenities, ResidenceRoomAmenities, Residence, ResidenceImage, ResidenceRooms, ResidenceRoomsImages, ResidenceRoomsPolicy } from '../app-interface/Residence';
 
 @Injectable({
   providedIn: 'root',
@@ -122,35 +122,35 @@ export class ApiService {
     return this.http.delete(`${this.apiServerUrl}v1/manager/residences/room/${roomId}`, options)
 
   }
-  //----------------------------------------------Residence Amentities Service API (Manager)------------------------------------------------------>
-  addUpdateResidenceAmentities(payload: ResidencceAmentities): Observable<any> {
+  //----------------------------------------------Residence Amenities Service API (Manager)------------------------------------------------------>
+  addUpdateResidenceAmenities(payload: ResidenceAmenities): Observable<any> {
     const options = {
       headers: this.token.getContentLessHeadersWithAuthorization(),
     };
-    return this.http.post<any>(`${this.apiServerUrl}v1/manager/residence/amentities`, payload, options)
+    return this.http.post<any>(`${this.apiServerUrl}v1/manager/residence/amenities`, payload, options)
   }
-  deleteResidenceAmentitiesById(id: number): Observable<any> {
+  deleteResidenceAmenitiesById(id: number): Observable<any> {
     const options = {
       headers: this.token.getContentLessHeadersWithAuthorization(),
     };
-    return this.http.delete(`${this.apiServerUrl}v1/manager/residence/amentities/${id}`, options)
+    return this.http.delete(`${this.apiServerUrl}v1/manager/residence/amenities/${id}`, options)
 
   }
-  //----------------------------------------------Residence Room Amentities Service API (Manager)------------------------------------------------------>
+  //----------------------------------------------Residence Room Amenities Service API (Manager)------------------------------------------------------>
 
-  addUpdateResidenceRoomAmentities(payload: ResidencceRoomAmentities): Observable<any> {
+  addUpdateResidenceRoomAmenities(payload: ResidenceRoomAmenities): Observable<any> {
     const options = {
       headers: this.token.getContentLessHeadersWithAuthorization(),
     };
 
-    return this.http.post<any>(`${this.apiServerUrl}v1/manager/residence/room/amentities`, payload, options)
+    return this.http.post<any>(`${this.apiServerUrl}v1/manager/residence/room/amenities`, payload, options)
   }
 
-  deleteResidenceRoomAmentitiesById(id: number): Observable<any> {
+  deleteResidenceRoomAmenitiesById(id: number): Observable<any> {
     const options = {
       headers: this.token.getContentLessHeadersWithAuthorization(),
     };
-    return this.http.delete(`${this.apiServerUrl}v1/manager/residence/room/amentities/${id}`, options)
+    return this.http.delete(`${this.apiServerUrl}v1/manager/residence/room/amenities/${id}`, options)
 
   }
   //----------------------------------------------Residence Room Images Service API (Manager)------------------------------------------------------>

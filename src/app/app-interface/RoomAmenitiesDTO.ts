@@ -1,4 +1,4 @@
-export interface RoomAmentitiesDTO {
+export interface RoomAmenitiesDTO {
         roomAmenId?: number;
         roomAmen_refId?: number;
         roomAmenType: string;

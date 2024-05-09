@@ -1,19 +1,25 @@
 <main>
-    <div class="flex-left">
-        <div>
-            <h1>Residence List</h1>
-            <input matInput (keyup)="applyResidenceListFilter($event)" placeholder="Search Here!"/>
+    <div class="flex-left " style="background-color: #d3e3fd;">
+        <div class="!border-red" >
+            <h1 class="!border-red flex width-100 flex-nowrap align-items-flex-start justify-content-flex-start  margin-5 padding-5" >
+                Residence List
+            </h1>
+            <div class="!border-red flex width-100 flex-nowrap align-items-flex-start justify-content-flex-start" >
+                <input class="border-none font-size-1 border-radius-10 margin-5 padding-5" style="outline: aliceblue;" (keyup)="applyResidenceListFilter($event)"
+                    placeholder="Search Here!"/>
+            </div>
         </div>
-        <div>
+        <div class="!border-red margin-top-5">
             <table mat-table matSort [dataSource]="residenceListDataSource" class="residence-list-table">
                 <ng-container matColumnDef="residenceName">
-                    <th mat-header-cell *matHeaderCellDef><strong>Residence Name</strong></th>
-                    <td mat-cell *matCellDef="let element; let i = index">
+                    <th mat-header-cell *matHeaderCellDef><strong>Residence</strong></th>
+                    <td mat-cell *matCellDef="let element; let i = index" class="td-width">
                         {{element.residenceName}}
                     </td>
                 </ng-container>
                 <tr mat-header-row *matHeaderRowDef="residenceListTableColumns"></tr>
-                <tr mat-row (click)="getResidenceListTableRow(row)" [class.demo-row-is-clicked]="residenceLisTableRow.has(row)"
+                <tr mat-row (click)="getResidenceListTableRow(row)"
+                    [class.demo-row-is-clicked]="residenceLisTableRow.has(row)"
                     *matRowDef="let row; columns: residenceListTableColumns;">
                 </tr>
             </table>
@@ -21,9 +27,6 @@
     </div>
     <div class="flex-right">
         <div class="flex-box">
-            <div class="flex-box-group search">
-                <input matInput (keyup)="applyResidenceFilter($event)" placeholder="Search Here!" #input />
-            </div>
             <div class="flex-box-group add-partner"><button (click)="addPartner()"><strong>Add Partner</strong></button>
             </div>
         </div>
@@ -37,7 +40,7 @@
                 </ng-container>
                 <ng-container matColumnDef="residenceName">
                     <th mat-header-cell *matHeaderCellDef><strong>Residence Name</strong></th>
-                    <td mat-cell *matCellDef="let element; let i = index">
+                    <td mat-cell *matCellDef="let element; let i = index" class="td-width">
                         {{element.residenceName}}
                     </td>
                 </ng-container>
@@ -49,7 +52,7 @@
                 </ng-container>
                 <ng-container matColumnDef="residenceLocation">
                     <th mat-header-cell *matHeaderCellDef><strong>Location</strong></th>
-                    <td mat-cell *matCellDef="let element; let i = index">
+                    <td mat-cell *matCellDef="let element; let i = index" class="td-width">
                         {{element.residenceLocation}}
                     </td>
                 </ng-container>
@@ -67,7 +70,8 @@
                 <ng-container matColumnDef="property">
                     <th mat-header-cell *matHeaderCellDef><strong>Property Service</strong></th>
                     <td mat-cell *matCellDef="let element; let i = index">
-                        <select id="residenceDialogRefSet" #residenceDialogRefSet (change)="onResidenceSelectionChange(residenceDialogRefSet,element)" style="cursor: pointer; outline: none; border: none; background-color: #d3e3fd;
+                        <select id="residenceDialogRefSet" #residenceDialogRefSet
+                            (change)="onResidenceSelectionChange(residenceDialogRefSet,element)" style="cursor: pointer; outline: none; border: none; background-color: #d3e3fd;
                     border-radius: 3px; padding: 5px;">
                             <option value="0" selected style="color: red;">Selection-None</option>
                             <option value="1">Residence Agreement Service</option>
@@ -81,7 +85,13 @@
                 <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef><strong>Actions</strong></th>
                     <td mat-cell *matCellDef="let element; let i=index">
-                        <span class="delete-btn" (click)="deletePartner(element.residenceId)">Delete</span>
+                        <span class="delete-btn" (click)="showConfirmDelete()"
+                            (click)="deletePartner(element.residenceId)">Delete</span>
+                        <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
+                            <p>Are you sure you want to delete this Residence?</p>
+                            <button (click)="showConfirmDelete()">Delete</button>
+                            <button (click)="showDeleteConfirmation = false">Cancel</button>
+                        </div>
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="view">
@@ -92,18 +102,17 @@
                 </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="residenceTableColumns"></tr>
-                <tr mat-row  
-                    *matRowDef="let row; columns: residenceTableColumns;">
+                <tr mat-row *matRowDef="let row; columns: residenceTableColumns;">
                 </tr>
             </table>
         </div>
         <div class="flex-box">
-        <h1>Rooms Service Works!</h1>
+            <h1>Rooms Service Works!</h1>
         </div>
 
         <div class="flex-box">
             <br><br>
-            
+
             <table mat-table matSort [dataSource]="roomsDataSource" class="residence-rooms-table">
                 <ng-container matColumnDef="roomId">
                     <th mat-header-cell *matHeaderCellDef><strong>Room-Id</strong></th>
@@ -144,7 +153,8 @@
                 <ng-container matColumnDef="property">
                     <th mat-header-cell *matHeaderCellDef><strong>Property Service</strong></th>
                     <td mat-cell *matCellDef="let element; let i = index">
-                        <select id="roomDialogRefSet" #roomDialogRefSet (change)="onRoomSelectionChange(roomDialogRefSet,element.roomId,element)" style="cursor: pointer; outline: none; border: none; background-color: #d3e3fd;
+                        <select id="roomDialogRefSet" #roomDialogRefSet
+                            (change)="onRoomSelectionChange(roomDialogRefSet,element.roomId,element)" style="cursor: pointer; outline: none; border: none; background-color: #d3e3fd;
                     border-radius: 3px; padding: 5px;">
                             <option value="0" selected style="color: red;">Selection-None</option>
                             <option value="1">Rooms Image Service</option>

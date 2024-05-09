@@ -9,15 +9,14 @@ margin-left-auto
 padding-20 
 margin-right-auto 
 column 
-justify-content-center 
-overflow-auto">
+justify-content-center ">
     <div class="align-self-flex-end margin-bottom-20" mat-dialog-close>
         <span class=" flex flex-wrap-nowrap close-btn padding-inline-25 padding-block-2  cursor-pointer 
         justify-content-center align-items-center font-size-102  border-radius-2 ">X</span>
     </div>
     <header>
         <div>
-            <h2 class="flex justify-content-center margin-bottom-20 residence-heading">Residence Amentities Service
+            <h2 class="flex justify-content-center margin-bottom-20 residence-heading">Residence Amenities Service
                 Works!</h2>
         </div>
     </header>
@@ -25,97 +24,99 @@ overflow-auto">
         <form class="
         flex 
         flex-wrap 
-        !border-red
+        !!border-red
         margin-bottom-20  
         gap-10 
         justify-content-space-evenly 
         width-100"
-            [formGroup]="amentitiesForm">
+            [formGroup]="amenitiesForm">
             <!-- <div style="display: none;">
             <label for="autoId">Auto Selected Id:
                 <span
-                    *ngIf="amentitiesForm.get('resiAmen_refId')?.invalid && amentitiesForm.get('resiAmen_refId')?.touched"
+                    *ngIf="amenitiesForm.get('resiAmen_refId')?.invalid && amenitiesForm.get('resiAmen_refId')?.touched"
                     class="error-message">
                     {{ getIdError('resiAmen_refId') }}
                 </span>
                 <input type="text" id="autoId" formControlName="resiAmen_refId" readonly >
             </label>
         </div> -->
-            <div id="child-AmentitiesGroup"
+            <div id="child-AmenitiesGroup"
                 class="flex 
                 column  
                form-element-width
                 padding-5 
                 justify-self-space-around  
-                !border-red  position-relative">
-                <label class="width-100" for="amentitiesGroupInput">Enter or Select Amentities Group:
+                !border-red">
+                <label class="width-100" for="amenitiesGroupInput">Enter or Select Amenities Group:
                     <span
-                        *ngIf="amentitiesForm.get('resiAmenGroupName')?.invalid && amentitiesForm.get('resiAmenGroupName')?.touched"
+                        *ngIf="amenitiesForm.get('resiAmenGroupName')?.invalid && amenitiesForm.get('resiAmenGroupName')?.touched"
                         class="error-message">
                         {{ getTextError('resiAmenGroupName') }}
                     </span>
-                    <input class="width-100" type="text" id="amentitiesGroupInput" formControlName="resiAmenGroupName"
-                        [(ngModel)]="resiAmenGroupName" (focus)="toggleAmentitiesGroup(true)"
-                        (keyup)="toggleAmentitiesGroup(false)" (click)="toggleAmentitiesGroupOnClick()">
+                    <input class="width-100" type="text" id="amenitiesGroupInput" formControlName="resiAmenGroupName"
+                        [(ngModel)]="resiAmenGroupName" (keydown)="toggleAmenitiesGroup(true)"
+                        
+                        (keyup)="toggleAmenitiesGroup(false)" (click)="toggleAmenitiesGroupOnClick()">
 
-                    <select class="position-absolute right-0 width-100" id="amentitiesGroupSelect" #GroupSelect
-                        (change)="selectionAmentitiesGroup(GroupSelect)"
-                        [style.display]="isAmentitiesGroup ? 'block' : 'none'">
+                    <select class="width-100" id="amenitiesGroupSelect" #GroupSelect
+                        (change)="selectionAmenitiesGroup(GroupSelect)"
+                        [style.display]="isAmenitiesGroup ? 'block' : 'none'">
                         <option value="">Select Detail</option>
-                        <option *ngFor="let amentity of amentitiesGroupList" [value]="amentity.group">
+                        <option *ngFor="let amentity of amenitiesGroupList" [value]="amentity.group">
                             {{ amentity.group }}
                         </option>
 
                     </select>
                 </label>
             </div>
-            <div id="child-AmentitiesDetails"
+            <div id="child-AmenitiesDetails"
                 class="flex 
                 column  
                 form-element-width
                 padding-5 
                 justify-self-space-around  
                 !border-red ">
-                <label class=" width-100 " for="amentitiesDetailsInput">Description:
+                <label class=" width-100 " for="amenitiesDetailsInput">Amenities Name:
                     <span
-                        *ngIf="amentitiesForm.get('resiAmenDetails')?.invalid && amentitiesForm.get('resiAmenDetails')?.touched"
+                        *ngIf="amenitiesForm.get('resiAmenDetails')?.invalid && amenitiesForm.get('resiAmenDetails')?.touched"
                         class="error-message">
                         {{ getTextError('resiAmenDetails') }}
                     </span>
-                    <input class=" width-100 " type="text" id="amentitiesDetailsInput"
+                    <input class=" width-100 " type="text" id="amenitiesDetailsInput"
                         formControlName="resiAmenDetails">
                 </label>
             </div>
-            <div class="flex 
-            column  
-           form-element-width
-            padding-5 
-            justify-content-flex-end  
-            !border-red  
-           ">
+            <div id="child-AmenitiesDetails"
+                class="flex 
+                column  
+                form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red padding-top-20">
                 <button class="padding-block-5 padding-inline-16 border-none border-radius-4 cursor-pointer submit-btn" type="button" (click)="formSubmit()">Add</button>
             </div>
+        
 
         </form>
         <br><br>
         <div class="overflow-x-auto   overflow-y-auto table-wrapper">
             <table mat-table matSort [dataSource]="dataSource" class="residence-table">
                 <ng-container matColumnDef="resiAmenGroupName">
-                    <th mat-header-cell *matHeaderCellDef><strong>Amentities-Group </strong></th>
+                    <th mat-header-cell *matHeaderCellDef><strong>Amenities-Group </strong></th>
                     <td mat-cell *matCellDef="let element; let i = index">
                         <input type="text" [(ngModel)]="element.resiAmenGroupName">
                         <div *ngIf="!element.resiAmenGroupName || element.resiAmenGroupName.trim().length === 0"
-                            class="error-message">Amentities Group is required.</div>
+                            class="error-message">Amenities Group is required.</div>
 
 
                     </td>
                 </ng-container>
                 <ng-container matColumnDef="resiAmenDetails">
-                    <th mat-header-cell *matHeaderCellDef><strong>Amentities Details</strong></th>
+                    <th mat-header-cell *matHeaderCellDef><strong>Amenities Details</strong></th>
                     <td mat-cell *matCellDef="let element; let i = index">
                         <input type="text" [(ngModel)]="element.resiAmenDetails">
                         <div *ngIf="!element.resiAmenDetails || element.resiAmenDetails.trim().length === 0"
-                            class="error-message">Amentities Details is required.</div>
+                            class="error-message">Amenities Details is required.</div>
 
                     </td>
                 </ng-container>
@@ -134,7 +135,7 @@ overflow-auto">
                         padding-5 
                         border-radius-5 
                         font-size-09 
-                        update-btn" (click)="updateAmentities(element)">Update</span>
+                        update-btn" (click)="updateAmenities(element)">Update</span>
 
                         <span class="
                             cursor-pointer 
@@ -143,9 +144,9 @@ overflow-auto">
                             padding-5 
                             border-radius-5 
                             font-size-09 
-                            delete-btn" (click)="showConfirmDelete()" (click)="deleteAmentities(element)">Delete</span>
+                            delete-btn" (click)="showConfirmDelete()" (click)="deleteAmenities(element)">Delete</span>
                         <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
-                            <button (click)="deleteAmentities(element)">Delete</button>
+                            <button (click)="deleteAmenities(element)">Delete</button>
                             <button (click)="showDeleteConfirmation = false">Cancel</button>
                         </div>
                     </td>

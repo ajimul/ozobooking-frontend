@@ -45,9 +45,16 @@ export class AppRoomPolicyServiceComponent {
   }
 
   setMatTableDatasource() {
-    let roomPolicies = Array.from(this.data.roomPolicies!);
+    let roomPolicies = Array.from(this.data.roomsPolicies!);
     this.moomPolicyDTO = [];
+    this.roomPoliciesList = []
+
+
+
     roomPolicies.forEach(policys => {
+        this.roomPoliciesList.push({
+          policy: policys.roomPolicyName
+        })
       policys.roomsPolicyDetails.forEach(policysDetails => {
         this.moomPolicyDTO.push({
           roomPolicyId: policys.roomPolicyId,
@@ -131,8 +138,9 @@ export class AppRoomPolicyServiceComponent {
   @ViewChild('policyGroupInput') policyGroupInput: any;
   isRoomPolicyName: boolean = false;
   selectionPolicyGroup(selectElement: any) {
+    console.log('xx',selectElement.value)
     const selectedValue = selectElement.value;
-    this.policyGroupInput = selectedValue;
+    this.roomPolicyName = selectedValue;
     this.isRoomPolicyName = false;
     this.cdr.detectChanges();
   }

@@ -45,22 +45,22 @@ overflow-auto">
             </label>
         </div> -->
             <div id="child-PolicyGroup" class="flex 
-        column  
-       form-element-width
-        padding-5 
-        justify-self-space-around  
-        !border-red  position-relative">
-                <label class="width-100" for="policyGroupInput">Enter or Select Amentities Group:
+            column  
+           form-element-width
+            padding-5 
+            justify-self-space-around  
+            !border-red">
+            <label class="width-100"  for="policyGroupInput">Enter or Select Policy Group:
                     <span
                         *ngIf="roomPolicyForm.get('roomPolicyName')?.invalid && roomPolicyForm.get('roomPolicyName')?.touched"
                         class="error-message">
                         {{ getTextError('roomPolicyName') }}
                     </span>
                     <input class="width-100" type="text" id="policyGroupInput" formControlName="roomPolicyName"
-                        [(ngModel)]="roomPolicyName" (focus)="togglePolicyGroup(true)"
+                        [(ngModel)]="roomPolicyName"
                         (keyup)="togglePolicyGroup(false)" (click)="togglePolicyGroupOnClick()">
 
-                    <select class="position-absolute right-0 width-100" id="PolicyGroupSelect" #GroupSelect
+                    <select class="width-100" id="PolicyGroupSelect" #GroupSelect
                         (change)="selectionPolicyGroup(GroupSelect)"
                         [style.display]="isRoomPolicyName ? 'block' : 'none'">
                         <option value="">Select Detail</option>
@@ -75,7 +75,7 @@ overflow-auto">
            form-element-width
             padding-5 
             justify-self-space-around  
-            !border-red  position-relative">
+            !border-red">
                 <label class="width-100" for="amentitiesDetailsInput">Description:
                     <span
                         *ngIf="roomPolicyForm.get('roomPolicyDescription')?.invalid && roomPolicyForm.get('roomPolicyDescription')?.touched"
@@ -86,15 +86,14 @@ overflow-auto">
                         formControlName="roomPolicyDescription">
                 </label>
             </div>
-            <div class="flex 
-            column  
-           form-element-width
-            padding-5 
-            justify-content-flex-end  
-            !border-red  
-           ">
-                <button class="padding-block-5 padding-inline-16 border-none border-radius-4 cursor-pointer submit-btn"
-                    type="button" (click)="addPolicy()">Add Policy</button>
+            <div id="child-AmenitiesDetails"
+                class="flex 
+                column  
+                form-element-width
+                padding-5 
+                justify-self-space-around  
+                !border-red padding-top-20">
+                <button class="padding-block-5 padding-inline-16 border-none border-radius-4 cursor-pointer submit-btn"  type="button" (click)="addPolicy()"> Add Policy</button>
             </div>
         </form>
         <div class="overflow-x-auto   overflow-y-auto table-wrapper">
