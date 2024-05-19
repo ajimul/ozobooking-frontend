@@ -10,17 +10,20 @@ import { UserService } from '../../user-service/user.service';
 import { TokenService } from '../../token-service/token.service';
 import { CustomValidationService } from '../../app-validator/custom-validation-service';
 import { FormBuilder } from '@angular/forms';
-import { map } from 'rxjs';
+import { map, take, tap } from 'rxjs';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { AppLoginComponent } from '../app-login/app-login.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-app-navbar',
   standalone: true,
-  imports: [RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive,CommonModule],
   templateUrl: './app-navbar.component.html',
   styleUrl: './app-navbar.component.css',
 })
 export class AppNavbarComponent {
-  constructor(
+  constructor(private dialog: MatDialog,
     private apiService: ApiService,
     private route: Router,
     private user: UserService,
@@ -29,23 +32,28 @@ export class AppNavbarComponent {
     private fb: FormBuilder,
     private authService: UserService,
     private cd: ChangeDetectorRef
-  ) {}
+  ) { }
 
   isLoggedIn: boolean = false;
   isMenuOpen: boolean = true;
-  toggleLogin() {
-    this.apiService.logout().subscribe({
-      next: (value) => {
-        this.user.removeCurrentUser();
-        localStorage.removeItem('ozo_access_token');
-        this.isLoggedIn = false;
-        alert('Logout is successful Thanks Again!');
-      },
-      error: (error) => {
+  loginLogout() {
+    if (confirm(this.logoutConfirmationMessage)) {
+      this.apiService.logout().subscribe({
+        next: (value) => {
+          this.user.removeCurrentUser();
+          localStorage.removeItem('ozo_access_token');
+          this.isLoggedIn = false;
+          alert('Logout is successful Thanks Again!');
+        },
+        error: (error) => {
           alert('Logout Faield!');
-      },
-      complete: () => {},
-    });
+        },
+        complete: () => { },
+      });
+      this.logoutFlag = false;
+    } else {
+      this.logoutFlag = false;
+    }
   }
 
   isLogin() {
@@ -53,15 +61,29 @@ export class AppNavbarComponent {
       .pipe(
         map((user) => {
           if (!user) {
-            this.isLoggedIn = true;
-            this.route.navigateByUrl('login');
-            return false;
+            this.isLoggedIn = false;
+            this.route.navigateByUrl('');
           }
           this.isLoggedIn = true;
-          return true;
         })
       )
       .subscribe();
+  }
+
+  logoutFlag = false;
+  logoutConfirmationMessage = "Are you sure you want to log out?";
+
+  confirmLogoutAction() {
+    if (confirm(this.logoutConfirmationMessage)) {
+      this.logoutFlag = false;
+    } else {
+      this.logoutFlag = false;
+    }
+  }
+
+  confirmLogout() {
+    this.logoutFlag = true;
+
   }
   menue() {
     this.isMenuOpen = !this.isMenuOpen;

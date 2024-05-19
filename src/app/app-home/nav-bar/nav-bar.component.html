@@ -11,6 +11,7 @@
                 </span>
             </div>
         </div>
+
         <div class="flex-box-right">
             <div class="flex-box-items" style="align-items: flex-end; ">
                 <span><i class="fa-solid fa-bell"></i>0</span>
@@ -27,14 +28,4 @@
 
         </div>
     </nav>
-    <div class="body-container" id="aside-open-closer-action">
-        <aside [class.aside-open]="isMenuOpen" [class.aside-close]="!isMenuOpen">
-            <a routerLink="partner-view" [routerLinkActive]="'active-link'"><span
-                    (click)="addPartner()">Partners-view</span></a>
-        </aside>
-        <main>
-            <router-outlet></router-outlet>
-        </main>
-    </div>
-
 </div>

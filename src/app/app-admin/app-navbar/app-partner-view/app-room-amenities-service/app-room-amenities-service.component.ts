@@ -25,13 +25,12 @@ export class AppRoomAmenitiesServiceComponent {
   showDeleteConfirmation = false;
   tableColumns = [
     'roomAmenGroupName',
-    'roomAmenType',
     'roomAmenDetails',
     'action',
   ];
   constructor(
     private apiService: ApiService,
-    @Inject(MAT_DIALOG_DATA) public data: ResidenceRooms[],
+    @Inject(MAT_DIALOG_DATA) public data: ResidenceRooms,
     private validationService: CustomValidationService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<AppRoomAmenitiesServiceComponent>,
@@ -41,8 +40,7 @@ export class AppRoomAmenitiesServiceComponent {
 
   createSubmitForm() {
     this.amenitiesForm = this.fb.group({
-      roomAmen_refId: new FormControl(Array.from(this.data)[0].roomId, [Validators.required, CustomValidation.idValidation(1)]),
-      roomAmenType: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
+      roomAmen_refId: new FormControl(this.data.roomId, [Validators.required, CustomValidation.idValidation(1)]),
       roomAmenGroupName: new FormControl(this.roomAmenGroupName, [Validators.required, CustomValidation.textValidation(1, 100)]),
       roomAmenDetails: new FormControl('', [Validators.required, CustomValidation.textValidation(1, 100)]),
 
@@ -62,7 +60,7 @@ export class AppRoomAmenitiesServiceComponent {
 
   amenitiesGroupList: { group: string }[] = [];
   getTableData(): void {
-    this.apiService.getResidencesById(Array.from(this.data)[0].roomResidence_refId!).subscribe({
+    this.apiService.getResidencesById(this.data.roomResidence_refId!).subscribe({
       next: (value) => {
         this.amenities = [];
         const newData: any = []
@@ -74,11 +72,10 @@ export class AppRoomAmenitiesServiceComponent {
               group: a.roomAmenGroupName
             })
        
-            a.roomAmenitiesDetails.forEach(ad => {
+            a.roomsAmenitiesDetails.forEach(ad => {
               newData.push({
                 roomAmenId: a.roomAmenId,
                 roomAmen_refId: a.roomAmen_refId,
-                roomAmenType: a.roomAmenType,
                 roomAmenGroupName: a.roomAmenGroupName,
                 roomAmenDetailId: ad.roomAmenDetailId,
                 roomAmenDetail_refId: ad.roomAmenDetail_refId,
@@ -103,16 +100,15 @@ export class AppRoomAmenitiesServiceComponent {
     // Clear the array before populating it with new data
     this.amenities = [];
     const newData: any = []
-    this.data.forEach(residence => {
-      residence.roomsAmenities!.forEach(a => {
+    // console.log(this.data)
+      this.data.roomsAmenities!.forEach(a => {
         this.amenitiesGroupList.push({
           group: a.roomAmenGroupName
         })
-        a.roomAmenitiesDetails.forEach(ad => {
+        a.roomsAmenitiesDetails!.forEach(ad=> {
           newData.push({
             roomAmenId: a.roomAmenId,
             roomAmen_refId: a.roomAmen_refId,
-            roomAmenType: a.roomAmenType,
             roomAmenGroupName: a.roomAmenGroupName,
             roomAmenDetailId: ad.roomAmenDetailId,
             roomAmenDetail_refId: ad.roomAmenDetail_refId,
@@ -120,7 +116,7 @@ export class AppRoomAmenitiesServiceComponent {
           });
         });
       });
-      });
+    
     this.dataSource.data = [];
     this.amenities = newData
     this.dataSource = new MatTableDataSource<RoomAmenitiesDTO>(this.amenities);
@@ -178,14 +174,12 @@ export class AppRoomAmenitiesServiceComponent {
       const payload: ResidenceRoomAmenities = {
         roomAmen_refId: this.amenitiesForm.get('roomAmen_refId')?.value,
         roomAmenGroupName: this.amenitiesForm.get('roomAmenGroupName')?.value,
-        roomAmenType: this.amenitiesForm.get('roomAmenType')?.value,
-        roomAmenitiesDetails: [
+        roomsAmenitiesDetails: [
           {
             roomAmenDetails: this.amenitiesForm.get('roomAmenDetails')?.value,
           }
         ]
       };
-
       this.apiService.addUpdateResidenceRoomAmenities(payload).subscribe({
         next: (value) => {
           alert('Success')
@@ -226,8 +220,7 @@ export class AppRoomAmenitiesServiceComponent {
         roomAmenId: $event.roomAmenId,
         roomAmen_refId: $event.roomAmen_refId,
         roomAmenGroupName: $event.roomAmenGroupName,
-        roomAmenType: $event.roomAmenType,
-        roomAmenitiesDetails: [
+        roomsAmenitiesDetails: [
           {
             roomAmenDetailId: $event.roomAmenDetailId,
             roomAmenDetail_refId: $event.roomAmenDetail_refId,

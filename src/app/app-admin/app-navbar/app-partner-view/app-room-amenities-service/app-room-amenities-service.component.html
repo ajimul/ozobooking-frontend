@@ -1,64 +1,17 @@
-<div class="
-dialog-content 
-width-100 
-flex
-border-radius-5 
-margin-top-0 
-margin-bottom-0 
-margin-left-auto 
-padding-20 
-margin-right-auto 
-column 
-justify-content-center 
-overflow-auto">
+<div class="dialog-contentwidth-100 flex border-radius-5 margin-top-0 margin-bottom-0 margin-left-auto padding-20 margin-right-auto column justify-content-center overflow-auto">
     <div class="align-self-flex-end margin-bottom-20" mat-dialog-close>
         <span class=" flex flex-wrap-nowrap close-btn padding-inline-25 padding-block-2  cursor-pointer 
         justify-content-center align-items-center font-size-102  border-radius-2 ">X</span>
     </div>
     <header>
         <div>
-            <h2 class="
-            flex 
-            justify-content-center 
-            margin-bottom-20 
-            residence-heading">Rooms AmenitiesService Works!</h2>
+            <h2 class="flex justify-content-center margin-bottom-20 residence-heading">Rooms Amenities Service Works!</h2>
         </div>
     </header>
     <main>
-        <form class="
-    flex 
-    flex-wrap 
-    !border-red
-    margin-bottom-20  
-    gap-10 
-    justify-content-space-evenly 
-    width-100" [formGroup]="amenitiesForm" name="xx">
-            <!-- style="display: none;" -->
-        <!-- <div class="
-        flex 
-        column  
-       form-element-width
-        padding-5 
-        justify-self-space-around  
-        !border-red  
-        position-relative ">
-                <label class="width-100" for="autoId">Auto Selected Id:
-                    <span
-                        *ngIf="amenitiesForm.get('roomAmen_refId')?.invalid && amenitiesForm.get('roomAmen_refId')?.touched"
-                        class="error-message">
-                        {{ getIdError('roomAmen_refId') }}
-                    </span>
-                    <input class="width-100" type="text" id="autoId" formControlName="roomAmen_refId" readonly>
-                </label>
-            </div> -->
-            <div class="
-            flex 
-            column  
-           form-element-width
-            padding-5 
-            justify-self-space-around  
-            !border-red" id="child-AmenitiesGroup">
-                <label class="width-100" for="amenitiesGroupInput">Enter or Select Amenities Group:
+        <form class="flex flex-wrap !border-red margin-bottom-20 gap-10 justify-content-space-evenly width-100" [formGroup]="amenitiesForm">
+  
+            <div class=" flex  flex-25 column  form-element-width padding-5  justify-self-space-around   !border-red" id="child-AmenitiesGroup">                <label class="width-100" for="amenitiesGroupInput">Enter or Select Amenities Group:
                     <span
                         *ngIf="amenitiesForm.get('roomAmenGroupName')?.invalid && amenitiesForm.get('roomAmenGroupName')?.touched"
                         class="error-message">
@@ -79,32 +32,8 @@ overflow-auto">
                     </select>
                 </label>
             </div>
-            <div class="
-            flex 
-            column  
-           form-element-width
-            padding-5 
-            justify-self-space-around  
-            !border-red  
-            position-relative " id="child-AmenitiesType">
-                <label class="width-100" for="amenitiesTypeInput">Enter or Select Amenities Type:
-                    <span
-                        *ngIf="amenitiesForm.get('roomAmenType')?.invalid && amenitiesForm.get('roomAmenType')?.touched"
-                        class="error-message">
-                        {{ getTextError('roomAmenType') }}
-                    </span>
-                    <input class="width-100" id="amenitiesTypeInput" formControlName="roomAmenType">
-                </label>
-            </div>
-            <div class="
-            flex 
-            column  
-           form-element-width
-            padding-5 
-            justify-self-space-around  
-            !border-red  
-            position-relative " id="child-AmenitiesDetails">
-                <label class="width-100" for="amenitiesDetailsInput">Description:
+            <div class=" flex flex-25 column  form-element-width padding-5 justify-self-space-around !border-red" id="child-AmenitiesDetails">
+                <label class="width-100" for="amenitiesDetailsInput">Enter Amenities:
                     <span
                         *ngIf="amenitiesForm.get('roomAmenDetails')?.invalid && amenitiesForm.get('roomAmenDetails')?.touched"
                         class="error-message">
@@ -115,15 +44,12 @@ overflow-auto">
             </div>
             
             <div id="child-AmenitiesDetails"
-                class="flex 
-                column  
-                form-element-width
-                padding-5 
-                justify-self-space-around  
-                !border-red padding-top-20">
+                class="flex flex-25 column form-element-width padding-5 justify-self-space-around !border-red padding-top-20">
                 <button class="padding-block-5 padding-inline-16 border-none border-radius-4 cursor-pointer submit-btn" type="button" (click)="formSubmit()">Add Amenities</button>
             </div>
         </form>
+        <br>
+        <br>
         <div class="overflow-x-auto   overflow-y-auto table-wrapper">
             <table mat-table matSort [dataSource]="dataSource" class="residence-table">
                 <ng-container matColumnDef="roomAmenGroupName">
@@ -134,16 +60,6 @@ overflow-auto">
                             class="error-message">Amenities Group is required.</div>
                     </td>
                 </ng-container>
-                <ng-container matColumnDef="roomAmenType">
-                    <th mat-header-cell *matHeaderCellDef><strong>Amenities-Type </strong></th>
-                    <td mat-cell *matCellDef="let element; let i = index">
-                        <input type="text" [(ngModel)]="element.roomAmenType">
-                        <div *ngIf="!element.roomAmenType || element.roomAmenType.trim().length === 0"
-                            class="error-message">
-                            Amenities Type is required.</div>
-                    </td>
-                </ng-container>
-
                 <ng-container matColumnDef="roomAmenDetails">
                     <th mat-header-cell *matHeaderCellDef><strong>Amenities Details</strong></th>
                     <td mat-cell *matCellDef="let element; let i = index">
@@ -159,23 +75,11 @@ overflow-auto">
                         <strong>Actions</strong>
                     </th>
                     <td mat-cell *matCellDef="let element; let i=index">
-                        <span class="
-                        cursor-pointer 
-                        margin-2  
-                        margin-right-30 
-                        padding-5 
-                        border-radius-5 
-                        font-size-09 
-                        update-btn" (click)="updateAmenities(element)">Update</span>
+                        <span class=" cursor-pointer margin-2  
+                        margin-right-30 padding-5 border-radius-5 font-size-09 update-btn" (click)="updateAmenities(element)">Update</span>
 
-                        <span class="
-                        cursor-pointer 
-                        margin-2 
-                        margin-left-30 
-                        padding-5 
-                        border-radius-5 
-                        font-size-09 
-                        delete-btn"  (click)="showConfirmDelete()" (click)="deleteAmenities(element.roomAmenDetailId)">Delete</span>
+                        <span class=" cursor-pointer margin-2 
+                        margin-left-30 padding-5 border-radius-5 font-size-09 delete-btn"  (click)="showConfirmDelete()" (click)="deleteAmenities(element.roomAmenDetailId)">Delete</span>
                         <div *ngIf="showDeleteConfirmation" class="confirmation-modal">
                             <button  (click)="deleteAmenities(element.roomAmenDetailId)">Delete</button>
                             <button (click)="showDeleteConfirmation = false">Cancel</button>

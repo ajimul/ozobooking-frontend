@@ -11,7 +11,6 @@ export interface Residence {
     distance: Distance[];
     residenceImages: ResidenceImage[];
     residenceRatings: ResidenceRating[];
-    residenceAmenities: ResidenceAmenities[];
   }
   
   export interface ResidenceRooms {
@@ -108,20 +107,3 @@ export interface Residence {
     command: string;
     commandDate: string;
   }
-  // "Entertainment Amenities", "Security Features","Gym/Fitness Center", "Cardio Equipment", "Weightlifting Equipment", "Yoga Studio",
-  export interface ResidenceAmenities {
-    resiAmenId?: number; 
-    resiAmen_refId?: number;
-    resiAmenGroupName: string;
-    reseAmenitiesDetails: ReseAmenitiesDetails[];  }
-  
-  export interface ReseAmenitiesDetails {
-    resiAmenDetailId?: number; 
-    resiAmenDetail_refId?: number;
-    resiAmenDetails: string;
-  }
-  
-
-
-
-  

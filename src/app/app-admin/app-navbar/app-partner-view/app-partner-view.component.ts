@@ -7,7 +7,7 @@ import {
   MatDialogConfig,
 } from '@angular/material/dialog';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { Residence, ResidenceRooms, ResidenceRoomsImages } from '../../../app-interface/Residence';
+import { Residence, ResidenceRoomAmenities, ResidenceRoomAmenitiesDetails, ResidenceRooms, ResidenceRoomsImages } from '../../../app-interface/Residence';
 import { ApiService } from '../../../api-service/api-service.service';
 import { AppPartnerSignupComponent } from './app-partner-signup/app-partner-signup.component';
 import { AppPartnerUpdateComponent } from './app-partner-update/app-partner-update.component';
@@ -63,6 +63,7 @@ export class AppPartnerViewComponent {
     this.service.getResidences().subscribe({
       next: (data) => {
         this.residenceList = data;
+       
       },
       error: (e) => console.error(e),
       complete: () => {
@@ -247,11 +248,11 @@ export class AppPartnerViewComponent {
 
   }
 
-  roomsAmenitiesService() {
+  roomsAmenitiesService(element: ResidenceRooms) {
     const config = new MatDialogConfig<any>();
     config.width = '90%';
     config.height = '90%';
-    config.data = this.roomsTableRow;
+    config.data = element;
     const dialogRef = this.dialog.open(AppRoomAmenitiesServiceComponent, config);
     dialogRef.afterClosed().subscribe((response: any) => {
       this.clearSelection("roomDialogRefSet");
@@ -283,7 +284,7 @@ export class AppPartnerViewComponent {
     switch (roomDialogRefSet.value) {
       case '1': this.roomImageService(element);
         break;
-      case '2': this.roomsAmenitiesService();
+      case '2': this.roomsAmenitiesService(element);
         break;
       case '3': this.roomPolicyService(element);
         break;
@@ -298,4 +299,5 @@ export class AppPartnerViewComponent {
     if (selectElement) {
       selectElement.selectedIndex = 0; // Set the selectedIndex to 0 to select the first option
     }
-  }}
+  }
+}
