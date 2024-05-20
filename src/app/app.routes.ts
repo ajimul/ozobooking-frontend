@@ -1,46 +1,41 @@
 import { Routes } from '@angular/router';
-import { AppLoginComponent } from './app-admin/app-login/app-login.component';
-import { AppHomeComponent } from './app-admin/app-home/app-home.component';
 import { guardGuard } from './route-guard/guard.guard';
-import { AppClientSignupComponent } from './app-client-signup/app-client-signup.component';
-import { AppNavbarComponent } from './app-admin/app-navbar/app-navbar.component';
-import { AppPartnerViewComponent } from './app-admin/app-navbar/app-partner-view/app-partner-view.component';
-import { PartnerLoginComponent } from './app-partner/partner-login/partner-login.component';
-import { PartnerNavBarComponent } from './app-partner/partner-nav-bar/partner-nav-bar.component';
-import { HomeComponent } from './app-home/home/home.component';
-import { NavBarComponent } from './app-home/nav-bar/nav-bar.component';
-import { ClientLoginComponent } from './app-home/client-login/client-login.component';
+import { AdminLoginComponent } from './app-admin-component/admin-login-component/admin-login-component.component';
+import { AppAdminComponentComponent } from './app-admin-component/app-admin-component.component';
+import { ResidenceListViewComponent } from './app-admin-component/residence-list-view/residence-list-view.component';
+import { AppBookingComponentComponent } from './app-booking-component/app-booking-component.component';
+import { ClientLoginComponentComponent } from './app-booking-component/client-login-component/client-login-component.component';
+import { AppPartnerComponentComponent } from './app-partner-component/app-partner-component.component';
+import { PartnerLoginComponentComponent } from './app-partner-component/partner-login-component/partner-login-component.component';
+
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
-  { path: 'login', component: ClientLoginComponent },
-  { path: 'admin-login', component: AppLoginComponent, pathMatch: 'full' },
-  { path: 'patner-login', component: PartnerLoginComponent, pathMatch: 'full' },
+
+  { path: '', component: AppBookingComponentComponent, pathMatch: 'full' },
+  { path: 'admin-login', component: AdminLoginComponent, pathMatch: 'full' },
+  { path: 'partner-login', component: PartnerLoginComponentComponent, pathMatch: 'full' },
   {
     path: 'home',
-    component: HomeComponent,
+    component: AppBookingComponentComponent,
     children: [
-      ],
-  },
-  
-  {
-    path: 'admin-nav',
-    component: AppNavbarComponent,
-    canActivate: [guardGuard],  children: [
-      { path: 'partner-view', component: AppPartnerViewComponent },         
     ],
   },
-  
+
+  {
+    path: 'admin-nav',
+    component: AppAdminComponentComponent,
+    canActivate: [guardGuard], children: [
+      { path: 'partner-view', component: ResidenceListViewComponent },
+    ],
+  },
+
   {
     path: 'partner-home',
-    component: PartnerNavBarComponent,
-    canActivate: [guardGuard], 
+    component: AppPartnerComponentComponent,
+    canActivate: [guardGuard],
     children: [
-             
+
     ],
   },
   { path: '**', redirectTo: '' }
-
-
-
 ];
