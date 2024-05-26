@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { environment } from '../../../environments/environment';
-import { ResidenceRooms, ResidenceRoomsImages } from '../../app-interface/Residence';
+import { ResidenceRooms, ResidenceRoomsImages } from '../../app-interfaces/Residence';
 import { ApiService } from '../../api-service/api-service.service';
 import { CustomValidationService } from '../../app-validator/custom-validation-service';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
@@ -137,31 +137,31 @@ export class RoomImagesServiceComponent {
   }
   deleteAction(id: any, fileName: any) {
     if (confirm("Are you sure you want to delete this image?")) {
-    this.apiService.deleteResidenceRoomImageById(id, fileName)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
-            console.log('Deleted successfully');
-          } else if (error.status === 404) {
-            console.error('Not found');
-          } else {
-            console.error('An error occurred:', error);
-          }
-          throw error;
+      this.apiService.deleteResidenceRoomImageById(id, fileName)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
+              console.log('Deleted successfully');
+            } else if (error.status === 404) {
+              console.error('Not found');
+            } else {
+              console.error('An error occurred:', error);
+            }
+            throw error;
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            alert('Deleted successfully');
+          },
+          error: (error) => {
+            alert('File Not Found!');
+          },
+          complete: () => {
+            this.getRoomImages()
+          },
         })
-      )
-      .subscribe({
-        next: (response) => {
-          alert('Deleted successfully');
-        },
-        error: (error) => {
-          alert('File Not Found!');
-        },
-        complete: () => {
-          this.getRoomImages()
-        },
-      })
-      this.showDeleteConfirmation = false; 
+      this.showDeleteConfirmation = false;
     } else {
       this.showDeleteConfirmation = false;
     }

@@ -6,9 +6,9 @@ import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ApiService } from '../../api-service/api-service.service';
 import { CustomValidationService } from '../../app-validator/custom-validation-service';
 import { RoomImagesServiceComponent } from '../room-images-service/room-images-service.component';
-import { Distance, Residence } from '../../app-interface/Residence';
+import { Distance, Residence } from '../../app-interfaces/Residence';
 import { CustomValidation } from '../../app-validator/custom-validation';
-import { DistanceDTO } from '../../app-interface/DistanceDTO';
+import { DistanceDTO } from '../../app-interfaces/DistanceDTO';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
 

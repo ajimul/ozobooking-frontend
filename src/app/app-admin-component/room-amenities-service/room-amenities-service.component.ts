@@ -3,10 +3,10 @@ import { ChangeDetectorRef, Component, HostListener, Inject, ViewChild } from '@
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ApiService } from '../../api-service/api-service.service';
-import { ResidenceRoomAmenities, Residence, ResidenceRooms } from '../../app-interface/Residence';
+import { ResidenceRoomAmenities, Residence, ResidenceRooms } from '../../app-interfaces/Residence';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CustomValidationService } from '../../app-validator/custom-validation-service';
-import { RoomAmenitiesDTO } from '../../app-interface/RoomAmenitiesDTO';
+import { RoomAmenitiesDTO } from '../../app-interfaces/RoomAmenitiesDTO';
 import { CustomValidation } from '../../app-validator/custom-validation';
 import { catchError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -14,7 +14,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 @Component({
   selector: 'app-room-amenities-service',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule,MatDialogModule],
+  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule, MatDialogModule],
   templateUrl: './room-amenities-service.component.html',
   styleUrl: './room-amenities-service.component.css'
 })
@@ -64,14 +64,14 @@ export class RoomAmenitiesServiceComponent {
       next: (value) => {
         this.amenities = [];
         const newData: any = []
-    
+
         this.amenitiesGroupList = [];
         value.residenceRooms.forEach(room => {
           room.roomsAmenities!.forEach(a => {
             this.amenitiesGroupList.push({
               group: a.roomAmenGroupName
             })
-       
+
             a.roomsAmenitiesDetails.forEach(ad => {
               newData.push({
                 roomAmenId: a.roomAmenId,
@@ -101,22 +101,22 @@ export class RoomAmenitiesServiceComponent {
     this.amenities = [];
     const newData: any = []
     // console.log(this.data)
-      this.data.roomsAmenities!.forEach(a => {
-        this.amenitiesGroupList.push({
-          group: a.roomAmenGroupName
-        })
-        a.roomsAmenitiesDetails!.forEach(ad=> {
-          newData.push({
-            roomAmenId: a.roomAmenId,
-            roomAmen_refId: a.roomAmen_refId,
-            roomAmenGroupName: a.roomAmenGroupName,
-            roomAmenDetailId: ad.roomAmenDetailId,
-            roomAmenDetail_refId: ad.roomAmenDetail_refId,
-            roomAmenDetails: ad.roomAmenDetails,
-          });
+    this.data.roomsAmenities!.forEach(a => {
+      this.amenitiesGroupList.push({
+        group: a.roomAmenGroupName
+      })
+      a.roomsAmenitiesDetails!.forEach(ad => {
+        newData.push({
+          roomAmenId: a.roomAmenId,
+          roomAmen_refId: a.roomAmen_refId,
+          roomAmenGroupName: a.roomAmenGroupName,
+          roomAmenDetailId: ad.roomAmenDetailId,
+          roomAmenDetail_refId: ad.roomAmenDetail_refId,
+          roomAmenDetails: ad.roomAmenDetails,
         });
       });
-    
+    });
+
     this.dataSource.data = [];
     this.amenities = newData
     this.dataSource = new MatTableDataSource<RoomAmenitiesDTO>(this.amenities);
@@ -188,10 +188,11 @@ export class RoomAmenitiesServiceComponent {
           alert('Internal Server Error!')
         },
         complete: () => {
-          this.amenitiesForm .patchValue({
+          this.amenitiesForm.patchValue({
             roomAmenType: '',
-            roomAmenGroupName:'',
-            roomAmenDetails: ''})      
+            roomAmenGroupName: '',
+            roomAmenDetails: ''
+          })
           this.getTableData();
 
         }
@@ -211,7 +212,7 @@ export class RoomAmenitiesServiceComponent {
     });
   }
 
-  updateAmenities($event: any): void {    
+  updateAmenities($event: any): void {
     let amenitiesGroup: string = $event.roomAmenGroupName
     let amenitiesGroupDetails: string = $event.roomAmenDetails
     if (amenitiesGroup.trim().length > 0
@@ -239,7 +240,7 @@ export class RoomAmenitiesServiceComponent {
           this.getTableData();
         },
       })
-      
+
     } else {
       alert('Empty Data Not Allowed!')
     }
@@ -247,30 +248,30 @@ export class RoomAmenitiesServiceComponent {
   }
   deleteAmenities($event: number): void {
     if (confirm("Are you sure you want to delete this amenities?")) {
-    this.apiService.deleteResidenceRoomAmenitiesById($event)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
-            console.log('Deleted successfully');
-          } else if (error.status === 404) {
-            console.error('Not found');
-          } else {
-            console.error('An error occurred:', error);
-          }
-          throw error;
+      this.apiService.deleteResidenceRoomAmenitiesById($event)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
+              console.log('Deleted successfully');
+            } else if (error.status === 404) {
+              console.error('Not found');
+            } else {
+              console.error('An error occurred:', error);
+            }
+            throw error;
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            alert('Amenities Deleted successfully');
+          },
+          error: (error) => {
+            alert('Amenities Not Found!');
+          },
+          complete: () => {
+            this.getTableData();
+          },
         })
-      )
-      .subscribe({
-        next: (response) => {
-          alert('Amenities Deleted successfully');
-        },
-        error: (error) => {
-          alert('Amenities Not Found!');
-        },
-        complete: () => {
-          this.getTableData();
-        },
-      })
       this.showDeleteConfirmation = false;
     } else {
       this.showDeleteConfirmation = false;

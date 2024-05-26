@@ -7,7 +7,7 @@ import {
   MatDialogConfig,
 } from '@angular/material/dialog';
 import { ApiService } from '../../api-service/api-service.service';
-import { Residence, ResidenceRoomAmenities, ResidenceRoomAmenitiesDetails, ResidenceRooms, ResidenceRoomsImages } from '../../app-interface/Residence';
+import { Residence, ResidenceRoomAmenities, ResidenceRoomAmenitiesDetails, ResidenceRooms, ResidenceRoomsImages } from '../../app-interfaces/Residence';
 import { PartnerSignupComponent } from '../partner-signup/partner-signup.component';
 import { ResidenceUpdateComponent } from '../residence-update/residence-update.component';
 import { ResidenceAgreementComponent } from '../residence-agreement/residence-agreement.component';

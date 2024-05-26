@@ -5,9 +5,9 @@ import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/materia
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { ApiService } from '../../api-service/api-service.service';
 import { CustomValidationService } from '../../app-validator/custom-validation-service';
-import { ResidenceRoomsDTO } from '../../app-interface/ResidenceRoomsDTO';
+import { ResidenceRoomsDTO } from '../../app-interfaces/ResidenceRoomsDTO';
 import { CustomValidation } from '../../app-validator/custom-validation';
-import { Residence, ResidenceRooms } from '../../app-interface/Residence';
+import { Residence, ResidenceRooms } from '../../app-interfaces/Residence';
 import { catchError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 

@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, of, throwError } from 'rxjs';
 import { TokenService } from '../token-service/token.service';
 import { environment } from '../../environments/environment';
-import { User } from '../app-interface/PartnerRegisterDTO';
-import { Distance, ResidenceAmenities, ResidenceRoomAmenities, Residence, ResidenceImage, ResidenceRooms, ResidenceRoomsImages, ResidenceRoomsPolicy } from '../app-interface/Residence';
+import { User } from '../app-interfaces/PartnerRegisterDTO';
+import { Distance, ResidenceAmenities, ResidenceRoomAmenities, Residence, ResidenceImage, ResidenceRooms, ResidenceRoomsImages, ResidenceRoomsPolicy } from '../app-interfaces/Residence';
 
 @Injectable({
   providedIn: 'root',

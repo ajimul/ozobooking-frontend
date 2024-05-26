@@ -5,17 +5,17 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
 import { environment } from '../../../environments/environment';
-import { ResidenceRooms,ResidenceRoomsPolicy } from '../../app-interface/Residence';
+import { ResidenceRooms, ResidenceRoomsPolicy } from '../../app-interfaces/Residence';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CustomValidation } from '../../app-validator/custom-validation';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
-import { RoomPolicyDTO } from '../../app-interface/RoomPolicyDTO';
+import { RoomPolicyDTO } from '../../app-interfaces/RoomPolicyDTO';
 
 @Component({
   selector: 'app-room-policy-service',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule,MatDialogModule],
+  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule, MatDialogModule],
   templateUrl: './room-policy-service.component.html',
   styleUrl: './room-policy-service.component.css'
 })
@@ -52,9 +52,9 @@ export class RoomPolicyServiceComponent {
 
 
     roomPolicies.forEach(policys => {
-        this.roomPoliciesList.push({
-          policy: policys.roomPolicyName
-        })
+      this.roomPoliciesList.push({
+        policy: policys.roomPolicyName
+      })
       policys.roomsPolicyDetails.forEach(policysDetails => {
         this.moomPolicyDTO.push({
           roomPolicyId: policys.roomPolicyId,
@@ -93,7 +93,7 @@ export class RoomPolicyServiceComponent {
             })
           });
         });
-         },
+      },
       error: (err) => {
         console.log(err);
       },
@@ -133,12 +133,12 @@ export class RoomPolicyServiceComponent {
       ? this.validationService.getTextValidationError(control, '*', '*', '*', '*', '*', '*') : null;
   }
 
-// Custom Policy Group Selection
+  // Custom Policy Group Selection
 
   @ViewChild('policyGroupInput') policyGroupInput: any;
   isRoomPolicyName: boolean = false;
   selectionPolicyGroup(selectElement: any) {
-    console.log('xx',selectElement.value)
+    console.log('xx', selectElement.value)
     const selectedValue = selectElement.value;
     this.roomPolicyName = selectedValue;
     this.isRoomPolicyName = false;
@@ -196,7 +196,7 @@ export class RoomPolicyServiceComponent {
       complete: () => {
         this.roomPolicyForm.patchValue({
           roomPolicyName: '',
-          roomPolicyDescription:''
+          roomPolicyDescription: ''
         })
         this.getRoomPolicys();
       }
@@ -228,8 +228,8 @@ export class RoomPolicyServiceComponent {
       }
     });
   }
-  deleteRoomPolicy(roomPolicyId:number){
-        this.apiService.deleteResidenceRoomsPolicyById(roomPolicyId,)
+  deleteRoomPolicy(roomPolicyId: number) {
+    this.apiService.deleteResidenceRoomsPolicyById(roomPolicyId,)
       .pipe(
         catchError((error: HttpErrorResponse) => {
           if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
@@ -244,13 +244,13 @@ export class RoomPolicyServiceComponent {
       )
       .subscribe({
         next: (response) => {
-         
+
         },
         error: (error) => {
-         
+
         },
         complete: () => {
-         
+
         },
       })
 
@@ -259,37 +259,37 @@ export class RoomPolicyServiceComponent {
   deleteAction(element: any) {
     if (confirm("Are you sure you want to delete this policy?")) {
       this.apiService.deleteResidenceRoomsPolicyDetailsById(element.roomPolicyDetailsId)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
-            console.log('Policy Deleted successfully');
-          } else if (error.status === 404) {
-            console.error('Not found!');
-          } else {
-            console.error('An error occurred:', error);
-          }
-          throw error;
-        })
-      )
-      .subscribe({
-        next: (response) => {
-          this.deleteRoomPolicy(element.roomPolicyId);
-          alert('Policy Deleted successfully');
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
+              console.log('Policy Deleted successfully');
+            } else if (error.status === 404) {
+              console.error('Not found!');
+            } else {
+              console.error('An error occurred:', error);
+            }
+            throw error;
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            this.deleteRoomPolicy(element.roomPolicyId);
+            alert('Policy Deleted successfully');
           },
-        error: (error) => {
-          alert('Not Found!');
-            
-        },
-        complete: () => {
-          this.getRoomPolicys()
-        },
-      })
-      this.showDeleteConfirmation = false; 
+          error: (error) => {
+            alert('Not Found!');
+
+          },
+          complete: () => {
+            this.getRoomPolicys()
+          },
+        })
+      this.showDeleteConfirmation = false;
     } else {
       this.showDeleteConfirmation = false;
     }
   }
-  
 
- 
+
+
 }

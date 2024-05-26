@@ -1,20 +1,48 @@
 /* You can add global styles to this file, and also import other style files */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  height: 100%;
+  font-size: 62.5%;
+}
+.highlight-red {
+  background-color: #ff0000 !important;
+}
 
-html,
+@media only screen and (max-width: 600px) {
+  html {
+    font-size: 31.25%;
+  }
+}
+@media only screen and (max-width: 767px) {
+  html {
+    font-size: 40%;
+  }
+}
+@media only screen and (max-width: 992px) {
+  html {
+    font-size: 51.25%;
+  }
+}
+
+@media only screen and (min-width: 1200px) {
+  html {
+    font-size: 100%;
+  }
+}
 body {
   height: 100%;
-}
-body {
-  margin: 0 !important;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+  font-size: 1rem;
 }
+
 .error-message {
   color: red;
   margin-top: -8px !important;
   margin-bottom: 12px !important;
-}
-* {
-  box-sizing: border-box;
 }
 
 .mat-mdc-dialog-container .mdc-dialog__surface {
@@ -48,7 +76,7 @@ body {
 .cursor-pointer {
   cursor: pointer;
 }
-.border-none{
+.border-none {
   border: none !important;
 }
 .border-05 {
@@ -471,7 +499,6 @@ body {
   width: 100% !important;
 }
 
-
 .flex-50 {
   flex: 50%;
 }
@@ -632,7 +659,7 @@ body {
 }
 
 .justify-content-center {
-  justify-content:center;
+  justify-content: center;
 }
 .justify-content-flex-start {
   justify-content: flex-start;
@@ -682,45 +709,45 @@ body {
 .align-self-flex-end {
   align-self: flex-end;
 }
-.text-align-center{
-  text-align:center;
+.text-align-center {
+  text-align: center;
 }
-.text-align-start{
-  text-align:start;
+.text-align-start {
+  text-align: start;
 }
-.text-align-end{
-  text-align:end;
+.text-align-end {
+  text-align: end;
 }
-.text-align-left{
-  text-align:left;
+.text-align-left {
+  text-align: left;
 }
-.text-align-right{
-  text-align:right;
+.text-align-right {
+  text-align: right;
 }
 
-.align-items-center{
-  align-items:center;
+.align-items-center {
+  align-items: center;
 }
-.align-items-end{
-  align-items:end;
+.align-items-end {
+  align-items: end;
 }
-.align-items-start{
-  align-items:start;
+.align-items-start {
+  align-items: start;
 }
-.align-items-flex-end{
-  align-items:flex-end;
+.align-items-flex-end {
+  align-items: flex-end;
 }
-.align-items-flex-start{
-  align-items:flex-start;
+.align-items-flex-start {
+  align-items: flex-start;
 }
-.align-items-safe{
-  align-items:safe;
+.align-items-safe {
+  align-items: safe;
 }
-.align-items-safe-end{
-  align-items:self-end;
+.align-items-safe-end {
+  align-items: self-end;
 }
-.align-items-safe-start{
-  align-items:self-start;
+.align-items-safe-start {
+  align-items: self-start;
 }
 
 .font-size-05 {
@@ -1841,7 +1868,6 @@ body {
   margin-block: 40px !important;
 }
 
-
 .padding-1 {
   padding: 1px !important;
 }
@@ -2001,7 +2027,6 @@ body {
 .padding-inline-25 {
   padding-inline: 25px !important;
 }
-
 
 .padding-inline-26 {
   padding-inline: 26px !important;
@@ -2627,3 +2652,14 @@ body {
 .padding-right-40 {
   padding-right: 40px !important;
 }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

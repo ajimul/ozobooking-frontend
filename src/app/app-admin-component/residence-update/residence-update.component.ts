@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {  Component, Inject } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -17,14 +17,14 @@ import {
 import { ApiService } from '../../api-service/api-service.service';
 import { CustomValidationService } from '../../app-validator/custom-validation-service';
 import { CustomValidation } from '../../app-validator/custom-validation';
-import { Residence } from '../../app-interface/Residence';
+import { Residence } from '../../app-interfaces/Residence';
 @Component({
   selector: 'app-residence-update',
   standalone: true,
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,MatDialogModule
+    CommonModule, MatDialogModule
   ],
   templateUrl: './residence-update.component.html',
   styleUrl: './residence-update.component.css',
@@ -36,7 +36,7 @@ export class ResidenceUpdateComponent {
     private validationService: CustomValidationService,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: Residence,
-    private dialogRef: MatDialogRef<ResidenceUpdateComponent>) {}
+    private dialogRef: MatDialogRef<ResidenceUpdateComponent>) { }
   userForm!: FormGroup;
 
   ngOnInit(): void {
@@ -74,13 +74,13 @@ export class ResidenceUpdateComponent {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getNameValidationError(
-          control,
-          '*',
-          '*',
-          '*',
-          '*',
-          '*'
-        )
+        control,
+        '*',
+        '*',
+        '*',
+        '*',
+        '*'
+      )
       : null;
   }
   getResidenceTypeError(controlName: string): string | null {
@@ -93,28 +93,28 @@ export class ResidenceUpdateComponent {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getTextValidationError(
-          control,
-          '*',
-          '*',
-          '*',
-          '*',
-          '*',
-          '*'
-        )
+        control,
+        '*',
+        '*',
+        '*',
+        '*',
+        '*',
+        '*'
+      )
       : null;
   }
   getAddressError(controlName: string): string | null {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getTextValidationError(
-          control,
-          '*',
-          '*',
-          '*',
-          '*',
-          '*',
-          '*'
-        )
+        control,
+        '*',
+        '*',
+        '*',
+        '*',
+        '*',
+        '*'
+      )
       : null;
   }
 

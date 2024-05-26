@@ -13,7 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { ApiService } from '../../api-service/api-service.service';
 import { CustomValidationService } from '../../app-validator/custom-validation-service';
-import { Residence, User } from '../../app-interface/PartnerRegisterDTO';
+import { Residence, User } from '../../app-interfaces/PartnerRegisterDTO';
 import { CustomValidation } from '../../app-validator/custom-validation';
 import { MatDialogContent, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 interface PasswordError {
@@ -25,8 +25,8 @@ interface PasswordError {
   imports: [
     FormsModule,
     ReactiveFormsModule,
-    CommonModule,MatFormFieldModule, MatInputModule, FormsModule, MatDialogModule
-    ],
+    CommonModule, MatFormFieldModule, MatInputModule, FormsModule, MatDialogModule
+  ],
   templateUrl: './partner-signup.component.html',
   styleUrl: './partner-signup.component.css',
 })
@@ -36,7 +36,7 @@ export class PartnerSignupComponent {
     private validationService: CustomValidationService,
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<PartnerSignupComponent>
-  ) {}
+  ) { }
   userForm!: FormGroup;
   ngOnInit(): void {
     // Initialize the form with FormBuilder
@@ -97,13 +97,13 @@ export class PartnerSignupComponent {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getNameValidationError(
-          control,
-          '*',
-          '*',
-          '*',
-          '*',
-          '*'
-        )
+        control,
+        '*',
+        '*',
+        '*',
+        '*',
+        '*'
+      )
       : null;
   }
   getEmailError(controlName: string): string | null {
@@ -127,9 +127,9 @@ export class PartnerSignupComponent {
   getConfirmPasswordError(): string | null {
     return this.userForm.errors?.['passwordMismatch']
       ? this.validationService.getConfirmPasswordValidatorError(
-          this.userForm,
-          'Password Mismatch'
-        )
+        this.userForm,
+        'Password Mismatch'
+      )
       : null;
   }
 
@@ -137,13 +137,13 @@ export class PartnerSignupComponent {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getNameValidationError(
-          control,
-          '*',
-          '*',
-          '*',
-          '*',
-          '*'
-        )
+        control,
+        '*',
+        '*',
+        '*',
+        '*',
+        '*'
+      )
       : null;
   }
   getResidenceTypeError(controlName: string): string | null {
@@ -156,28 +156,28 @@ export class PartnerSignupComponent {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getTextValidationError(
-          control,
-          '*',
-          '*',
-          '*',
-          '*',
-          '*',
-          '*'
-        )
+        control,
+        '*',
+        '*',
+        '*',
+        '*',
+        '*',
+        '*'
+      )
       : null;
   }
   getAddressError(controlName: string): string | null {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getTextValidationError(
-          control,
-          '*',
-          '*',
-          '*',
-          '*',
-          '*',
-          '*'
-        )
+        control,
+        '*',
+        '*',
+        '*',
+        '*',
+        '*',
+        '*'
+      )
       : null;
   }
 
@@ -185,14 +185,14 @@ export class PartnerSignupComponent {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getTextValidationError(
-          control,
-          '*',
-          '*',
-          '*',
-          '*',
-          '*',
-          '*'
-        )
+        control,
+        '*',
+        '*',
+        '*',
+        '*',
+        '*',
+        '*'
+      )
       : null;
   }
 
@@ -236,7 +236,7 @@ export class PartnerSignupComponent {
       });
     } else {
       alert('Invalid Partner Credintial!');
-    
+
     }
   }
   // Function to mark all form controls as touched recursively

@@ -4,7 +4,7 @@ import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, 
 import { ApiService } from '../../api-service/api-service.service';
 import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
 import { CustomValidation } from '../../app-validator/custom-validation';
-import { ResidenceImage } from '../../app-interface/Residence';
+import { ResidenceImage } from '../../app-interfaces/Residence';
 import { CustomValidationService } from '../../app-validator/custom-validation-service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
@@ -33,11 +33,11 @@ export class ResidenceImageServiceComponent {
     private elRef: ElementRef,
     private dialogRef: MatDialogRef<ResidenceImageServiceComponent>) { }
 
-    showConfirmDelete() {
-      this.showDeleteConfirmation = true; // Show confirmation dialog
-    }
+  showConfirmDelete() {
+    this.showDeleteConfirmation = true; // Show confirmation dialog
+  }
   ngOnInit(): void {
-    console.log('images',this.data);
+    console.log('images', this.data);
     this.setResidenceImages();
     this.residanceForm = this.fb.group({
       residenceImagesRefId: new FormControl(this.data.residence.residenceId, [Validators.required,
@@ -110,7 +110,7 @@ export class ResidenceImageServiceComponent {
     });
   }
   setResidenceImages() {
-        this.residenceImage = this.data.residence.residenceImages;
+    this.residenceImage = this.data.residence.residenceImages;
   }
   getResidenceImages() {
     this.apiService.getResidencesById(this.data.residence.residenceId).subscribe({
@@ -131,30 +131,30 @@ export class ResidenceImageServiceComponent {
 
     if (confirm("Are you sure you want to delete this image?")) {
       this.apiService.deleteResidenceImageById(id, fileName)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
-            console.log('Deleted successfully');
-          } else if (error.status === 404) {
-            console.error('Not found');
-          } else {
-            console.error('An error occurred:', error);
-          }
-          throw error;
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
+              console.log('Deleted successfully');
+            } else if (error.status === 404) {
+              console.error('Not found');
+            } else {
+              console.error('An error occurred:', error);
+            }
+            throw error;
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            alert('Deleted successfully');
+          },
+          error: (error) => {
+            alert('File Not Found!');
+          },
+          complete: () => {
+            this.getResidenceImages()
+          },
         })
-      )
-      .subscribe({
-        next: (response) => {
-          alert('Deleted successfully');
-        },
-        error: (error) => {
-          alert('File Not Found!');
-        },
-        complete: () => {
-          this.getResidenceImages()
-        },
-      })
-      this.showDeleteConfirmation = false; 
+      this.showDeleteConfirmation = false;
     } else {
       this.showDeleteConfirmation = false;
     }

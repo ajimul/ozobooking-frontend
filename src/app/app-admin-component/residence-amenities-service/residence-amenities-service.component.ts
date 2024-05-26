@@ -5,16 +5,16 @@ import { CustomValidationService } from '../../app-validator/custom-validation-s
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { CommonModule } from '@angular/common';
-import { ResidenceAmenities, Residence } from '../../app-interface/Residence';
+import { ResidenceAmenities, Residence } from '../../app-interfaces/Residence';
 import { CustomValidation } from '../../app-validator/custom-validation';
 import { HttpErrorResponse } from '@angular/common/http';
 import { catchError } from 'rxjs';
-import { ResidenceAmenitiesDTO } from '../../app-interface/ResidenceAmenitiesDTO';
+import { ResidenceAmenitiesDTO } from '../../app-interfaces/ResidenceAmenitiesDTO';
 
 @Component({
   selector: 'app-residence-amenities-service',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule,MatDialogModule],
+  imports: [CommonModule, ReactiveFormsModule, MatTableModule, FormsModule, MatDialogModule],
   templateUrl: './residence-amenities-service.component.html',
   styleUrl: './residence-amenities-service.component.css'
 })
@@ -94,22 +94,22 @@ export class ResidenceAmenitiesServiceComponent {
     // Clear the array before populating it with new data
     this.amenities = [];
     const newData: any = []
-      this.amenitiesGroupList = [];
-      this.data.residenceAmenities.forEach(residenceAmenities => {
-        this.amenitiesGroupList.push({
-          group: residenceAmenities.resiAmenGroupName
-        })
-        residenceAmenities.reseAmenitiesDetails.forEach(reseAmenitiesDetails => {
-          newData.push({
-            resiAmenId: residenceAmenities.resiAmenId,
-            resiAmen_refId: this.data.residenceId,
-            resiAmenGroupName: residenceAmenities.resiAmenGroupName,
-            resiAmenDetailId: reseAmenitiesDetails.resiAmenDetailId,
-            resiAmenDetail_refId: residenceAmenities.resiAmenId,
-            resiAmenDetails: reseAmenitiesDetails.resiAmenDetails,
-          });
+    this.amenitiesGroupList = [];
+    this.data.residenceAmenities.forEach(residenceAmenities => {
+      this.amenitiesGroupList.push({
+        group: residenceAmenities.resiAmenGroupName
+      })
+      residenceAmenities.reseAmenitiesDetails.forEach(reseAmenitiesDetails => {
+        newData.push({
+          resiAmenId: residenceAmenities.resiAmenId,
+          resiAmen_refId: this.data.residenceId,
+          resiAmenGroupName: residenceAmenities.resiAmenGroupName,
+          resiAmenDetailId: reseAmenitiesDetails.resiAmenDetailId,
+          resiAmenDetail_refId: residenceAmenities.resiAmenId,
+          resiAmenDetails: reseAmenitiesDetails.resiAmenDetails,
         });
       });
+    });
     this.dataSource.data = [];
     this.amenities = newData
     this.dataSource = new MatTableDataSource<ResidenceAmenitiesDTO>(this.amenities);
@@ -122,8 +122,8 @@ export class ResidenceAmenitiesServiceComponent {
     this.createSubmitForm();
   }
 
-  
- 
+
+
 
   isAmenitiesGroup: boolean = false;
   selectionAmenitiesGroup(selectElement: any) {
@@ -182,7 +182,8 @@ export class ResidenceAmenitiesServiceComponent {
         complete: () => {
           this.amenitiesForm.patchValue({
             resiAmenGroupName: '',
-            resiAmenDetails: ''});
+            resiAmenDetails: ''
+          });
           this.getTableData();
 
         }
@@ -205,7 +206,7 @@ export class ResidenceAmenitiesServiceComponent {
   // isInputValid: boolean = true;
 
 
-  updateAmenities(element:ResidenceAmenitiesDTO): void {
+  updateAmenities(element: ResidenceAmenitiesDTO): void {
     let amenitiesGroup: string = element.resiAmenGroupName
     let amenitiesGroupDetails: string = element.resiAmenDetails
     if (amenitiesGroup.trim().length > 0
@@ -242,33 +243,33 @@ export class ResidenceAmenitiesServiceComponent {
   showConfirmDelete() {
     this.showDeleteConfirmation = true; // Show confirmation dialog
   }
-  deleteAmenities(element:ResidenceAmenitiesDTO): void {
+  deleteAmenities(element: ResidenceAmenitiesDTO): void {
     if (confirm("Are you sure you want to delete this amenities?")) {
-    this.apiService.deleteResidenceAmenitiesById(element.resiAmenDetailId!)
-      .pipe(
-        catchError((error: HttpErrorResponse) => {
-          if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
-            console.log('Deleted successfully');
-          } else if (error.status === 404) {
-            console.error('Not found');
-          } else {
-            console.error('An error occurred:', error);
-          }
-          throw error;
+      this.apiService.deleteResidenceAmenitiesById(element.resiAmenDetailId!)
+        .pipe(
+          catchError((error: HttpErrorResponse) => {
+            if (error.status === 204) {//204, it indicates a successful request so it never show any were use only for understandng purpose
+              console.log('Deleted successfully');
+            } else if (error.status === 404) {
+              console.error('Not found');
+            } else {
+              console.error('An error occurred:', error);
+            }
+            throw error;
+          })
+        )
+        .subscribe({
+          next: (response) => {
+            alert('Amenities Deleted successfully');
+          },
+          error: (error) => {
+            alert('Amenities Not Found!');
+          },
+          complete: () => {
+            this.getTableData();
+          },
         })
-      )
-      .subscribe({
-        next: (response) => {
-          alert('Amenities Deleted successfully');
-        },
-        error: (error) => {
-          alert('Amenities Not Found!');
-        },
-        complete: () => {
-          this.getTableData();
-        },
-      })
-      this.showDeleteConfirmation = false; 
+      this.showDeleteConfirmation = false;
     } else {
       this.showDeleteConfirmation = false;
     }
