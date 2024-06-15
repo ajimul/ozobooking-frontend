@@ -8,6 +8,8 @@ import { AppPartnerComponentComponent } from './app-partner-component/app-partne
 import { PartnerLoginComponentComponent } from './app-partner-component/partner-login-component/partner-login-component.component';
 import { DefaultPageComponentComponent } from './app-booking-component/default-page-component/default-page-component.component';
 import { TestComponent } from './test/test.component';
+import { ResidenceListComponentComponent } from './app-booking-component/residence-list-component/residence-list-component.component';
+import { ResidenceRoomsComponentComponent } from './app-booking-component/residence-rooms-component/residence-rooms-component.component';
 
 
 export const routes: Routes = [
@@ -21,6 +23,8 @@ export const routes: Routes = [
     component: AppBookingComponentComponent,
     children: [
       { path: '', component: DefaultPageComponentComponent }, // empty path makes it the default with HomePageComponent
+      { path: 'testx', component: ResidenceListComponentComponent },
+      { path: 'rooms', component: ResidenceRoomsComponentComponent },
       { path: 'test', component: TestComponent }, // empty path makes it the default with HomePageComponent
     ],
   },

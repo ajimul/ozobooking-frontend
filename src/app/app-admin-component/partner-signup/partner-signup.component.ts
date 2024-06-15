@@ -70,7 +70,7 @@ export class PartnerSignupComponent {
           Validators.required,
           CustomValidation.selectionValidation(),
         ]),
-        residenceLocation: new FormControl('', [
+        city: new FormControl('', [
           Validators.required,
           CustomValidation.textValidation(3, 200),
         ]),
@@ -152,7 +152,7 @@ export class PartnerSignupComponent {
       ? this.validationService.getSelectionValidationError(control, '*')
       : null;
   }
-  getResidenceLocationError(controlName: string): string | null {
+  getCityError(controlName: string): string | null {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getTextValidationError(
@@ -208,11 +208,11 @@ export class PartnerSignupComponent {
           {
             residenceName: this.userForm.get('residenceName')?.value,
             residenceType: this.userForm.get('residenceType')?.value,
-            residenceLocation: this.userForm.get('residenceLocation')?.value,
+            city: this.userForm.get('city')?.value,
             residenceAddress: this.userForm.get('residenceAddress')?.value,
             distance: [
               {
-                distanceFrom: this.userForm.get('residenceLocation')?.value,
+                distanceFrom: this.userForm.get('city')?.value,
                 distanceValue: this.userForm.get('distanceValue')?.value,
               },
             ],

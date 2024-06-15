@@ -3,7 +3,7 @@ export interface Residence {
     residenceUser_refId: number;
     residenceName: string | null;
     residenceType: string | null;
-    residenceLocation: string | null;
+    city: string | null;
     residenceAddress: string | null;
     residenceRating: number;
     isActive: boolean;

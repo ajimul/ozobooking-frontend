@@ -1,0 +1,20 @@
+<app-carousel #carousel [itemWidth]="300" [itemHeight]="400" [itemsQuantity]="8" [showControls]="true">
+    <ng-container *appDuplicate >
+                <div class="card-container" *ngFor="let item of items">
+            <div class="img-source">
+                <img [src]="item.img" alt="comming soon!">
+            </div>
+            <div class="residence-info">
+                <div class="info">
+                    <h4>THE WESTIN KOLKATA RAJARHAT,<br>KOLKATA</h4>
+                    <p>***********</p>
+                </div>
+                <div class="booking-offer">
+                    <p>₹3,534 </p>
+                    <p>per night </p>
+                    <button><strong>Book Now</strong></button>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</app-carousel>

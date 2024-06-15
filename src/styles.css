@@ -4,40 +4,112 @@
   padding: 0;
   box-sizing: border-box;
 }
-html {
+html,body {
   height: 100%;
   font-size: 62.5%;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  background-color: #f2fcfd;
+   
+}
+h1,h2,h3,h4,h5,h6,p{
+  margin: 0 !important;
+  padding: 0 !important;
+}
+    /* @media (min-width: 360px) {
+      html {
+        font-size: 60%;
+          }
+  }
+
+    @media (min-width: 375px) {
+      html {
+        font-size: 62.5%;
+      }
+    }
+
+    @media (min-width: 414px) {
+      html {
+        font-size: 65%;
+      }
+    }
+
+    @media (min-width: 744px) {
+      html {
+        font-size:68%;
+      }
+    }
+
+    @media (min-width: 768px) {
+      html {
+        font-size: 60%;
+      }
+    }
+
+    @media (min-width: 820px) {
+      html {
+        font-size: 60%;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      html {
+        font-size: 65%;
+      }
+    }
+
+    @media (min-width: 1280px) {
+      html {
+        font-size: 69%;
+      }
+    }
+
+    @media (min-width: 1440px) {
+      html {
+        font-size: 75%;
+      }
+    }
+
+    @media (min-width: 1728px) {
+      html {
+        font-size: 80%;
+      }
+    } */
+
+    
+/* Mobile Portrait */
+@media (min-width: 320px) and (max-width: 478px) {
+  /* Styles for mobile portrait screens */
+  html {
+    font-size: 56.25%; /* 9px */
+  }
+}
+
+/* Mobile Landscape */
+@media (min-width: 568px) and (max-width: 767px) {
+  /* Styles for mobile landscape screens */
+  html {
+    font-size: 62.5%; /* 10px */
+  }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  /* Styles for tablet screens */
+  html {
+    font-size: 68.75%; /* 11px */
+  }
+}
+
+/* Desktop */
+@media (min-width: 1348px) {
+  /* Styles for desktop screens */
+  html {
+    font-size: 75%; /* 12px */
+  }
 }
 .highlight-red {
   background-color: #ff0000 !important;
 }
 
-@media only screen and (max-width: 600px) {
-  html {
-    font-size: 31.25%;
-  }
-}
-@media only screen and (max-width: 767px) {
-  html {
-    font-size: 40%;
-  }
-}
-@media only screen and (max-width: 992px) {
-  html {
-    font-size: 51.25%;
-  }
-}
-
-@media only screen and (min-width: 1200px) {
-  html {
-    font-size: 100%;
-  }
-}
-body {
-  height: 100%;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-size: 1rem;
-}
 
 .error-message {
   color: red;

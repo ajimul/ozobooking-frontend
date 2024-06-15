@@ -32,13 +32,13 @@
                 </label>
             </div>
             <div class="flex-col">
-                <span *ngIf="userForm.get('residenceLocation')?.invalid&&userForm.get('residenceLocation')?.touched"
+                <span *ngIf="userForm.get('city')?.invalid&&userForm.get('city')?.touched"
                     class="error-message">
-                    {{ getResidenceLocationError('residenceLocation') }}
+                    {{ getCityError('city') }}
                 </span>
-                <label for="residenceLocation">Location:
-                    <input type="text" formControlName="residenceLocation" name="residenceLocation"
-                        id="residenceLocation" placeholder="e.g. City Center">
+                <label for="city">City:
+                    <input type="text" formControlName="city" name="city"
+                        id="city" placeholder="e.g. City Center">
                 </label>
             </div>
 

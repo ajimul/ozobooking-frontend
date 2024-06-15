@@ -51,7 +51,7 @@ export class ResidenceUpdateComponent {
           Validators.required,
           CustomValidation.selectionValidation(),
         ]),
-        residenceLocation: new FormControl(this.data.residenceLocation, [
+        city: new FormControl(this.data.city, [
           Validators.required,
           CustomValidation.textValidation(3, 20),
         ]),
@@ -89,7 +89,7 @@ export class ResidenceUpdateComponent {
       ? this.validationService.getSelectionValidationError(control, '*')
       : null;
   }
-  getResidenceLocationError(controlName: string): string | null {
+  getCityError(controlName: string): string | null {
     const control = this.userForm.get(controlName);
     return control
       ? this.validationService.getTextValidationError(
@@ -126,7 +126,7 @@ export class ResidenceUpdateComponent {
         residenceUser_refId: this.data.residenceUser_refId,
         residenceName: this.userForm.get('residenceName')?.value,
         residenceType: this.userForm.get('residenceType')?.value,
-        residenceLocation: this.userForm.get('residenceLocation')?.value,
+        city: this.userForm.get('city')?.value,
         residenceAddress: this.userForm.get('residenceAddress')?.value,
         isActive: this.data.isActive,
         residenceRating: this.data.residenceRating,
