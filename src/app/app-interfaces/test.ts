@@ -1,77 +1,129 @@
 [{
-  "residenceId": 2,
-  "residenceUser_refId": 2,
-  "residenceName": "Meadowview Manor",
-  "residenceType": "Hotel",
-  "residenceLocation": "USA",
-  "residenceAddress": "Tranquil Meadows, 123 Serenity Lane, Willowbrook, USA",
-  "residenceRating": 0,
-  "isActive": false,
+  "residenceId": 1,
+  "residenceUser_refId": 123,
+  "residenceName": "Cozy Cottage",
+  "residenceType": "Cabin",
+  "residenceLocation": "Mountain Village",
+  "residenceAddress": "123 Mountain Road",
+  "residenceRating": 4.5,
+  "isActive": true,
   "residenceRooms": [
     {
-      "roomId": 1,
-      "roomResidence_refId": 2,
+      "roomId": 101,
+      "roomResidence_refId": 1,
       "roomType": "Single",
-      "roomQuantity": 0,
-      "roomCapacity": 0,
       "roomAvailability": "Available",
       "roomBedType": "Twin",
-      "roomArea": "150 sq.f",
-      "roomPrice": 2000.0,
-      "roomTradingPrice": 1800.0,
-      "roomDiscount": 200.0,
-      "roomDescription": "Cozy single room with twin beds",
-      "roomIssueDate": "2024-05-09",
-      "isActive": true,
-      "roomsBooking": [],
-      "roomsImages": [
+      "roomPrice": 50,
+      "roomTradingPrice": 45,
+      "roomDiscount": 10,
+      "roomDescription": "Cozy single room with a view of the mountains.",
+      "roomIssueDate": "2024-03-25",
+      "roomBooking": [
         {
-          "imagId": 1,
-          "imagResidenceRoom_refId": 1,
-          "imgSrc": "image(1).jpg"
-        }
-      ],
-      "roomsAmenities": [
-        {
-          "roomAmenId": 1,
-          "roomAmen_refId": 1,
-          "roomAmenGroupName": "Climate Control",
-          "roomsAmenitiesDetails": [
+          "bookingId": 1001,
+          "bookingClient_refId": 456,
+          "bookingRoom_refId": 101,
+          "issueData": "2024-03-25",
+          "payments": [
             {
-              "roomAmenDetailId": 1,
-              "roomAmenDetail_refId": 1,
-              "roomAmenDetails": "Air Conditioning (AC)"
+              "paymentId": 5001,
+              "paymentBooking_refId": 1001,
+              "status": "Paid",
+              "transectionId": "ABC123",
+              "amount": 50
             }
           ]
-        },
+        }
+      ],
+      "roomImages": [
         {
-          "roomAmenId": 2,
-          "roomAmen_refId": 1,
-          "roomAmenGroupName": "Connectivity",
-          "roomsAmenitiesDetails": [
+          "imagId": 10001,
+          "imagResidenceRoom_refId": 101,
+          "imgSrc": "https://example.com/room1.jpg"
+        }
+      ],
+      "roomAmentities": [
+        {
+          "roomAmenId": 1001,
+          "roomAmen_refId": 101,
+          "roomAmenType": "Basic",
+          "roomAmenGroupName": "General",
+          "roomAmentitiesDetails": [
             {
-              "roomAmenDetailId": 5,
-              "roomAmenDetail_refId": 2,
+              "roomAmenDetailId": 10001,
+              "roomAmenDetail_refId": 1001,
               "roomAmenDetails": "Wi-Fi"
+            },
+            {
+              "roomAmenDetailId": 10002,
+              "roomAmenDetail_refId": 1001,
+              "roomAmenDetails": "Towels"
             }
           ]
         }
       ],
-      "roomsCommant": [],
-      "roomsPolicies": [
+      "roomCommant": [
         {
-          "roomPolicyId": 1,
-          "roomPolicyRoom_refId": 1,
+          "commantId": 2001,
+          "commantResiRoom_refId": 101,
+          "command": "Great room with an amazing view!"
+        }
+      ],
+      "roomPolicies": [
+        {
+          "roomPolicyId": 3001,
+          "roomPolicyRoom_refId": 101,
           "roomPolicyName": "Cancellation Policy",
           "roomsPolicyDetails": [
             {
-              "roomPolicyDetailsId": 1,
-              "roomPolicyDetails_refId": 1,
-              "roomPolicyDescription": "Non Refundable"
+              "roomPolicyDetailsId": 30001,
+              "roomPolicyDetails_refId": 3001,
+              "roomPolicyDescription": "Free cancellation up to 24 hours before check-in."
             }
           ]
         }
       ]
     }
+  ],
+  "distance": [
+    {
+      "distanceId": 1,
+      "distanceResidence_refId": 1,
+      "distanceFrom": "Airport",
+      "distanceValue": 20
+    }
+  ],
+  "residenceImages": [
+    {
+      "resImgId": 100001,
+      "resImgResidence_refId": 1,
+      "imgSrc": "https://example.com/residence.jpg"
+    }
+  ],
+  "residenceRatings": [
+    {
+      "ratingId": 4001,
+      "ratingResidence_refId": 1,
+      "ratingUser_refId": 789,
+      "rateValue": "4.5",
+      "command": "Excellent stay!",
+      "commandDate": "2024-03-25"
+    }
+  ],
+  "residencceAmentities": [
+    {
+      "resiAmenId": 2001,
+      "resiAmen_refId": 1,
+      "resiAmenGroupName": "Leisure",
+      "reseAmentitiesDetails": [
+        {
+          "resiAmenDetailId": 20001,
+          "resiAmenDetail_refId": 2001,
+          "resiAmenDetails": "Swimming Pool"
+        }
+      ]
+    }
   ]
-}]
+}
+]

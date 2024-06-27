@@ -1,5 +1,3 @@
-
-
 <app-hero-component></app-hero-component>
 <section class="sort-search-filter-group">
     <hgroup class="resources-info">
@@ -9,8 +7,8 @@
 
     <div class="sort-search-filter">
 
-        <section class="search">
-            <input type="text" placeholder="Search here">
+        <section class="search flex width-50 column justify-content-center align-items-center">
+            <input class=" padding-1rem !border-red font-size-108rem" type="text" placeholder="Search here">
         </section>
 
         <div class="sort-filter">
@@ -34,24 +32,49 @@
 </section>
 
 
- <section class="card-with-filter">
-    <aside class="aside-filter">
-        <h2>Filter By</h2>
-        <div class="filter-group">
-            <h3>Price</h3>
-            <label><input type="checkbox" value="100-200"> $100 - $200</label><br>
-            <label><input type="checkbox" value="200-500"> $200 - $500</label><br>
-            <label><input type="checkbox" value="500-1000"> $500 - $1000</label><br>
-        </div>
-        <div class="filter-group">
-            <h3>Condition</h3>
-            <label><input type="checkbox" value="new"> New</label><br>
-            <label><input type="checkbox" value="used"> Used</label><br>
-            <label><input type="checkbox" value="refurbished"> Refurbished</label><br>
+<section class="card-with-filter">
+    <aside class="aside-filter !align-items-center">
+        <div class="flex column  margin-left-1rem !border-red">
+            <h3>Graphics Coprocessor</h3>
+            <ul >
+                <li>
+                    <label class=" flex align-items-center" for=""><input type="checkbox"><span
+                            class="margin-left-01rem !border-red">INVIDIA INVIDIA INVIDIA</span></label>
+                </li>
+                <li>
+                    <label class=" flex align-items-center" for=""><input type="checkbox"><span
+                            class="margin-left-01rem !border-red">INVIDIA INVIDIA INVIDIA</span></label>
+                </li>
+                <li>
+                    <label class=" flex align-items-center" for=""><input type="checkbox"><span
+                            class="margin-left-01rem !border-red">INVIDIA INVIDIA INVIDIA</span></label>
+                </li>
+                <li>
+                    <label class=" flex align-items-center" for=""><input type="checkbox"><span
+                        class="margin-left-01rem !border-red">INVIDIA INVIDIA INVIDIA</span></label>
+                </li>
+            </ul>
+           
         </div>
     </aside>
 
     <div class="card-list">
+        <div class="product-card" (click)="selectedResidence()">
+            <div class="product-image">
+                <img src="https://picsum.photos/900/900?random=1" alt="Laptop 1">
+            </div>
+            <div class="product-info">
+                <div class="rating">
+                    <span class="rating-text">Very Good</span>
+                    <span class="rating-number">3.5</span>
+                    <span class="reviews">(648 reviews)</span>
+                </div>
+                <h3>The Golden Palms Hotel And Spa Delhi</h3>
+                <p class="location">Ip Extension</p>
+                <p class="price">₹ 2589 per night</p>
+                <p class="additional-info">+ ₹ 343 Taxes & Fees</p>
+            </div>
+        </div>
         <div class="product-card">
             <div class="product-image">
                 <img src="https://picsum.photos/900/900?random=1" alt="Laptop 1">
@@ -67,23 +90,7 @@
                 <p class="price">₹ 2589 per night</p>
                 <p class="additional-info">+ ₹ 343 Taxes & Fees</p>
             </div>
-        </div> 
-        <div class="product-card">
-            <div class="product-image">
-                <img src="https://picsum.photos/900/900?random=1" alt="Laptop 1">
-            </div>
-            <div class="product-info">
-                <div class="rating">
-                    <span class="rating-text">Very Good</span>
-                    <span class="rating-number">3.5</span>
-                    <span class="reviews">(648 reviews)</span>
-                </div>
-                <h3>The Golden Palms Hotel And Spa Delhi</h3>
-                <p class="location">Ip Extension</p>
-                <p class="price">₹ 2589 per night</p>
-                <p class="additional-info">+ ₹ 343 Taxes & Fees</p>
-            </div>
-        </div> 
+        </div>
         <div class="product-card">
             <div class="product-image">
                 <img src="https://picsum.photos/900/900?random=2" alt="Laptop 1">
@@ -163,6 +170,6 @@
                 <p class="price">₹ 2589 per night per night</p>
                 <p class="additional-info">+ ₹ 343 Taxes & Fees</p>
             </div>
-        </div> 
-  </div>
+        </div>
+    </div>
 </section>
